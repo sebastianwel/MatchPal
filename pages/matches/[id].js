@@ -17,36 +17,13 @@ const matchesWithTeamNames = matches.map((match) => (
 const currentMatch = matchesWithTeamNames.find((match) => (
     match.id === parseInt(id)
 ))
-
-console.log(currentMatch)
-
-
-
     return(
         <>
         <AppHeader/>
         <button style={{marginTop: 55}}>ᐸ</button>
         <SelectedMatch date={currentMatch.date} time={currentMatch.time} homeTeam={currentMatch.homeTeam.name} homeTeamLogoColor={currentMatch.homeTeam.logoColor} awayTeam={currentMatch.awayTeam.name} awayTeamLogoColor={currentMatch.awayTeam.logoColor}/>
+
         <AppFooter/>
         </>
     )
 }
-
-const MatchOverview = styled.div`
-display: flex;
-justify-content: space-around;
-align-items: center;
-`
-
-const LogoAndTeam = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-`
-
-const Logo = styled.div`
-height: 30px;
-width: 30px;
-border-radius: 100%;
-`
