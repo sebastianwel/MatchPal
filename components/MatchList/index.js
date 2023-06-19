@@ -13,8 +13,8 @@ const matchesWithTeamNames = matches.map((match) => (
 
     return(
         <>
-        <h1>Match Overview</h1>
-        <MatchUl>
+        <h1 style={{marginTop: 55}}>Match Overview</h1>
+        <MatchUl style={{marginBottom: 55}}>
         {matchesWithTeamNames.map(({id, homeTeam, awayTeam, date, time}) => (
             <MatchCard key={id} homeTeam={homeTeam.name} awayTeam={awayTeam.name} date={date} time={time} homeTeamColor={homeTeam.logoColor} awayTeamColor={awayTeam.logoColor}/>
         ))}
