@@ -16,5 +16,6 @@ const Footer = styled.footer`
     align-items: center;
     position: fixed;
     bottom: 0px;
-    width: 100%
+    width: 100%;
+    background-color: #fff;
 `
