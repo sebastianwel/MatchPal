@@ -11,8 +11,6 @@ const matchesWithTeamNames = matches.map((match) => (
     {...match, homeTeam: {name: teams.find((team) => team.id === match.homeTeamId).name, logoColor: teams.find((team) => team.id === match.homeTeamId).logoColor}, awayTeam:{name: teams.find((team) => team.id === match.awayTeamId).name, logoColor: teams.find((team) => team.id === match.awayTeamId).logoColor}}
 ))
 
-console.log(matchesWithTeamNames)
-
     return(
         <>
         <h1>Match Overview</h1>
