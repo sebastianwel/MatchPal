@@ -1,9 +1,9 @@
-import Heading from "../components/Heading";
-import SubHeading from "../components/SubHeading";
+import MatchList from "../components/MatchList/MatchList";
 
 export default function Home() {
   return (
     <main>
+      <MatchList/>
     </main>
   );
 }
