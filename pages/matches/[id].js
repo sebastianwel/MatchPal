@@ -4,6 +4,7 @@ import { teams } from "../../lib/mock-data/teams";
 import styled from "styled-components";
 import AppHeader from "../../components/AppHeader/AppHeader";
 import AppFooter from "../../components/AppFooter/AppFooter";
+import SelectedMatch from "../../components/SelectedMatch";
 
 
 export default function MatchDetails(){
@@ -25,21 +26,7 @@ console.log(currentMatch)
         <>
         <AppHeader/>
         <button style={{marginTop: 55}}>ᐸ</button>
-        <div>
-            <p style={{textAlign: "center"}}>{currentMatch.date}</p>
-            <MatchOverview>
-                <LogoAndTeam>
-                <Logo style={{backgroundColor: currentMatch.homeTeam.logoColor}}/>
-                <p>{currentMatch.homeTeam.name}</p>
-                </LogoAndTeam>
-                <p>—</p>
-                <LogoAndTeam>
-                <Logo style={{backgroundColor: currentMatch.awayTeam.logoColor}}/>
-                <p>{currentMatch.awayTeam.name}</p>
-                </LogoAndTeam>
-            </MatchOverview>
-            <p style={{textAlign: "center"}}>Das Spiel startet um {currentMatch.time}</p>
-        </div>
+        <SelectedMatch date={currentMatch.date} time={currentMatch.time} homeTeam={currentMatch.homeTeam.name} homeTeamLogoColor={currentMatch.homeTeam.logoColor} awayTeam={currentMatch.awayTeam.name} awayTeamLogoColor={currentMatch.awayTeam.logoColor}/>
         <AppFooter/>
         </>
     )
