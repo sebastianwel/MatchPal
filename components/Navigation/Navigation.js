@@ -7,7 +7,7 @@ return(
 <div>
     <IconAndText>
     <MatchIcon isCurrent/>
-    <Page>Matches</Page>
+    <Page isCurrent>Matches</Page>
     </IconAndText>
 </div>
 )
@@ -24,4 +24,5 @@ const Page = styled.p`
 margin-top: 5px;
 margin-bottom: 5px;
 font-size: 0.8rem;
+color:${page => (page.isCurrent ? "#0079FF" : "#000" )};
 `
