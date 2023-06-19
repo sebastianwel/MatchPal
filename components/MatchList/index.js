@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { matches } from "../../lib/mock-data/matches";
 import { teams } from "../../lib/mock-data/teams";
-import MatchCard from "../MatchCard/MatchCard";
+import MatchCard from "../MatchCard";
 
 
 export default function MatchList(){   
