@@ -1,11 +1,9 @@
-import Heading from "../components/Heading";
-import SubHeading from "../components/SubHeading";
+import MatchList from "../components/MatchList";
 
 export default function Home() {
   return (
     <main>
-      <Heading>🐬 Capstone Template 🐬</Heading>
-      <SubHeading>We dolphinitely love coding!</SubHeading>
+      <MatchList/>
     </main>
   );
 }

@@ -1,8 +1,8 @@
-import Heading from ".";
+import MatchList from ".";
 import { render, screen } from "@testing-library/react";
 
 test("test", () => {
-  render(<Heading>🐬</Heading>);
-  const element = screen.getByText("🐬");
+  render(<MatchList/>);
+  const element = screen.getByText("Match Overview");
   expect(element).toBeInTheDocument();
 });
