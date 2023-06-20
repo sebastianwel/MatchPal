@@ -38,8 +38,6 @@ const barsShowingMatch = currentMatch ? currentBarsIds.map((currentBar) => (
     {...currentBar, name: barNames.find((bar) => bar.id === currentBar.barId).name}
 )) : null 
 
-console.log(barsShowingMatch)
-
     return(
         <>
         <AppHeader/>
