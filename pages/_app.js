@@ -16,8 +16,10 @@ export default function App({ Component, pageProps }) {
   ))
 
   //extended the bars-array with the key "barShowsMatch", to make it usable for the bars-list
-  const barShowsMatch = barsInMatches.some((bar) => bar.gameIds.length > 0)
-  const extendedBars = bars.map((bar) => ({...bar, barShowsMatch}))
+  const extendedBars = bars.map((bar) => {
+    const showsMatch = barsInMatches.some((barInMatches) => barInMatches.gameIds.length > 0 && barInMatches.barId === bar.id)
+    return {...bar, showsMatch}
+  })
 
   return (
     <>
