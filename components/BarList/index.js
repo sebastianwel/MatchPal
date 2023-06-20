@@ -1,12 +1,12 @@
-import { bars } from "../../lib/mock-data/bars";
+export default function BarList({matches, bars, barsInMatches}){
 
-import { teams } from "../../lib/mock-data/teams";
-import { barsInMatches } from "../../lib/mock-data/barsInMatches";
+    console.log("test:",barsInMatches)
+    const barsShowingMatches = bars.map((bar) => (
+        {...bar, showsMatch: barsInMatches.map((barInMatch) => (barInMatch.gameIds.length)) > 0 ? true : false}
+    ))
 
+    console.log(barsShowingMatches)
 
-export default function BarList({matches}){
-
-    console.log("test:",matches)
     
     return(
         <ul>

@@ -15,7 +15,9 @@ export default function App({ Component, pageProps }) {
           logoColor: teams.find((team) => team.id === match.awayTeamId).logoColor}}
   ))
 
-
+  //extended the bars-array with the key "barShowsMatch", to make it usable for the bars-list
+  const barShowsMatch = barsInMatches.some((bar) => bar.gameIds.length > 0)
+  const extendedBars = bars.map((bar) => ({...bar, barShowsMatch}))
 
   return (
     <>
@@ -23,7 +25,7 @@ export default function App({ Component, pageProps }) {
       <Head>
         <title>Capstone Project</title>
       </Head>
-      <Component {...pageProps} matches={matchesWithTeamNames} bars={bars} barsInMatches={barsInMatches} />
+      <Component {...pageProps} matches={matchesWithTeamNames} bars={extendedBars} barsInMatches={barsInMatches} />
     </>
   );
 }
