@@ -5,7 +5,7 @@ import AppFooter from "../../components/AppFooter/AppFooter";
 import SelectedMatch from "../../components/SelectedMatch";
 
 
-export default function MatchDetails({matches, bars, barsInMatches}){
+export default function MatchDetails({matches, bars}){
 const router = useRouter();
 const {id} = router.query;
 
@@ -28,7 +28,6 @@ const currentBars = currentMatch ? (bars.filter((bar) => (bar.matches.includes(c
                 <ListItem key={bar.id}>{bar.name}</ListItem>
             ))}
         </List>
-
         <AppFooter/>
         </>
     )

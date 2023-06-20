@@ -48,9 +48,10 @@ align-items: center;
 align-self: center;
 `
 
-const Logo = styled.div`
+export const Logo = styled.div`
 width: 15px;
 height: 15px;
 margin-right: 10px;
 border-radius: 100%;
+margin: 0px;
 `
