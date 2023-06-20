@@ -4,7 +4,7 @@ import styled from "styled-components"
 export default function SelectedMatch({date, time, homeTeam, homeTeamLogoColor, awayTeam, awayTeamLogoColor}){
 return(
     <div>
-    <p style={{textAlign: "center"}}>{date}</p>
+    <StyledP>{date}</StyledP>
     <MatchOverview>
         <LogoAndTeam>
         <Logo style={{backgroundColor: homeTeamLogoColor}}/>
@@ -16,7 +16,7 @@ return(
         <p>{awayTeam}</p>
         </LogoAndTeam>
     </MatchOverview>
-    <p style={{textAlign: "center"}}>Das Spiel startet um {time}</p>
+    <StyledP>Das Spiel startet um {time}</StyledP>
 </div>
 )
 
@@ -39,4 +39,8 @@ const Logo = styled.div`
 height: 30px;
 width: 30px;
 border-radius: 100%;
+`
+
+const StyledP = styled.p`
+text-align: center;
 `

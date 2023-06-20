@@ -43,7 +43,7 @@ const barsShowingMatch = currentMatch ? currentBarsIds.map((currentBar) => (
         <AppHeader/>
         <Button onClick={() => router.push("/")}>←</Button>
         {currentMatch ? <SelectedMatch date={currentMatch.date} time={currentMatch.time} homeTeam={currentMatch.homeTeam.name} homeTeamLogoColor={currentMatch.homeTeam.logoColor} awayTeam={currentMatch.awayTeam.name} awayTeamLogoColor={currentMatch.awayTeam.logoColor}/> : <h2>loading</h2>}
-        <h3 style={{marginLeft: 10}}>Folgende Bars zeigen das Spiel:</h3>
+        <StyledHeadline>Folgende Bars zeigen das Spiel:</StyledHeadline>
         <List>
             {barsShowingMatch?.map((bar) => (
                 <ListItem key={bar.barId}>{bar.name}</ListItem>
@@ -72,4 +72,8 @@ border: 1px solid;
 border-radius: 10px;
 margin: 10px;
 padding: 10px;
+`
+
+const StyledHeadline = styled.h3`
+margin-left: 10px;
 `
