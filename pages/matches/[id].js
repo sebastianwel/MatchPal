@@ -1,29 +1,16 @@
 import { useRouter } from "next/router"
-import { matches } from "../../lib/mock-data/matches";
-import { teams } from "../../lib/mock-data/teams";
-import { bars } from "../../lib/mock-data/bars";
-import { barsInMatches } from "../../lib/mock-data/barsInMatches";
 import styled from "styled-components";
 import AppHeader from "../../components/AppHeader/AppHeader";
 import AppFooter from "../../components/AppFooter/AppFooter";
 import SelectedMatch from "../../components/SelectedMatch";
 
 
-
-export default function MatchDetails(){
+export default function MatchDetails({matches, bars, barsInMatches}){
 const router = useRouter();
 const {id} = router.query;
 
-const matchesWithTeamNames = matches.map((match) => (
-    {...match, 
-        homeTeam: {name: teams.find((team) => team.id === match.homeTeamId).name, 
-        logoColor: teams.find((team) => team.id === match.homeTeamId).logoColor}, 
-        awayTeam:{name: teams.find((team) => team.id === match.awayTeamId).name, 
-        logoColor: teams.find((team) => team.id === match.awayTeamId).logoColor}}
-))
-
 //use the current id of the router to find the fitting match
-const currentMatch = matchesWithTeamNames.find((match) => (
+const currentMatch = matches.find((match) => (
     match.id === parseInt(id)
 ))
 
