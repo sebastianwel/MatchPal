@@ -8,10 +8,13 @@ return(
             <TeamContainer><Logo style={{backgroundColor: homeTeamColor}}/><p>{homeTeam}</p></TeamContainer>
             <TeamContainer><Logo style={{backgroundColor: awayTeamColor}}/><p>{awayTeam}</p></TeamContainer>
         </div>
+        <ArrowAndTime>
         <TimeAndDateContainer>
             <p style={{marginBottom: 0}}>{date}</p>
             <p style={{marginTop: 0}}>{time}</p>
         </TimeAndDateContainer>
+        <p>{'>'}</p>
+        </ArrowAndTime>
     </ListItem>
 )
 
@@ -29,6 +32,13 @@ border-radius: 10px;
 const TeamContainer = styled.div`
 display: flex;
 align-items: center;
+`
+
+const ArrowAndTime = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 15px;
 `
 
 const TimeAndDateContainer = styled.div`
