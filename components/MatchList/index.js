@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { matches } from "../../lib/mock-data/matches";
 import { teams } from "../../lib/mock-data/teams";
 import MatchCard from "../MatchCard";
+import Link from "next/link";
 
 
 export default function MatchList(){   
@@ -16,7 +17,11 @@ const matchesWithTeamNames = matches.map((match) => (
         <h1 style={{marginTop: 55}}>Match Overview</h1>
         <MatchUl style={{marginBottom: 55}}>
         {matchesWithTeamNames.map(({id, homeTeam, awayTeam, date, time}) => (
+            <>
+            <Link style={{textDecoration: "none", color: "#000"}} href={`/matches/${id}`}>
             <MatchCard key={id} homeTeam={homeTeam.name} awayTeam={awayTeam.name} date={date} time={time} homeTeamColor={homeTeam.logoColor} awayTeamColor={awayTeam.logoColor}/>
+            </Link>
+            </>
         ))}
         </MatchUl>
         </>
