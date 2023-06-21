@@ -9,11 +9,15 @@ export default function Navigation(){
 
 const router = useRouter()
 
-useEffect(() => {
-setCurrentPage(router.pathname)
-}, [router.pathname])
+
 
 const [currentPage, setCurrentPage] = useState()
+
+//used .pathname here to set the currentPage to the path "/..." to handle page-reloads.
+useEffect(() => {
+    setCurrentPage(router.pathname)
+    }, [router.pathname])
+
 function handlePageChange(page){
     setCurrentPage(page)
     router.push(page)
