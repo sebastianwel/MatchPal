@@ -21,8 +21,6 @@ export default function App({ Component, pageProps }) {
     return {...bar, showsMatch, matches: barsInMatches.find((match) => (bar.id === match.barId)).gameIds}
   })
 
-  console.log(extendedBars)
-
   return (
     <>
       <GlobalStyle />
