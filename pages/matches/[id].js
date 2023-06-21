@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import styled from "styled-components";
-import AppHeader from "../../components/AppHeader/index.js";
-import AppFooter from "../../components/AppFooter/index.js";
+import AppHeader from "../../components/AppHeader/";
+import AppFooter from "../../components/AppFooter/";
 import SelectedMatch from "../../components/SelectedMatch";
 
 

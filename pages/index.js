@@ -1,6 +1,6 @@
 import MatchList from "../components/MatchList";
-import AppHeader from "../components/AppHeader/index.js";
-import AppFooter from "../components/AppFooter/index.js";
+import AppHeader from "../components/AppHeader";
+import AppFooter from "../components/AppFooter";
 
 export default function Home({matches}) {
   return (
