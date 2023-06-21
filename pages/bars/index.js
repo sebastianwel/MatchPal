@@ -1,5 +1,5 @@
-import AppHeader from "../../components/AppHeader/AppHeader";
-import AppFooter from "../../components/AppFooter/AppFooter";
+import AppHeader from "../../components/AppHeader/index.js";
+import AppFooter from "../../components/AppFooter/index.js";
 import BarList from "../../components/BarList";
 import styled from "styled-components";
 
