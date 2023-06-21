@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import BarCard from "../BarCard"
-import { Logo } from "../MatchCard"
 
 export default function BarList({matches, bars}){
 
