@@ -1,13 +1,13 @@
 import MatchList from "../components/MatchList";
-import AppHeader from "../components/AppHeader/AppHeader";
-import AppFooter from "../components/AppFooter/AppFooter";
+import AppHeader from "../components/AppHeader";
+import AppFooter from "../components/AppFooter";
 
-export default function Home() {
+export default function Home({matches}) {
   return (
     <>
     <AppHeader/>
       <main>
-        <MatchList/>
+        <MatchList matches={matches}/>
       </main>
     <AppFooter/>
     </>

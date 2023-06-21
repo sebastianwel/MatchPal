@@ -1,42 +1,21 @@
 import { useRouter } from "next/router"
-import { matches } from "../../lib/mock-data/matches";
-import { teams } from "../../lib/mock-data/teams";
-import { bars } from "../../lib/mock-data/bars";
-import { barsInMatches } from "../../lib/mock-data/barsInMatches";
 import styled from "styled-components";
-import AppHeader from "../../components/AppHeader/AppHeader";
-import AppFooter from "../../components/AppFooter/AppFooter";
+import AppHeader from "../../components/AppHeader/";
+import AppFooter from "../../components/AppFooter/";
 import SelectedMatch from "../../components/SelectedMatch";
 
 
-
-export default function MatchDetails(){
+export default function MatchDetails({matches, bars}){
 const router = useRouter();
 const {id} = router.query;
 
-const matchesWithTeamNames = matches.map((match) => (
-    {...match, 
-        homeTeam: {name: teams.find((team) => team.id === match.homeTeamId).name, 
-        logoColor: teams.find((team) => team.id === match.homeTeamId).logoColor}, 
-        awayTeam:{name: teams.find((team) => team.id === match.awayTeamId).name, 
-        logoColor: teams.find((team) => team.id === match.awayTeamId).logoColor}}
-))
-
 //use the current id of the router to find the fitting match
-const currentMatch = matchesWithTeamNames.find((match) => (
+const currentMatch = matches.find((match) => (
     match.id === parseInt(id)
 ))
 
 //filter the bars, which contain the id of the current match
-const currentBarsIds = currentMatch ? (barsInMatches.filter((bar) => (bar.gameIds.includes(currentMatch.id)))) : null
-
-//for the details page, only the bar name is necessary, so I created an array containing only the bar-name and id
-const barNames = bars.map((bar) => ({name: bar.name, id: bar.id}))
-
-//to find out, which bars show the current match, I extended the barsInMatches array with the bar name
-const barsShowingMatch = currentMatch ? currentBarsIds.map((currentBar) => (
-    {...currentBar, name: barNames.find((bar) => bar.id === currentBar.barId).name}
-)) : null 
+const currentBars = currentMatch ? (bars.filter((bar) => (bar.matches.includes(currentMatch.id)))) : null
 
     return(
         <>
@@ -45,11 +24,10 @@ const barsShowingMatch = currentMatch ? currentBarsIds.map((currentBar) => (
         {currentMatch ? <SelectedMatch date={currentMatch.date} time={currentMatch.time} homeTeam={currentMatch.homeTeam.name} homeTeamLogoColor={currentMatch.homeTeam.logoColor} awayTeam={currentMatch.awayTeam.name} awayTeamLogoColor={currentMatch.awayTeam.logoColor}/> : <h2>loading</h2>}
         <StyledHeadline>Folgende Bars zeigen das Spiel:</StyledHeadline>
         <List>
-            {barsShowingMatch?.map((bar) => (
-                <ListItem key={bar.barId}>{bar.name}</ListItem>
+            {currentBars?.map((bar) => (
+                <ListItem key={bar.id}>{bar.name}</ListItem>
             ))}
         </List>
-
         <AppFooter/>
         </>
     )

@@ -12,7 +12,7 @@ return(
 
 const Footer = styled.footer`
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     position: fixed;
     bottom: 0px;
