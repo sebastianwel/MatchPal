@@ -10,15 +10,15 @@ matches: matches.filter((match) => bar.matches.includes(match.id)).map((team) =>
 }))
 
     return(
-        <BarsUl>
+        <List>
             {matchesInBar.map((barWithMatch, index) => (
                 <BarCard key={`${barWithMatch.id}-${index}`} barWithMatch={barWithMatch}/>
             ))}
-        </BarsUl>
+        </List>
     )
 }
 
-const BarsUl = styled.ul`
+const List = styled.ul`
 list-style: none;
 padding-left: 0px;
 margin-bottom: 50px;

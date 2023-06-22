@@ -8,9 +8,9 @@ export default function BarCard({barWithMatch}){
         <MatchPreviewSection>
             {barWithMatch.matches.map((match, index) => (
             <MatchPreview key={`${match.id}-${index}`}>
-                <Logo style={{ backgroundColor: match.homeTeam.logoColor }} />
+                <Logo logoColor={match.homeTeam.logoColor} />
                 <p>-</p>
-                <Logo style={{ backgroundColor: match.awayTeam.logoColor }} />
+                <Logo logoColor={match.awayTeam.logoColor} />
             </MatchPreview>
             ))}
         </MatchPreviewSection>

@@ -7,7 +7,7 @@ const barsToAdd = bars.filter((bar) => (
     ))
 
     return(
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit} aria-labelledby="match-details-form">
         <label htmlFor="barSelector">Bar</label>
         <select id="barSelector" name="newBarId">
             <option>--Bar auswählen--</option>

@@ -5,8 +5,8 @@ export default function MatchCard({id, homeTeam, awayTeam, date, time, homeTeamC
 return(
     <ListItem key={id}>
         <div>
-            <TeamContainer><Logo style={{backgroundColor: homeTeamColor}}/><p>{homeTeam}</p></TeamContainer>
-            <TeamContainer><Logo style={{backgroundColor: awayTeamColor}}/><p>{awayTeam}</p></TeamContainer>
+            <TeamContainer><Logo logoColor={homeTeamColor}/><p>{homeTeam}</p></TeamContainer>
+            <TeamContainer><Logo logoColor={awayTeamColor}/><p>{awayTeam}</p></TeamContainer>
         </div>
         <ArrowAndTime>
         <TimeAndDateContainer>
@@ -54,4 +54,5 @@ height: 15px;
 margin-right: 10px;
 border-radius: 100%;
 margin: 0px;
+background-color: ${({ logoColor }) => logoColor};
 `

@@ -26,7 +26,6 @@ useEffect(() => {
   }, [bars, currentMatch]);
 
 
-// create function to handle the submit event
 function handleSubmit(event){
 event.preventDefault();
 const data = new FormData(event.target)
@@ -49,13 +48,13 @@ setUpdatedBars(newUpdatedBars)}
         <AppHeader/>
         <Button onClick={() => router.push("/")}>←</Button>
         {currentMatch ? <SelectedMatch date={currentMatch.date} time={currentMatch.time} homeTeam={currentMatch.homeTeam.name} homeTeamLogoColor={currentMatch.homeTeam.logoColor} awayTeam={currentMatch.awayTeam.name} awayTeamLogoColor={currentMatch.awayTeam.logoColor}/> : <h2>loading</h2>}
-        <StyledHeadline>Folgende Bars zeigen das Spiel:</StyledHeadline>
+        <Headline>Folgende Bars zeigen das Spiel:</Headline>
         <List>
             {updatedBars?.map((bar) => (
                 <ListItem key={bar.id}>{bar.name}</ListItem>
             ))}
         </List>
-        <h4>Du weißt wo es läuft?</h4>
+        <h4 id="match-details-form">Du weißt wo es läuft?</h4>
         <MatchDetailsForm bars={bars} onSubmit={handleSubmit} currentMatch={currentMatch}/>
         <AppFooter/>
         </>
@@ -81,6 +80,6 @@ margin: 10px;
 padding: 10px;
 `
 
-const StyledHeadline = styled.h3`
+const Headline = styled.h3`
 margin-left: 10px;
 `
