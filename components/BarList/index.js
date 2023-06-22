@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import BarCard from "../BarCard"
+import { CardLink } from "../CardLink"
 
 export default function BarList({matches, bars}){
 
@@ -12,7 +13,9 @@ matches: matches.filter((match) => bar.matches.includes(match.id)).map((team) =>
     return(
         <List>
             {matchesInBar.map((barWithMatch, index) => (
+                <CardLink key={barWithMatch.id} href={`/bars/${barWithMatch.id}`}>
                 <BarCard key={`${barWithMatch.id}-${index}`} barWithMatch={barWithMatch}/>
+                </CardLink>
             ))}
         </List>
     )

@@ -5,6 +5,8 @@ import AppFooter from "../../components/AppFooter/";
 import SelectedMatch from "../../components/SelectedMatch";
 import { useState, useEffect } from "react";
 import MatchDetailsForm from "../../components/MatchDetailsForm";
+import { Button } from "../../components/BackButton/BackButton";
+import { Headline } from "../../components/Headline/Headline";
 
 
 export default function MatchDetails({matches, bars}){
@@ -61,13 +63,6 @@ setUpdatedBars(newUpdatedBars)}
     )
 }
 
-const Button = styled.button`
-margin-top: 55px;
-font-size: 20px;
-background: none;
-border: none;
-`
-
 const List = styled.ul`
 padding-left: 0px;
 `
@@ -78,8 +73,4 @@ border: 1px solid;
 border-radius: 10px;
 margin: 10px;
 padding: 10px;
-`
-
-const Headline = styled.h3`
-margin-left: 10px;
 `

@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
   const showsMatch = barsInMatches.some((barInMatches) => barInMatches.gameIds.length > 0 && barInMatches.barId === bar.id)
     return {...bar, showsMatch, matches: barsInMatches.find((match) => (bar.id === match.barId)).gameIds}
   })
-  
+
   return (
     <>
       <GlobalStyle />
