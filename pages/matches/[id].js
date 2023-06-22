@@ -4,6 +4,7 @@ import AppHeader from "../../components/AppHeader/";
 import AppFooter from "../../components/AppFooter/";
 import SelectedMatch from "../../components/SelectedMatch";
 import { useState, useEffect } from "react";
+import MatchDetailsForm from "../../components/MatchDetailsForm";
 
 
 export default function MatchDetails({matches, bars}){
@@ -24,19 +25,17 @@ useEffect(() => {
     setUpdatedBars(bars.filter((bar) => bar.matches.includes(currentMatch?.id)));
   }, [bars, currentMatch]);
 
-// useEffect(() => {
-//     setUpdatedBars(currentBars);
-//   }, []);
 
+// create function to handle the submit event
 function handleSubmit(event){
 event.preventDefault();
 const data = new FormData(event.target)
 const formData = Object.fromEntries(data);
 
 const selectedBar = bars.find((bar) => bar.id === parseInt(formData.newBarId))
-
 const isBarAlreadyAdded = updatedBars.some((bar) => bar.id === selectedBar.id);
 
+//check wheter the current list already contains the bar
 if (selectedBar && !isBarAlreadyAdded) {
 const updatedSelectedBar = {...selectedBar}
 updatedSelectedBar.matches.push(parseInt(currentMatch.id))
@@ -45,7 +44,6 @@ const newUpdatedBars = [...currentBars, updatedSelectedBar]
 setUpdatedBars(newUpdatedBars)}
 }
 
-console.log("update:", updatedBars)
     return(
         <>
         <AppHeader/>
@@ -57,18 +55,8 @@ console.log("update:", updatedBars)
                 <ListItem key={bar.id}>{bar.name}</ListItem>
             ))}
         </List>
-        
         <h4>Du weißt wo es läuft?</h4>
-        <form onSubmit={handleSubmit}>
-        <label htmlFor="barSelector">Bar</label>
-        <select id="barSelector" name="newBarId">
-            <option>--Bar auswählen--</option>
-            {bars.map((bar) => (
-                <option key={bar.id} value={bar.id}>{bar.name}</option>
-            ))}
-        </select>
-        <button type="submit">Hinzufügen</button>
-        </form>
+        <MatchDetailsForm bars={bars} onSubmit={handleSubmit} currentMatch={currentMatch}/>
         <AppFooter/>
         </>
     )
