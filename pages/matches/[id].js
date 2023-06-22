@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AppHeader from "../../components/AppHeader/";
 import AppFooter from "../../components/AppFooter/";
 import SelectedMatch from "../../components/SelectedMatch";
+import { useState, useEffect } from "react";
 
 
 export default function MatchDetails({matches, bars}){
@@ -15,8 +16,36 @@ const currentMatch = matches.find((match) => (
 ))
 
 //filter the bars, which contain the id of the current match
-const currentBars = currentMatch ? (bars.filter((bar) => (bar.matches.includes(currentMatch.id)))) : null
+const currentBars =(bars.filter((bar) => (bar.matches.includes(currentMatch?.id))))
 
+const [updatedBars, setUpdatedBars] = useState(currentBars)
+
+useEffect(() => {
+    setUpdatedBars(bars.filter((bar) => bar.matches.includes(currentMatch?.id)));
+  }, [bars, currentMatch]);
+
+// useEffect(() => {
+//     setUpdatedBars(currentBars);
+//   }, []);
+
+function handleSubmit(event){
+event.preventDefault();
+const data = new FormData(event.target)
+const formData = Object.fromEntries(data);
+
+const selectedBar = bars.find((bar) => bar.id === parseInt(formData.newBarId))
+
+const isBarAlreadyAdded = updatedBars.some((bar) => bar.id === selectedBar.id);
+
+if (selectedBar && !isBarAlreadyAdded) {
+const updatedSelectedBar = {...selectedBar}
+updatedSelectedBar.matches.push(parseInt(currentMatch.id))
+const newUpdatedBars = [...currentBars, updatedSelectedBar]
+
+setUpdatedBars(newUpdatedBars)}
+}
+
+console.log("update:", updatedBars)
     return(
         <>
         <AppHeader/>
@@ -24,10 +53,22 @@ const currentBars = currentMatch ? (bars.filter((bar) => (bar.matches.includes(c
         {currentMatch ? <SelectedMatch date={currentMatch.date} time={currentMatch.time} homeTeam={currentMatch.homeTeam.name} homeTeamLogoColor={currentMatch.homeTeam.logoColor} awayTeam={currentMatch.awayTeam.name} awayTeamLogoColor={currentMatch.awayTeam.logoColor}/> : <h2>loading</h2>}
         <StyledHeadline>Folgende Bars zeigen das Spiel:</StyledHeadline>
         <List>
-            {currentBars?.map((bar) => (
+            {updatedBars?.map((bar) => (
                 <ListItem key={bar.id}>{bar.name}</ListItem>
             ))}
         </List>
+        
+        <h4>Du weißt wo es läuft?</h4>
+        <form onSubmit={handleSubmit}>
+        <label htmlFor="barSelector">Bar</label>
+        <select id="barSelector" name="newBarId">
+            <option>--Bar auswählen--</option>
+            {bars.map((bar) => (
+                <option key={bar.id} value={bar.id}>{bar.name}</option>
+            ))}
+        </select>
+        <button type="submit">Hinzufügen</button>
+        </form>
         <AppFooter/>
         </>
     )

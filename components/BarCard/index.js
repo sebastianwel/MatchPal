@@ -3,14 +3,14 @@ import { Logo } from "../MatchCard";
 
 export default function BarCard({barWithMatch}){
     return(
-        <ListItem key={barWithMatch.id}>
+        <ListItem>
         <p>{barWithMatch.name}</p>
         <MatchPreviewSection>
-            {barWithMatch.matches.map((match) => (
-            <MatchPreview key={barWithMatch.id}>
-                <Logo key={match.homeTeam.name} style={{ backgroundColor: match.homeTeam.logoColor }} />
+            {barWithMatch.matches.map((match, index) => (
+            <MatchPreview key={`${match.id}-${index}`}>
+                <Logo style={{ backgroundColor: match.homeTeam.logoColor }} />
                 <p>-</p>
-                <Logo key={match.awayTeam.name} style={{ backgroundColor: match.awayTeam.logoColor }} />
+                <Logo style={{ backgroundColor: match.awayTeam.logoColor }} />
             </MatchPreview>
             ))}
         </MatchPreviewSection>
@@ -18,10 +18,6 @@ export default function BarCard({barWithMatch}){
     )
 }
 
-const BarsUl = styled.ul`
-list-style: none;
-padding-left: 0px;
-`
 
 const ListItem = styled.li`
 list-style: none;
