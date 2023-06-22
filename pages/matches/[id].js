@@ -3,6 +3,8 @@ import styled from "styled-components";
 import AppHeader from "../../components/AppHeader/";
 import AppFooter from "../../components/AppFooter/";
 import SelectedMatch from "../../components/SelectedMatch";
+import { useState, useEffect } from "react";
+import MatchDetailsForm from "../../components/MatchDetailsForm";
 
 
 export default function MatchDetails({matches, bars}){
@@ -15,19 +17,45 @@ const currentMatch = matches.find((match) => (
 ))
 
 //filter the bars, which contain the id of the current match
-const currentBars = currentMatch ? (bars.filter((bar) => (bar.matches.includes(currentMatch.id)))) : null
+const currentBars =(bars.filter((bar) => (bar.matches.includes(currentMatch?.id))))
+
+const [updatedBars, setUpdatedBars] = useState(currentBars)
+
+useEffect(() => {
+    setUpdatedBars(bars.filter((bar) => bar.matches.includes(currentMatch?.id)));
+  }, [bars, currentMatch]);
+
+
+function handleSubmit(event){
+event.preventDefault();
+const data = new FormData(event.target)
+const formData = Object.fromEntries(data);
+
+const selectedBar = bars.find((bar) => bar.id === parseInt(formData.newBarId))
+const isBarAlreadyAdded = updatedBars.some((bar) => bar.id === selectedBar.id);
+
+//check wheter the current list already contains the bar
+if (selectedBar && !isBarAlreadyAdded) {
+const updatedSelectedBar = {...selectedBar}
+updatedSelectedBar.matches.push(parseInt(currentMatch.id))
+const newUpdatedBars = [...currentBars, updatedSelectedBar]
+
+setUpdatedBars(newUpdatedBars)}
+}
 
     return(
         <>
         <AppHeader/>
         <Button onClick={() => router.push("/")}>←</Button>
         {currentMatch ? <SelectedMatch date={currentMatch.date} time={currentMatch.time} homeTeam={currentMatch.homeTeam.name} homeTeamLogoColor={currentMatch.homeTeam.logoColor} awayTeam={currentMatch.awayTeam.name} awayTeamLogoColor={currentMatch.awayTeam.logoColor}/> : <h2>loading</h2>}
-        <StyledHeadline>Folgende Bars zeigen das Spiel:</StyledHeadline>
+        <Headline>Folgende Bars zeigen das Spiel:</Headline>
         <List>
-            {currentBars?.map((bar) => (
+            {updatedBars?.map((bar) => (
                 <ListItem key={bar.id}>{bar.name}</ListItem>
             ))}
         </List>
+        <h4 id="match-details-form">Du weißt wo es läuft?</h4>
+        <MatchDetailsForm bars={bars} onSubmit={handleSubmit} currentMatch={currentMatch}/>
         <AppFooter/>
         </>
     )
@@ -52,6 +80,6 @@ margin: 10px;
 padding: 10px;
 `
 
-const StyledHeadline = styled.h3`
+const Headline = styled.h3`
 margin-left: 10px;
 `

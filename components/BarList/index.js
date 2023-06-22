@@ -8,16 +8,17 @@ const matchesInBar = barsWithMatches.map((bar) => (
 {...bar, 
 matches: matches.filter((match) => bar.matches.includes(match.id)).map((team) => ({homeTeam: team.homeTeam, awayTeam: team.     awayTeam})) 
 }))
+
     return(
-        <BarsUl>
-            {matchesInBar.map((barWithMatch) => (
-                <BarCard key={barWithMatch.id} barWithMatch={barWithMatch}/>
+        <List>
+            {matchesInBar.map((barWithMatch, index) => (
+                <BarCard key={`${barWithMatch.id}-${index}`} barWithMatch={barWithMatch}/>
             ))}
-        </BarsUl>
+        </List>
     )
 }
 
-const BarsUl = styled.ul`
+const List = styled.ul`
 list-style: none;
 padding-left: 0px;
 margin-bottom: 50px;
