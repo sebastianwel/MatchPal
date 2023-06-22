@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <Head>
-        <title>Capstone Project</title>
+        <title>MatchPal</title>
       </Head>
       <Component {...pageProps} matches={matchesWithTeamNames} bars={extendedBars} barsInMatches={barsInMatches} />
     </>
