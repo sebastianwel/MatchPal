@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import MatchDetailsForm from "../../components/MatchDetailsForm";
 import { Button } from "../../components/BackButton/BackButton";
 import { Headline } from "../../components/Headline/Headline";
+import { CardLink } from "../../components/CardLink";
 
 
 export default function MatchDetails({matches, bars}){
@@ -53,7 +54,9 @@ setUpdatedBars(newUpdatedBars)}
         <Headline>Folgende Bars zeigen das Spiel:</Headline>
         <List>
             {updatedBars?.map((bar) => (
-                <ListItem key={bar.id}>{bar.name}</ListItem>
+                <CardLink  href={`/bars/${bar.id}`} key={bar.id}>
+                <ListItem key={bar.id}>{bar.name} <p>{'>'}</p></ListItem>
+                </CardLink>
             ))}
         </List>
         <h4 id="match-details-form">Du weißt wo es läuft?</h4>
@@ -68,9 +71,19 @@ padding-left: 0px;
 `
 
 const ListItem = styled.li`
+display: flex;
+justify-content: space-between;
+align-items: center;
 list-style: none;
 border: 1px solid;
 border-radius: 10px;
 margin: 10px;
+margin-right: 10px;
 padding: 10px;
+`
+
+const CardContainer = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
 `
