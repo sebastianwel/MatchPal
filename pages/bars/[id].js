@@ -17,8 +17,6 @@ const currentBar = bars ? bars.find((bar) => (bar.id === parseInt(id))) : null
 //create an array containing only the match-ids to search for the match-ids in the matches-array and filter those matches
 const currentMatchIds = currentBar?.matches.map((match) => (match))
 const currentMatches = matches ? matches.filter((match) => currentMatchIds?.includes(match.id)) : null
-
-console.log(currentMatches)
  
 return(
     <>
