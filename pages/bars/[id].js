@@ -38,7 +38,6 @@ export default function BarDetails({ bars, matches }) {
     event.preventDefault();
     const data = new FormData(event.target);
     const formData = Object.fromEntries(data);
-    console.log(formData);
 
     const newCurrentMatches = [
       ...currentMatches,
