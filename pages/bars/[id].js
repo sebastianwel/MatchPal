@@ -6,6 +6,7 @@ import { Button } from "../../components/BackButton/BackButton";
 import { Headline } from "../../components/Headline/Headline";
 import MatchCard from "../../components/MatchCard";
 import { CardLink } from "../../components/CardLink/index";
+import { useState, useEffect } from "react";
 
 export default function BarDetails({ bars, matches }) {
   const router = useRouter();
@@ -20,14 +21,52 @@ export default function BarDetails({ bars, matches }) {
     ? matches.filter((match) => currentMatchIds?.includes(match.id))
     : null;
 
+  const [updatedMatches, setUpdatedMatches] = useState([]);
+  useEffect(() => {
+    setUpdatedMatches(
+      matches?.filter((match) => currentMatchIds?.includes(match.id))
+    );
+  }, [matches]);
+
+  const [updatedBar, setUpdatedBar] = useState(currentBar);
+  useEffect(() => {
+    setUpdatedBar(bars ? bars.find((bar) => bar.id === parseInt(id)) : null);
+  }, [bars]);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const formData = Object.fromEntries(data);
+    console.log(formData);
+
+    const newCurrentMatches = [
+      ...currentMatches,
+      matches.find((match) => match.id === parseInt(formData.newMatchId)),
+    ];
+
+    const isMatchAlreadyAdded = updatedMatches.some(
+      (match) => match.id === parseInt(formData.newMatchId)
+    );
+
+    //check wheter the current list already contains the match
+    if (!isMatchAlreadyAdded) {
+      const newCurrentBar = currentBar;
+      newCurrentBar.matches.push(parseInt(formData.newMatchId));
+
+      setUpdatedMatches(newCurrentMatches);
+      setUpdatedBar(newCurrentBar);
+    }
+  }
+
+  console.log(bars);
   return (
     <>
       <AppHeader />
       <Button onClick={() => router.push("/bars")}>←</Button>
-      <Headline>{currentBar?.name}</Headline>
+      <Headline>{updatedBar?.name}</Headline>
       <SiteSection>Anstehende Spiele</SiteSection>
       <List>
-        {currentMatches?.map((match) => (
+        {updatedMatches?.map((match) => (
           <CardLink key={match.id} href={`/matches/${match.id}`}>
             <MatchCard
               key={match.id}
@@ -42,6 +81,20 @@ export default function BarDetails({ bars, matches }) {
           </CardLink>
         ))}
       </List>
+
+      {/* Maybe I can use the MatchDetailsForm component here */}
+      <Form onSubmit={handleSubmit} aria-labelledby="bar-details-form">
+        <label htmlFor="matchSelector">Match</label>
+        <select id="matchSelector" name="newMatchId">
+          <option>--Match auswählen--</option>
+          {matches.map((match) => (
+            <option key={match.id} value={match.id}>
+              {match.homeTeam.name}-{match.awayTeam.name}
+            </option>
+          ))}
+        </select>
+        <button type="submit">Hinzufügen</button>
+      </Form>
       <AppFooter />
     </>
   );
@@ -55,4 +108,12 @@ const SiteSection = styled.p`
 const List = styled.ul`
   list-style: none;
   padding-left: 0px;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  margin-bottom: 55px;
+  gap: 10px;
 `;
