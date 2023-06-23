@@ -16,7 +16,6 @@ export default function BarCard({barWithMatch}){
             </MatchPreview>
             ))}
         </MatchPreviewSection>
-        
         </div>
         <LinkIcon>{'>'}</LinkIcon>
         </Flex>

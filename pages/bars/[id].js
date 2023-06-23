@@ -31,8 +31,6 @@ return(
             </CardLink>
         ))}
     </List>
-
-
     <AppFooter/>
     </>
 )
