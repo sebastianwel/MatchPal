@@ -7,6 +7,7 @@ import { Headline } from "../../components/Headline/Headline";
 import MatchCard from "../../components/MatchCard";
 import { CardLink } from "../../components/CardLink/index";
 import { useState, useEffect } from "react";
+import BarDetailsForm from "../../components/BarDetailsForm";
 
 export default function BarDetails({ bars, matches }) {
   const router = useRouter();
@@ -58,7 +59,6 @@ export default function BarDetails({ bars, matches }) {
     }
   }
 
-  console.log(bars);
   return (
     <>
       <AppHeader />
@@ -81,20 +81,11 @@ export default function BarDetails({ bars, matches }) {
           </CardLink>
         ))}
       </List>
-
-      {/* Maybe I can use the MatchDetailsForm component here */}
-      <Form onSubmit={handleSubmit} aria-labelledby="bar-details-form">
-        <label htmlFor="matchSelector">Match</label>
-        <select id="matchSelector" name="newMatchId">
-          <option>--Match auswählen--</option>
-          {matches.map((match) => (
-            <option key={match.id} value={match.id}>
-              {match.homeTeam.name}-{match.awayTeam.name}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Hinzufügen</button>
-      </Form>
+      <BarDetailsForm
+        onSubmit={handleSubmit}
+        matches={matches}
+        bar={updatedBar}
+      />
       <AppFooter />
     </>
   );
@@ -108,12 +99,4 @@ const SiteSection = styled.p`
 const List = styled.ul`
   list-style: none;
   padding-left: 0px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  margin-bottom: 55px;
-  gap: 10px;
 `;
