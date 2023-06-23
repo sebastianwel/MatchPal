@@ -2,14 +2,14 @@ import MatchList from "../components/MatchList";
 import AppHeader from "../components/AppHeader";
 import AppFooter from "../components/AppFooter";
 
-export default function Home({matches}) {
+export default function Home({ matches }) {
   return (
     <>
-    <AppHeader/>
+      <AppHeader />
       <main>
-        <MatchList matches={matches}/>
+        <MatchList matches={matches} />
       </main>
-    <AppFooter/>
+      <AppFooter />
     </>
   );
 }
