@@ -4,6 +4,8 @@ import { Logo } from "../MatchCard";
 export default function BarCard({barWithMatch}){
     return(
         <ListItem>
+        <Flex>
+        <div>
         <p>{barWithMatch.name}</p>
         <MatchPreviewSection>
             {barWithMatch.matches.map((match, index) => (
@@ -14,6 +16,10 @@ export default function BarCard({barWithMatch}){
             </MatchPreview>
             ))}
         </MatchPreviewSection>
+        </div>
+        <LinkIcon>{'>'}</LinkIcon>
+        </Flex>
+       
     </ListItem>
     )
 }
@@ -44,4 +50,14 @@ justify-content: space-around;
 align-items: center;
 gap: 10px;
 font-size: 10px;
+`
+
+const Flex = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+`
+const LinkIcon = styled.p`
+margin-right: 22px;
 `

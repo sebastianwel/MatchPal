@@ -20,12 +20,12 @@ export default function App({ Component, pageProps }) {
   const showsMatch = barsInMatches.some((barInMatches) => barInMatches.gameIds.length > 0 && barInMatches.barId === bar.id)
     return {...bar, showsMatch, matches: barsInMatches.find((match) => (bar.id === match.barId)).gameIds}
   })
-  
+
   return (
     <>
       <GlobalStyle />
       <Head>
-        <title>Capstone Project</title>
+        <title>MatchPal</title>
       </Head>
       <Component {...pageProps} matches={matchesWithTeamNames} bars={extendedBars} barsInMatches={barsInMatches} />
     </>
