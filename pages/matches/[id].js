@@ -45,9 +45,8 @@ export default function MatchDetails({ matches, bars }) {
     if (selectedBar && !isBarAlreadyAdded) {
       const updatedSelectedBar = { ...selectedBar };
       updatedSelectedBar.matches.push(parseInt(currentMatch.id));
-      const newUpdatedBars = [...currentBars, updatedSelectedBar];
 
-      setUpdatedBars(newUpdatedBars);
+      setUpdatedBars((prevBars) => [...prevBars, updatedSelectedBar]);
     }
   }
 
