@@ -58,12 +58,25 @@ export default function BarDetails({ bars, matches }) {
     }
   }
 
+  const isCurrentSection = currentBar
+    ? router.pathname === `/bars/[id]`
+      ? true
+      : false
+    : null;
+
   return (
     <>
       <AppHeader />
       <Button onClick={() => router.push("/bars")}>←</Button>
       <Headline>{updatedBar?.name}</Headline>
-      <SiteSection>Anstehende Spiele</SiteSection>
+      <SiteSectionTabs>
+        <SiteSection isCurrentSection={isCurrentSection}>
+          Anstehende Spiele
+        </SiteSection>
+        <SiteSection onClick={() => router.push(`/bars/${id}/info`)}>
+          Infos
+        </SiteSection>
+      </SiteSectionTabs>
       <List>
         {updatedMatches?.map((match) => (
           <CardLink key={match.id} href={`/matches/${match.id}`}>
@@ -90,9 +103,18 @@ export default function BarDetails({ bars, matches }) {
   );
 }
 
-const SiteSection = styled.p`
+export const SiteSectionTabs = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border: 1px solid;
   margin: 10px;
-  margin-top: 30px;
+`;
+
+export const SiteSection = styled.p`
+  margin: 10px;
+  color: ${(section) => (section.isCurrentSection ? "#0079FF" : "#000")};
 `;
 
 const List = styled.ul`
