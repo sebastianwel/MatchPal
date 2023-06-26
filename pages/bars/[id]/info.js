@@ -31,6 +31,9 @@ export default function BarsDetailsInfo({ bars }) {
               Anstehende Spiele
             </SiteSection>
             <SiteSection isCurrentSection={isCurrentSection}>Infos</SiteSection>
+            <SiteSection onClick={() => router.push(`/bars/${id}/reviews`)}>
+              Reviews
+            </SiteSection>
           </SiteSectionTabs>
           <Infos>
             <h4>Kontakt</h4>

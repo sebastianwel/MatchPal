@@ -76,6 +76,9 @@ export default function BarDetails({ bars, matches }) {
         <SiteSection onClick={() => router.push(`/bars/${id}/info`)}>
           Infos
         </SiteSection>
+        <SiteSection onClick={() => router.push(`/bars/${id}/reviews`)}>
+          Reviews
+        </SiteSection>
       </SiteSectionTabs>
       <List>
         {updatedMatches?.map((match) => (
