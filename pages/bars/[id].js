@@ -39,11 +39,6 @@ export default function BarDetails({ bars, matches }) {
     const data = new FormData(event.target);
     const formData = Object.fromEntries(data);
 
-    const newCurrentMatches = [
-      ...currentMatches,
-      matches.find((match) => match.id === parseInt(formData.newMatchId)),
-    ];
-
     const isMatchAlreadyAdded = updatedMatches.some(
       (match) => match.id === parseInt(formData.newMatchId)
     );
@@ -53,7 +48,10 @@ export default function BarDetails({ bars, matches }) {
       const newCurrentBar = currentBar;
       newCurrentBar.matches.push(parseInt(formData.newMatchId));
 
-      setUpdatedMatches(newCurrentMatches);
+      setUpdatedMatches((prevCurrentMatches) => [
+        ...prevCurrentMatches,
+        matches.find((match) => match.id === parseInt(formData.newMatchId)),
+      ]);
       setUpdatedBar(newCurrentBar);
     }
   }

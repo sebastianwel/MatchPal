@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import ReviewStar from "../../assets/ReviewStar";
-import { useState } from "react";
 
 export default function ReviewForm({ onSubmit, rating, handleStarRating }) {
   const ratingPossibilities = [1, 2, 3, 4, 5];

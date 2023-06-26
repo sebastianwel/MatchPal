@@ -1,9 +1,36 @@
 import styled from "styled-components";
 import ReviewStar from "../../assets/ReviewStar";
 import ReviewForm from "../ReviewForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { uid } from "uid";
 
 export default function ReviewsList({ currentBar }) {
+  const reviews = currentBar?.reviews.map((review) => ({
+    id: uid(),
+    ...review,
+  }));
+
+  console.log("reviews:", reviews);
+  const [updatedReviews, setUpdatedReviews] = useState(reviews);
+
+  useEffect(
+    () =>
+      setUpdatedReviews(
+        currentBar
+          ? currentBar?.reviews.map((review) => ({
+              id: uid(),
+              ...review,
+            }))
+          : null
+      ),
+    [currentBar]
+  );
+
+  const [rating, setRating] = useState(0);
+
+  function handleStarRating(value) {
+    setRating(value);
+  }
   const maxStars = 5;
   function renderReviewStars(filledStars) {
     const stars = [];
@@ -19,26 +46,31 @@ export default function ReviewsList({ currentBar }) {
     return stars;
   }
 
-  const [rating, setRating] = useState(0);
-
-  function handleStarRating(value) {
-    setRating(value);
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
     const formData = Object.fromEntries(data);
     //since I am not using a form-field for the stars, I need to copy the form-data and add the value from the selected stars into the copy
-    const formDataWithRating = { ...formData, rating: rating };
-    console.log(formDataWithRating);
+    const formDataWithRating = { ...formData, rating: parseInt(rating) };
+
+    const newReview = {
+      id: uid(),
+      username: formDataWithRating.username,
+      comment: formDataWithRating.comment,
+      rating: formDataWithRating.rating,
+    };
+
+    // const copyOfReviews = [...updatedReviews, newReview];
+
+    setUpdatedReviews((prevReviews) => [...prevReviews, newReview]);
   }
+  console.log(updatedReviews);
 
   return (
     <ReviewsContainer>
       <h4>So gefiel es anderen Nutzern:</h4>
       <Reviews>
-        {currentBar?.reviews.map((review, index) => (
+        {updatedReviews?.map((review, index) => (
           <ReviewCardContainer key={index}>
             <li>
               <p>{review.username}</p>
