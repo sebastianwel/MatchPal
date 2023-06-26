@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import ReviewStar from "../../assets/ReviewStar";
+import ReviewForm from "../ReviewForm";
+import { useState } from "react";
 
 export default function ReviewsList({ currentBar }) {
   const maxStars = 5;
@@ -17,9 +19,23 @@ export default function ReviewsList({ currentBar }) {
     return stars;
   }
 
+  const [rating, setRating] = useState(0);
+
+  function handleStarRating(value) {
+    setRating(value);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const formData = Object.fromEntries(data);
+    //since I am not using a form-field for the stars, I need to copy the form-data and add the value from the selected stars into the copy
+    const formDataWithRating = { ...formData, rating: rating };
+    console.log(formDataWithRating);
+  }
+
   return (
     <ReviewsContainer>
-      {/* ReviewList */}
       <h4>So gefiel es anderen Nutzern:</h4>
       <Reviews>
         {currentBar?.reviews.map((review, index) => (
@@ -32,6 +48,11 @@ export default function ReviewsList({ currentBar }) {
           </ReviewCardContainer>
         ))}
       </Reviews>
+      <ReviewForm
+        onSubmit={handleSubmit}
+        rating={rating}
+        handleStarRating={handleStarRating}
+      />
     </ReviewsContainer>
   );
 }
