@@ -35,6 +35,7 @@ export default function BarsDetailsReviews({ bars }) {
         <SiteSection isCurrentSection={isCurrentSection}>Reviews</SiteSection>
       </SiteSectionTabs>
       <ReviewsList currentBar={currentBar} />
+      <AppFooter />
     </>
   );
 }
