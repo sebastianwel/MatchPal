@@ -6,6 +6,8 @@ import { Button } from "../../components/BackButton/BackButton";
 import { Headline } from "../../components/Headline/Headline";
 import MatchCard from "../../components/MatchCard";
 import { CardLink } from "../../components/CardLink/index";
+import { useState, useEffect } from "react";
+import BarDetailsForm from "../../components/BarDetailsForm";
 
 export default function BarDetails({ bars, matches }) {
   const router = useRouter();
@@ -20,14 +22,50 @@ export default function BarDetails({ bars, matches }) {
     ? matches.filter((match) => currentMatchIds?.includes(match.id))
     : null;
 
+  const [updatedMatches, setUpdatedMatches] = useState([]);
+  useEffect(() => {
+    setUpdatedMatches(
+      matches?.filter((match) => currentMatchIds?.includes(match.id))
+    );
+  }, [matches]);
+
+  const [updatedBar, setUpdatedBar] = useState(currentBar);
+  useEffect(() => {
+    setUpdatedBar(bars ? bars.find((bar) => bar.id === parseInt(id)) : null);
+  }, [bars]);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const formData = Object.fromEntries(data);
+
+    const newCurrentMatches = [
+      ...currentMatches,
+      matches.find((match) => match.id === parseInt(formData.newMatchId)),
+    ];
+
+    const isMatchAlreadyAdded = updatedMatches.some(
+      (match) => match.id === parseInt(formData.newMatchId)
+    );
+
+    //check wheter the current list already contains the match
+    if (!isMatchAlreadyAdded) {
+      const newCurrentBar = currentBar;
+      newCurrentBar.matches.push(parseInt(formData.newMatchId));
+
+      setUpdatedMatches(newCurrentMatches);
+      setUpdatedBar(newCurrentBar);
+    }
+  }
+
   return (
     <>
       <AppHeader />
       <Button onClick={() => router.push("/bars")}>←</Button>
-      <Headline>{currentBar?.name}</Headline>
+      <Headline>{updatedBar?.name}</Headline>
       <SiteSection>Anstehende Spiele</SiteSection>
       <List>
-        {currentMatches?.map((match) => (
+        {updatedMatches?.map((match) => (
           <CardLink key={match.id} href={`/matches/${match.id}`}>
             <MatchCard
               key={match.id}
@@ -42,6 +80,11 @@ export default function BarDetails({ bars, matches }) {
           </CardLink>
         ))}
       </List>
+      <BarDetailsForm
+        onSubmit={handleSubmit}
+        matches={matches}
+        bar={updatedBar}
+      />
       <AppFooter />
     </>
   );
