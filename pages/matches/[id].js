@@ -67,7 +67,11 @@ export default function MatchDetails({ matches, bars }) {
       ) : (
         <h2>loading</h2>
       )}
-      <Headline>Folgende Bars zeigen das Spiel:</Headline>
+      {updatedBars.length === 0 ? (
+        <Headline>Aktuell zeigt keine Bar das Spiel!</Headline>
+      ) : (
+        <Headline>Folgende Bars zeigen das Spiel:</Headline>
+      )}
       <List>
         {updatedBars?.map((bar) => (
           <CardLink href={`/bars/${bar.id}`} key={bar.id}>
