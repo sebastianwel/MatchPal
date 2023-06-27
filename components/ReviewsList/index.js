@@ -1,21 +1,7 @@
 import styled from "styled-components";
-import ReviewStar from "../../assets/ReviewStar";
-import ReviewForm from "../ReviewForm";
-import { useEffect, useState } from "react";
-import { uid } from "uid";
 import ReviewCard from "../ReviewCard";
 
-export default function ReviewsList({ currentBar }) {
-  const [reviews, setReviews] = useState(currentBar?.reviews);
-
-  useEffect(() => {
-    setReviews(currentBar?.reviews || []);
-  }, [currentBar?.reviews]);
-
-  function handleAddReview(newReview) {
-    setReviews((prevReviews) => [...prevReviews, newReview]);
-  }
-
+export default function ReviewsList({ reviews }) {
   return (
     <ReviewsContainer>
       <h4>So gefiel es anderen Nutzern:</h4>
@@ -29,7 +15,6 @@ export default function ReviewsList({ currentBar }) {
           />
         ))}
       </Reviews>
-      <ReviewForm onAddReview={handleAddReview} />
     </ReviewsContainer>
   );
 }

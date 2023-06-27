@@ -6,6 +6,8 @@ import { SiteSection } from "../[id]";
 import { SiteSectionTabs } from "../[id]";
 import { Headline } from "../../../components/Headline/Headline";
 import ReviewsList from "../../../components/ReviewsList";
+import ReviewForm from "../../../components/ReviewForm";
+import { useState, useEffect } from "react";
 
 export default function BarsDetailsReviews({ bars }) {
   const router = useRouter();
@@ -18,6 +20,16 @@ export default function BarsDetailsReviews({ bars }) {
       ? true
       : false
     : null;
+
+  const [reviews, setReviews] = useState(currentBar?.reviews);
+
+  useEffect(() => {
+    setReviews(currentBar?.reviews || []);
+  }, [currentBar?.reviews]);
+
+  function handleAddReview(newReview) {
+    setReviews((prevReviews) => [...prevReviews, newReview]);
+  }
 
   return (
     <>
@@ -33,7 +45,8 @@ export default function BarsDetailsReviews({ bars }) {
         </SiteSection>
         <SiteSection isCurrentSection={isCurrentSection}>Reviews</SiteSection>
       </SiteSectionTabs>
-      <ReviewsList currentBar={currentBar} />
+      <ReviewsList currentBar={currentBar} reviews={reviews} />
+      <ReviewForm onAddReview={handleAddReview} />
       <AppFooter />
     </>
   );
