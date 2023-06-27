@@ -19,7 +19,13 @@ export default function ReviewForm({ onSubmit, rating, handleStarRating }) {
         ))}
       </StarContainer>
       <label htmlFor="comment">Kommentar:</label>
-      <textarea rows={4} cols={50} id="comment" name="comment" />
+      <textarea
+        rows={4}
+        cols={50}
+        maxLength={100}
+        id="comment"
+        name="comment"
+      />
       <button type="submit">Submit</button>
     </Form>
   );
