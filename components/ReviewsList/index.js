@@ -45,7 +45,6 @@ export default function ReviewsList({ currentBar }) {
       rating: formDataWithRating.rating,
     };
 
-    // const newReviews = [...currentBar.reviews, newReview];
     setReviews((prevReviews) => [...prevReviews, newReview]);
   }
 
