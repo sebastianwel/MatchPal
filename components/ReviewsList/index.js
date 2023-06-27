@@ -5,26 +5,11 @@ import { useEffect, useState } from "react";
 import { uid } from "uid";
 
 export default function ReviewsList({ currentBar }) {
-  const reviews = currentBar?.reviews.map((review) => ({
-    id: uid(),
-    ...review,
-  }));
+  const [reviews, setReviews] = useState(currentBar?.reviews);
 
-  console.log("reviews:", reviews);
-  const [updatedReviews, setUpdatedReviews] = useState(reviews);
-
-  useEffect(
-    () =>
-      setUpdatedReviews(
-        currentBar
-          ? currentBar?.reviews.map((review) => ({
-              id: uid(),
-              ...review,
-            }))
-          : null
-      ),
-    [currentBar]
-  );
+  useEffect(() => {
+    setReviews(currentBar?.reviews || []);
+  }, [currentBar?.reviews]);
 
   const [rating, setRating] = useState(0);
 
@@ -60,17 +45,15 @@ export default function ReviewsList({ currentBar }) {
       rating: formDataWithRating.rating,
     };
 
-    // const copyOfReviews = [...updatedReviews, newReview];
-
-    setUpdatedReviews((prevReviews) => [...prevReviews, newReview]);
+    // const newReviews = [...currentBar.reviews, newReview];
+    setReviews((prevReviews) => [...prevReviews, newReview]);
   }
-  console.log(updatedReviews);
 
   return (
     <ReviewsContainer>
       <h4>So gefiel es anderen Nutzern:</h4>
       <Reviews>
-        {updatedReviews?.map((review, index) => (
+        {reviews?.map((review, index) => (
           <ReviewCardContainer key={index}>
             <li>
               <p>{review.username}</p>

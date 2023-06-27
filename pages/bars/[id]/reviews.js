@@ -5,11 +5,7 @@ import AppFooter from "../../../components/AppFooter";
 import { SiteSection } from "../[id]";
 import { SiteSectionTabs } from "../[id]";
 import { Headline } from "../../../components/Headline/Headline";
-import styled from "styled-components";
 import ReviewsList from "../../../components/ReviewsList";
-import ReviewStar from "../../../assets/ReviewStar";
-import { useEffect, useState } from "react";
-import ReviewForm from "../../../components/ReviewForm";
 
 export default function BarsDetailsReviews({ bars }) {
   const router = useRouter();
