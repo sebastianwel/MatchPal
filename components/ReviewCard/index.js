@@ -1,7 +1,13 @@
 import ReviewStar from "../../assets/ReviewStar";
 import styled from "styled-components";
 
-export default function ReviewCard({ username, rating, comment }) {
+export default function ReviewCard({
+  username,
+  rating,
+  comment,
+  id,
+  onDeleteReview,
+}) {
   const renderReviewStars = (filledStars) => {
     const stars = [];
 
@@ -19,6 +25,9 @@ export default function ReviewCard({ username, rating, comment }) {
         <p>{username}</p>
         <div>{renderReviewStars(rating)}</div>
         <p>{comment}</p>
+        <button type="button" onClick={() => onDeleteReview(id)}>
+          Delete
+        </button>
       </li>
     </ReviewCardContainer>
   );

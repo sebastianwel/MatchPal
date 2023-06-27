@@ -31,6 +31,13 @@ export default function BarsDetailsReviews({ bars }) {
     setReviews((prevReviews) => [...prevReviews, newReview]);
   }
 
+  function handleDeleteReview(id) {
+    setReviews((prevReviews) =>
+      prevReviews.filter((prevReview) => prevReview.id !== id)
+    );
+    console.log(id);
+  }
+
   return (
     <>
       <AppHeader />
@@ -45,7 +52,11 @@ export default function BarsDetailsReviews({ bars }) {
         </SiteSection>
         <SiteSection isCurrentSection={isCurrentSection}>Reviews</SiteSection>
       </SiteSectionTabs>
-      <ReviewsList currentBar={currentBar} reviews={reviews} />
+      <ReviewsList
+        currentBar={currentBar}
+        reviews={reviews}
+        onDeleteReview={handleDeleteReview}
+      />
       <ReviewForm onAddReview={handleAddReview} />
       <AppFooter />
     </>

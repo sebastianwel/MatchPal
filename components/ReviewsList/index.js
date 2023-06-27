@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import ReviewCard from "../ReviewCard";
 
-export default function ReviewsList({ reviews }) {
+export default function ReviewsList({ reviews, onDeleteReview }) {
+  console.log(reviews);
+
   return (
     <ReviewsContainer>
       <h4>So gefiel es anderen Nutzern:</h4>
@@ -12,6 +14,8 @@ export default function ReviewsList({ reviews }) {
             username={review.username}
             rating={review.rating}
             comment={review.comment}
+            onDeleteReview={onDeleteReview}
+            id={review.id}
           />
         ))}
       </Reviews>
