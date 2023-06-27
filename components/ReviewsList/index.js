@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import ReviewCard from "../ReviewCard";
 
-export default function ReviewsList({ reviews, onDeleteReview }) {
+export default function ReviewsList({
+  bars,
+  currentBar,
+  reviews,
+  onDeleteReview,
+}) {
   console.log(reviews);
 
   return (
@@ -16,6 +21,11 @@ export default function ReviewsList({ reviews, onDeleteReview }) {
             comment={review.comment}
             onDeleteReview={onDeleteReview}
             id={review.id}
+            canDeleteReview={
+              !bars
+                .find((bar) => bar.id === currentBar.id)
+                .reviews.includes(review)
+            } //created the logic for only deleting reviews you added by yourself
           />
         ))}
       </Reviews>

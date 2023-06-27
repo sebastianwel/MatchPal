@@ -53,6 +53,7 @@ export default function BarsDetailsReviews({ bars }) {
         <SiteSection isCurrentSection={isCurrentSection}>Reviews</SiteSection>
       </SiteSectionTabs>
       <ReviewsList
+        bars={bars}
         currentBar={currentBar}
         reviews={reviews}
         onDeleteReview={handleDeleteReview}

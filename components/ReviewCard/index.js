@@ -7,6 +7,7 @@ export default function ReviewCard({
   comment,
   id,
   onDeleteReview,
+  canDeleteReview,
 }) {
   const renderReviewStars = (filledStars) => {
     const stars = [];
@@ -20,16 +21,18 @@ export default function ReviewCard({
   };
 
   return (
-    <ReviewCardContainer>
-      <li>
+    <li>
+      <ReviewCardContainer>
         <p>{username}</p>
         <div>{renderReviewStars(rating)}</div>
         <p>{comment}</p>
-        <button type="button" onClick={() => onDeleteReview(id)}>
-          Delete
-        </button>
-      </li>
-    </ReviewCardContainer>
+        {canDeleteReview ? (
+          <DeleteButton type="button" onClick={() => onDeleteReview(id)}>
+            x
+          </DeleteButton>
+        ) : null}
+      </ReviewCardContainer>
+    </li>
   );
 }
 
@@ -39,4 +42,13 @@ const ReviewCardContainer = styled.div`
   margin-top: 10px;
   border-radius: 10px;
   padding: 5px;
+  position: relative;
+`;
+
+const DeleteButton = styled.button`
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: #fff;
+  border: none;
 `;
