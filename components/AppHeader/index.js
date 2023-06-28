@@ -17,4 +17,5 @@ const Header = styled.header`
   width: 100%;
   margin-bottom: 10px;
   height: 47px;
+  z-index: 99;
 `;
