@@ -6,21 +6,18 @@ export default function ReviewsList({
   currentBar,
   reviews,
   onDeleteReview,
+  onEditReview,
 }) {
-  console.log(reviews);
-
   return (
     <ReviewsContainer>
       <h4>So gefiel es anderen Nutzern:</h4>
       <Reviews>
-        {reviews?.map((review, index) => (
+        {reviews.map((review) => (
           <ReviewCard
-            key={index}
-            username={review.username}
-            rating={review.rating}
-            comment={review.comment}
+            key={review.id}
+            review={review}
             onDeleteReview={onDeleteReview}
-            id={review.id}
+            onEditReview={onEditReview}
             canDeleteReview={
               !bars
                 .find((bar) => bar.id === currentBar.id)
@@ -42,12 +39,4 @@ const ReviewsContainer = styled.section`
 const Reviews = styled.ul`
   list-style: none;
   padding-left: 0px;
-`;
-
-const ReviewCardContainer = styled.div`
-  border: 1px solid;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  padding: 5px;
 `;

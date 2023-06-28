@@ -1,14 +1,14 @@
-import ReviewStar from "../../assets/ReviewStar";
 import styled from "styled-components";
+import ReviewStar from "../../assets/ReviewStar";
 
 export default function ReviewCard({
-  username,
-  rating,
-  comment,
-  id,
+  review,
   onDeleteReview,
+  onEditReview,
   canDeleteReview,
 }) {
+  const { id, username, rating, comment } = review;
+
   const renderReviewStars = (filledStars) => {
     const stars = [];
 
@@ -27,9 +27,12 @@ export default function ReviewCard({
         <div>{renderReviewStars(rating)}</div>
         <p>{comment}</p>
         {canDeleteReview ? (
-          <DeleteButton type="button" onClick={() => onDeleteReview(id)}>
-            x
-          </DeleteButton>
+          <>
+            <DeleteButton type="button" onClick={() => onDeleteReview(id)}>
+              x
+            </DeleteButton>
+            <EditButton onClick={() => onEditReview(id)}>Bearbeiten</EditButton>
+          </>
         ) : null}
       </ReviewCardContainer>
     </li>
@@ -49,6 +52,14 @@ const DeleteButton = styled.button`
   position: absolute;
   top: 2px;
   right: 2px;
+  background-color: #fff;
+  border: none;
+`;
+
+const EditButton = styled.button`
+  position: absolute;
+  top: 2px;
+  right: 20px;
   background-color: #fff;
   border: none;
 `;
