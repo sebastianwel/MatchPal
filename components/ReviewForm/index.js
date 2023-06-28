@@ -7,7 +7,6 @@ export default function ReviewForm({ onAddReview }) {
   const ratingPossibilities = [1, 2, 3, 4, 5];
 
   const [rating, setRating] = useState(0);
-
   function handleStarRating(value) {
     setRating(value);
   }
@@ -27,6 +26,8 @@ export default function ReviewForm({ onAddReview }) {
     };
 
     onAddReview(newReview);
+    setRating(0);
+    event.target.reset();
   }
 
   return (
