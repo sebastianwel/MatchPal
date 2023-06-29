@@ -115,7 +115,7 @@ export default function BarDetails({ bars, matches, onDeleteBarOrMatch }) {
               >
                 x
               </DeleteButton>
-              <CardLink key={match.id} href={`/matches/${match.id}`}>
+              <CardLink href={`/matches/${match.id}`}>
                 <MatchCard
                   key={match.id}
                   id={match.id}

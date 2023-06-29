@@ -87,9 +87,12 @@ export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
         <Headline>Folgende Bars zeigen das Spiel:</Headline>
       )}
       <List>
-        {updatedCurrentBars?.map((bar) => (
+        {updatedCurrentBars?.map((bar, index) => (
           <>
-            <Delete key={bar.id} onClick={() => handleDeleteBar(bar.id)}>
+            <Delete
+              key={`${bar.id}-${index}`}
+              onClick={() => handleDeleteBar(bar.id)}
+            >
               x
             </Delete>
             <CardLink href={`/bars/${bar.id}`} key={bar.id}>
