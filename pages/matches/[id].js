@@ -9,6 +9,7 @@ import { Button } from "../../components/BackButton/BackButton";
 import { Headline } from "../../components/Headline/Headline";
 import { CardLink } from "../../components/CardLink";
 import { DeleteButton } from "../../components/DeleteButton";
+import { Fragment } from "react";
 
 export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
   const router = useRouter();
@@ -88,19 +89,14 @@ export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
       )}
       <List>
         {updatedCurrentBars?.map((bar, index) => (
-          <>
-            <Delete
-              key={`${bar.id}-${index}`}
-              onClick={() => handleDeleteBar(bar.id)}
-            >
-              x
-            </Delete>
+          <Fragment key={`${bar.id}-${index}`}>
+            <Delete onClick={() => handleDeleteBar(bar.id)}>x</Delete>
             <CardLink href={`/bars/${bar.id}`} key={bar.id}>
               <ListItem key={bar.id}>
                 {bar.name} <p>{">"}</p>
               </ListItem>
             </CardLink>
-          </>
+          </Fragment>
         ))}
       </List>
       <h4 id="match-details-form">Du weißt wo es läuft?</h4>

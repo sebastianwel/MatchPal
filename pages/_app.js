@@ -32,7 +32,6 @@ export default function App({ Component, pageProps }) {
     };
   });
 
-  const [updatedMatches, setUpdatedMatches] = useState(matchesWithTeamNames);
   const [updatedBars, setUpdatedBars] = useState(extendedBars);
 
   function handleDeleteBarOrMatch(updatedBars) {
@@ -46,7 +45,7 @@ export default function App({ Component, pageProps }) {
       </Head>
       <Component
         {...pageProps}
-        matches={updatedMatches}
+        matches={matchesWithTeamNames}
         bars={updatedBars}
         barsInMatches={barsInMatches}
         onDeleteBarOrMatch={handleDeleteBarOrMatch}
