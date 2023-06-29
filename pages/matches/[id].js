@@ -50,6 +50,12 @@ export default function MatchDetails({ matches, bars }) {
     }
   }
 
+  function handleDeleteBar(id) {
+    setUpdatedBars((prevUpdatedBars) =>
+      prevUpdatedBars.filter((bar) => bar.id !== id)
+    );
+  }
+
   return (
     <>
       <AppHeader />
@@ -73,11 +79,14 @@ export default function MatchDetails({ matches, bars }) {
       )}
       <List>
         {updatedBars?.map((bar) => (
-          <CardLink href={`/bars/${bar.id}`} key={bar.id}>
+          <>
             <ListItem key={bar.id}>
-              {bar.name} <p>{">"}</p>
+              <button onClick={() => handleDeleteBar(bar.id)}>delete</button>
+              <CardLink href={`/bars/${bar.id}`} key={bar.id}>
+                {bar.name} <p>{">"}</p>
+              </CardLink>
             </ListItem>
-          </CardLink>
+          </>
         ))}
       </List>
       <h4 id="match-details-form">Du weißt wo es läuft?</h4>

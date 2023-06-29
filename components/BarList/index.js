@@ -10,7 +10,7 @@ export default function BarList({ matches, bars }) {
       .filter((match) => bar.matches.includes(match.id))
       .map((team) => ({ homeTeam: team.homeTeam, awayTeam: team.awayTeam })),
   }));
-
+  console.log(matchesInBar);
   return (
     <List>
       {matchesInBar.map((barWithMatch, index) => (
