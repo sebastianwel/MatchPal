@@ -74,7 +74,7 @@ export default function BarDetails({ bars, matches, onDeleteBarOrMatch }) {
       }
       return bar;
     });
-    console.log("updatedBarsInBar", updatedBars);
+
     onDeleteBarOrMatch(updatedBars);
   }
 
