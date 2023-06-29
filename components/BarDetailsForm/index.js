@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function BarDetailsForm({ onSubmit, matches, bar }) {
   const matchesToAdd = matches?.filter(
-    (match) => !bar?.matches.includes(match.id)
+    (match) => !bar?.matches?.includes(match.id)
   );
 
   return (

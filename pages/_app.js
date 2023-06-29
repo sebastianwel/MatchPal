@@ -35,11 +35,9 @@ export default function App({ Component, pageProps }) {
   const [updatedMatches, setUpdatedMatches] = useState(matchesWithTeamNames);
   const [updatedBars, setUpdatedBars] = useState(extendedBars);
 
-  function handleDeleteBar(updatedBars) {
+  function handleDeleteBarOrMatch(updatedBars) {
     setUpdatedBars(updatedBars);
   }
-
-  console.log("updatedBars", updatedBars);
   return (
     <>
       <GlobalStyle />
@@ -51,7 +49,8 @@ export default function App({ Component, pageProps }) {
         matches={updatedMatches}
         bars={updatedBars}
         barsInMatches={barsInMatches}
-        onDeleteBar={handleDeleteBar}
+        onDeleteBarOrMatch={handleDeleteBarOrMatch}
+        initialBars={bars}
       />
     </>
   );

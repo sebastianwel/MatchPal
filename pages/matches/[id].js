@@ -8,8 +8,9 @@ import MatchDetailsForm from "../../components/MatchDetailsForm";
 import { Button } from "../../components/BackButton/BackButton";
 import { Headline } from "../../components/Headline/Headline";
 import { CardLink } from "../../components/CardLink";
+import { DeleteButton } from "../../components/DeleteButton";
 
-export default function MatchDetails({ matches, bars, onAddBar, onDeleteBar }) {
+export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -61,7 +62,7 @@ export default function MatchDetails({ matches, bars, onAddBar, onDeleteBar }) {
       return bar;
     });
 
-    onDeleteBar(updatedBars);
+    onDeleteBarOrMatch(updatedBars);
   }
 
   return (
@@ -88,12 +89,14 @@ export default function MatchDetails({ matches, bars, onAddBar, onDeleteBar }) {
       <List>
         {updatedCurrentBars?.map((bar) => (
           <>
-            <ListItem key={bar.id}>
-              <button onClick={() => handleDeleteBar(bar.id)}>delete</button>
-              <CardLink href={`/bars/${bar.id}`} key={bar.id}>
+            <Delete key={bar.id} onClick={() => handleDeleteBar(bar.id)}>
+              x
+            </Delete>
+            <CardLink href={`/bars/${bar.id}`} key={bar.id}>
+              <ListItem key={bar.id}>
                 {bar.name} <p>{">"}</p>
-              </CardLink>
-            </ListItem>
+              </ListItem>
+            </CardLink>
           </>
         ))}
       </List>
@@ -110,6 +113,7 @@ export default function MatchDetails({ matches, bars, onAddBar, onDeleteBar }) {
 
 const List = styled.ul`
   padding-left: 0px;
+  position: relative;
 `;
 
 const ListItem = styled.li`
@@ -124,8 +128,8 @@ const ListItem = styled.li`
   padding: 10px;
 `;
 
-const CardContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const Delete = styled(DeleteButton)`
+  position: absolute;
+  top: 5px;
+  right: 20px;
 `;
