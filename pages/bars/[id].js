@@ -23,16 +23,7 @@ export default function BarDetails({ bars, matches, onDeleteBarOrMatch }) {
   const [updatedMatches, setUpdatedMatches] = useState(
     matches?.filter((match) => currentMatchIds?.includes(match.id))
   );
-  useEffect(() => {
-    setUpdatedMatches(
-      matches?.filter((match) => currentMatchIds?.includes(match.id))
-    );
-  }, [matches]);
-
   const [updatedBar, setUpdatedBar] = useState(currentBar);
-  useEffect(() => {
-    setUpdatedBar(bars ? bars.find((bar) => bar.id === parseInt(id)) : null);
-  }, [bars]);
 
   useEffect(() => {
     const currentBar = bars
