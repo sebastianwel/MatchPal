@@ -9,7 +9,7 @@ import { Button } from "../../components/BackButton/BackButton";
 import { Headline } from "../../components/Headline/Headline";
 import { CardLink } from "../../components/CardLink";
 
-export default function MatchDetails({ matches, bars }) {
+export default function MatchDetails({ matches, bars, onAddBar, onDeleteBar }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -18,14 +18,14 @@ export default function MatchDetails({ matches, bars }) {
 
   //filter the bars, which contain the id of the current match
   const currentBars = bars.filter((bar) =>
-    bar.matches.includes(currentMatch?.id)
+    bar.matches?.includes(currentMatch?.id)
   );
 
-  const [updatedBars, setUpdatedBars] = useState(currentBars);
+  const [updatedCurrentBars, setUpdatedCurrentBars] = useState(currentBars);
 
   useEffect(() => {
-    setUpdatedBars(
-      bars.filter((bar) => bar.matches.includes(currentMatch?.id))
+    setUpdatedCurrentBars(
+      bars?.filter((bar) => bar.matches?.includes(currentMatch?.id))
     );
   }, [bars, currentMatch]);
 
@@ -37,7 +37,7 @@ export default function MatchDetails({ matches, bars }) {
     const selectedBar = bars.find(
       (bar) => bar.id === parseInt(formData.newBarId)
     );
-    const isBarAlreadyAdded = updatedBars.some(
+    const isBarAlreadyAdded = updatedCurrentBars?.some(
       (bar) => bar.id === selectedBar.id
     );
 
@@ -46,14 +46,22 @@ export default function MatchDetails({ matches, bars }) {
       const updatedSelectedBar = { ...selectedBar };
       updatedSelectedBar.matches.push(parseInt(currentMatch.id));
 
-      setUpdatedBars((prevBars) => [...prevBars, updatedSelectedBar]);
+      setUpdatedCurrentBars((prevBars) => [...prevBars, updatedSelectedBar]);
     }
   }
 
   function handleDeleteBar(id) {
-    setUpdatedBars((prevUpdatedBars) =>
-      prevUpdatedBars.filter((bar) => bar.id !== id)
-    );
+    const updatedBars = bars.map((bar) => {
+      if (bar.id === id) {
+        const matches = bar.matches.filter(
+          (match) => match !== parseInt(currentMatch.id)
+        );
+        return { ...bar, matches };
+      }
+      return bar;
+    });
+
+    onDeleteBar(updatedBars);
   }
 
   return (
@@ -72,13 +80,13 @@ export default function MatchDetails({ matches, bars }) {
       ) : (
         <h2>loading</h2>
       )}
-      {updatedBars.length === 0 ? (
+      {updatedCurrentBars?.length === 0 ? (
         <Headline>Aktuell zeigt keine Bar das Spiel!</Headline>
       ) : (
         <Headline>Folgende Bars zeigen das Spiel:</Headline>
       )}
       <List>
-        {updatedBars?.map((bar) => (
+        {updatedCurrentBars?.map((bar) => (
           <>
             <ListItem key={bar.id}>
               <button onClick={() => handleDeleteBar(bar.id)}>delete</button>

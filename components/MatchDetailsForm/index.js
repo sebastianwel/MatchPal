@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function MatchDetailsForm({ bars, onSubmit, currentMatch }) {
   const barsToAdd = bars.filter(
-    (bar) => !bar.matches.includes(currentMatch?.id)
+    (bar) => !bar.matches?.includes(currentMatch?.id)
   );
 
   return (

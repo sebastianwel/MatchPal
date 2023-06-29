@@ -4,6 +4,7 @@ import { matches } from "../lib/mock-data/matches";
 import { teams } from "../lib/mock-data/teams";
 import { bars } from "../lib/mock-data/bars";
 import { barsInMatches } from "../lib/mock-data/barsInMatches";
+import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
   const matchesWithTeamNames = matches.map((match) => ({
@@ -31,6 +32,14 @@ export default function App({ Component, pageProps }) {
     };
   });
 
+  const [updatedMatches, setUpdatedMatches] = useState(matchesWithTeamNames);
+  const [updatedBars, setUpdatedBars] = useState(extendedBars);
+
+  function handleDeleteBar(updatedBars) {
+    setUpdatedBars(updatedBars);
+  }
+
+  console.log("updatedBars", updatedBars);
   return (
     <>
       <GlobalStyle />
@@ -39,9 +48,10 @@ export default function App({ Component, pageProps }) {
       </Head>
       <Component
         {...pageProps}
-        matches={matchesWithTeamNames}
-        bars={extendedBars}
+        matches={updatedMatches}
+        bars={updatedBars}
         barsInMatches={barsInMatches}
+        onDeleteBar={handleDeleteBar}
       />
     </>
   );
