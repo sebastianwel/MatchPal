@@ -2,16 +2,14 @@ import { GoogleApiWrapper, Map, Marker, InfoWindow } from "google-maps-react";
 import { useState } from "react";
 import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
+import { useEffect } from "react";
 
 export function MapContainer({ google, bars }) {
   const locations = bars.map((bar) => ({
     coordinates: bar.location,
     name: bar.name,
-    showsMatch: bar.showsMatch,
+    showsMatch: bar.matches.length > 0 ? true : false,
   }));
-
-  console.log("locations", locations);
-  console.log("bars", bars);
 
   const mapStyles = {
     marginTop: "47px",

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import MatchIcon from "../../assets/MatchIcon";
 import BarIcon from "../../assets/BarIcon";
+import MapIcon from "../../assets/MapIcon";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -24,6 +25,10 @@ export default function Navigation() {
       <IconAndText onClick={() => handlePageChange("/")}>
         <MatchIcon isCurrent={currentPage === "/"} />
         <Page isCurrent={currentPage === "/"}>Matches</Page>
+      </IconAndText>
+      <IconAndText onClick={() => handlePageChange("/map")}>
+        <MapIcon isCurrent={currentPage === "/map"} />
+        <Page isCurrent={currentPage === "/map"}>Map</Page>
       </IconAndText>
       <IconAndText onClick={() => handlePageChange("/bars")}>
         <BarIcon isCurrent={currentPage === "/bars"} />
