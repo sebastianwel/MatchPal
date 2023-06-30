@@ -37,6 +37,8 @@ export default function App({ Component, pageProps }) {
   function handleDeleteBarOrMatch(updatedBars) {
     setUpdatedBars([...updatedBars]);
   }
+
+  console.log("updatedBars", updatedBars);
   return (
     <>
       <GlobalStyle />

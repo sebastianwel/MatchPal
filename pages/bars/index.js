@@ -4,6 +4,7 @@ import BarList from "../../components/BarList";
 import styled from "styled-components";
 
 export default function Bars({ matches, bars, barsInMatches }) {
+  console.log("bars", bars);
   return (
     <>
       <AppHeader />

@@ -11,6 +11,23 @@ export function MapContainer({ google, bars }) {
     showsMatch: bar.matches.length > 0 ? true : false,
   }));
 
+  const [userLocation, setUserLocation] = useState(null);
+
+  useEffect(() => {
+    if (navigator.geolocation)
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation({ latitude: latitude, longitude: longitude });
+        },
+        (error) => {
+          console.error("Error retrieving users location", error);
+        }
+      );
+  }, []);
+
+  console.log(bars);
+
   const mapStyles = {
     marginTop: "47px",
     marginBottom: "47px",
@@ -31,6 +48,7 @@ export function MapContainer({ google, bars }) {
     setShowInfoWindow(false);
   }
 
+  console.log(bars);
   return (
     <>
       <AppHeader />
@@ -41,6 +59,17 @@ export function MapContainer({ google, bars }) {
         style={mapStyles}
         onClick={handleMapClick}
       >
+        {userLocation ? (
+          <Marker
+            position={{
+              lat: userLocation.latitude,
+              lng: userLocation.longitude,
+            }}
+            icon={{
+              url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+            }}
+          />
+        ) : null}
         {locations.map((location, index) =>
           location.showsMatch ? (
             <Marker
