@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }) {
   const [updatedBars, setUpdatedBars] = useState(extendedBars);
 
   function handleDeleteBarOrMatch(updatedBars) {
-    setUpdatedBars(updatedBars);
+    setUpdatedBars([...updatedBars]);
   }
   return (
     <>

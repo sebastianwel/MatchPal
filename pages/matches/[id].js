@@ -53,7 +53,8 @@ export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
   }
 
   function handleDeleteBar(id) {
-    const updatedBars = bars.map((bar) => {
+    const copyOfBars = [...bars];
+    const updatedBars = copyOfBars.map((bar) => {
       if (bar.id === id) {
         const matches = bar.matches.filter(
           (match) => match !== parseInt(currentMatch.id)
