@@ -38,7 +38,15 @@ export default function App({ Component, pageProps }) {
     setUpdatedBars([...updatedBars]);
   }
 
-  console.log("updatedBars", updatedBars);
+  //defined the extendedBarsWithMatches here to pass it down as props and also use it in the map-page
+  const barsWithMatches = updatedBars.filter((bar) => bar.matches.length > 0);
+  const extendedBarsWithMatches = barsWithMatches.map((bar) => ({
+    ...bar,
+    matches: matchesWithTeamNames
+      .filter((match) => bar.matches.includes(match.id))
+      .map((team) => ({ homeTeam: team.homeTeam, awayTeam: team.awayTeam })),
+  }));
+
   return (
     <>
       <GlobalStyle />
@@ -52,6 +60,7 @@ export default function App({ Component, pageProps }) {
         barsInMatches={barsInMatches}
         onDeleteBarOrMatch={handleDeleteBarOrMatch}
         initialBars={bars}
+        extendedBarsWithMatches={extendedBarsWithMatches}
       />
     </>
   );

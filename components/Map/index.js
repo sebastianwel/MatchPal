@@ -48,7 +48,6 @@ export function MapContainer({ google, bars }) {
     setShowInfoWindow(false);
   }
 
-  console.log(bars);
   return (
     <>
       <AppHeader />

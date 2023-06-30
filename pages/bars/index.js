@@ -3,13 +3,18 @@ import AppFooter from "../../components/AppFooter";
 import BarList from "../../components/BarList";
 import styled from "styled-components";
 
-export default function Bars({ matches, bars, barsInMatches }) {
+export default function Bars({
+  matches,
+  bars,
+  barsInMatches,
+  extendedBarsWithMatches,
+}) {
   console.log("bars", bars);
   return (
     <>
       <AppHeader />
       <Headline>Bars Overview</Headline>
-      <BarList matches={matches} bars={bars} barsInMatches={barsInMatches} />
+      <BarList extendedBarsWithMatches={extendedBarsWithMatches} />
       <AppFooter />
     </>
   );
