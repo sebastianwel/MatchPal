@@ -3,13 +3,7 @@ import AppFooter from "../../components/AppFooter";
 import BarList from "../../components/BarList";
 import styled from "styled-components";
 
-export default function Bars({
-  matches,
-  bars,
-  barsInMatches,
-  extendedBarsWithMatches,
-}) {
-  console.log("bars", bars);
+export default function Bars({ extendedBarsWithMatches }) {
   return (
     <>
       <AppHeader />

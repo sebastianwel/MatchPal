@@ -42,7 +42,7 @@ const MatchPreviewSection = styled.div`
   gap: 30px;
 `;
 
-const MatchPreview = styled.div`
+export const MatchPreview = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
