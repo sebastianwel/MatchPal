@@ -8,8 +8,10 @@ import MatchCard from "../../components/MatchCard";
 import { CardLink } from "../../components/CardLink/index";
 import { useState, useEffect } from "react";
 import BarDetailsForm from "../../components/BarDetailsForm";
+import { DeleteButton } from "../../components/DeleteButton";
+import { Fragment } from "react";
 
-export default function BarDetails({ bars, matches }) {
+export default function BarDetails({ bars, matches, onDeleteBarOrMatch }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -19,17 +21,24 @@ export default function BarDetails({ bars, matches }) {
   //create an array containing only the match-ids to search for the match-ids in the matches-array and filter those matches
   const currentMatchIds = currentBar?.matches.map((match) => match);
 
-  const [updatedMatches, setUpdatedMatches] = useState([]);
-  useEffect(() => {
-    setUpdatedMatches(
-      matches?.filter((match) => currentMatchIds?.includes(match.id))
-    );
-  }, [matches]);
-
+  const [updatedMatches, setUpdatedMatches] = useState(
+    matches?.filter((match) => currentMatchIds?.includes(match.id))
+  );
   const [updatedBar, setUpdatedBar] = useState(currentBar);
+
   useEffect(() => {
-    setUpdatedBar(bars ? bars.find((bar) => bar.id === parseInt(id)) : null);
-  }, [bars]);
+    const currentBar = bars
+      ? bars.find((bar) => bar.id === parseInt(id))
+      : null;
+    const currentMatchIds = currentBar?.matches.map((match) => match);
+
+    const filteredMatches = matches?.filter((match) =>
+      currentMatchIds?.includes(match.id)
+    );
+
+    setUpdatedMatches(filteredMatches);
+    setUpdatedBar(currentBar);
+  }, [bars, matches, id]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -39,7 +48,6 @@ export default function BarDetails({ bars, matches }) {
     const isMatchAlreadyAdded = updatedMatches.some(
       (match) => match.id === parseInt(formData.newMatchId)
     );
-
     //check wheter the current list already contains the match
     if (!isMatchAlreadyAdded) {
       const newCurrentBar = currentBar;
@@ -51,6 +59,23 @@ export default function BarDetails({ bars, matches }) {
       ]);
       setUpdatedBar(newCurrentBar);
     }
+  }
+
+  function handleDeleteMatchFromBar(matchId) {
+    setUpdatedMatches((prevUpdatedMatches) =>
+      prevUpdatedMatches.filter((match) => match.id !== matchId)
+    );
+
+    const updatedBars = bars.map((bar) => {
+      if (bar.id === currentBar.id) {
+        const matches = bar.matches.filter((match) => match !== matchId);
+        const showsMatch = !bar.matches.length >= 1 ? true : false;
+        return { ...bar, matches, showsMatch };
+      }
+      return bar;
+    });
+
+    onDeleteBarOrMatch(updatedBars);
   }
 
   const isCurrentSection = currentBar
@@ -76,19 +101,34 @@ export default function BarDetails({ bars, matches }) {
         </SiteSection>
       </SiteSectionTabs>
       <List>
-        {updatedMatches?.map((match) => (
-          <CardLink key={match.id} href={`/matches/${match.id}`}>
-            <MatchCard
-              key={match.id}
-              id={match.id}
-              homeTeam={match.homeTeam.name}
-              awayTeam={match.awayTeam.name}
-              date={match.date}
-              time={match.time}
-              homeTeamColor={match.homeTeam.logoColor}
-              awayTeamColor={match.awayTeam.logoColor}
-            />
-          </CardLink>
+        {updatedMatches.length < 1 ? (
+          <>
+            <Headline>Aktuell zeigt diese Bar keine Spiele!</Headline>
+            <p>Du weißt welches Spiel gezeigt wird? Füge es hinzu:</p>
+          </>
+        ) : null}
+        {updatedMatches?.map((match, index) => (
+          <Fragment key={`${match.id}-${index}`}>
+            <CardContainer>
+              <DeleteButton onClick={() => handleDeleteMatchFromBar(match.id)}>
+                x
+              </DeleteButton>
+              <CardLink href={`/matches/${match.id}`}>
+                <MatchCard
+                  key={match.id}
+                  id={match.id}
+                  homeTeam={match.homeTeam.name}
+                  awayTeam={match.awayTeam.name}
+                  date={match.date}
+                  time={match.time}
+                  homeTeamColor={match.homeTeam.logoColor}
+                  awayTeamColor={match.awayTeam.logoColor}
+                  onDeleteMatch={handleDeleteMatchFromBar}
+                  isDeletable
+                />
+              </CardLink>
+            </CardContainer>
+          </Fragment>
         ))}
       </List>
       <BarDetailsForm
@@ -118,4 +158,8 @@ export const SiteSection = styled.p`
 const List = styled.ul`
   list-style: none;
   padding-left: 0px;
+`;
+
+const CardContainer = styled.div`
+  position: relative;
 `;

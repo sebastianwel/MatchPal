@@ -8,8 +8,10 @@ import MatchDetailsForm from "../../components/MatchDetailsForm";
 import { Button } from "../../components/BackButton/BackButton";
 import { Headline } from "../../components/Headline/Headline";
 import { CardLink } from "../../components/CardLink";
+import { DeleteButton } from "../../components/DeleteButton";
+import { Fragment } from "react";
 
-export default function MatchDetails({ matches, bars }) {
+export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -18,14 +20,14 @@ export default function MatchDetails({ matches, bars }) {
 
   //filter the bars, which contain the id of the current match
   const currentBars = bars.filter((bar) =>
-    bar.matches.includes(currentMatch?.id)
+    bar.matches?.includes(currentMatch?.id)
   );
 
-  const [updatedBars, setUpdatedBars] = useState(currentBars);
+  const [updatedCurrentBars, setUpdatedCurrentBars] = useState(currentBars);
 
   useEffect(() => {
-    setUpdatedBars(
-      bars.filter((bar) => bar.matches.includes(currentMatch?.id))
+    setUpdatedCurrentBars(
+      bars?.filter((bar) => bar.matches?.includes(currentMatch?.id))
     );
   }, [bars, currentMatch]);
 
@@ -37,7 +39,7 @@ export default function MatchDetails({ matches, bars }) {
     const selectedBar = bars.find(
       (bar) => bar.id === parseInt(formData.newBarId)
     );
-    const isBarAlreadyAdded = updatedBars.some(
+    const isBarAlreadyAdded = updatedCurrentBars?.some(
       (bar) => bar.id === selectedBar.id
     );
 
@@ -46,8 +48,22 @@ export default function MatchDetails({ matches, bars }) {
       const updatedSelectedBar = { ...selectedBar };
       updatedSelectedBar.matches.push(parseInt(currentMatch.id));
 
-      setUpdatedBars((prevBars) => [...prevBars, updatedSelectedBar]);
+      setUpdatedCurrentBars((prevBars) => [...prevBars, updatedSelectedBar]);
     }
+  }
+
+  function handleDeleteBar(id) {
+    const updatedBars = bars.map((bar) => {
+      if (bar.id === id) {
+        const matches = bar.matches.filter(
+          (match) => match !== parseInt(currentMatch.id)
+        );
+        return { ...bar, matches };
+      }
+      return bar;
+    });
+
+    onDeleteBarOrMatch(updatedBars);
   }
 
   return (
@@ -66,18 +82,21 @@ export default function MatchDetails({ matches, bars }) {
       ) : (
         <h2>loading</h2>
       )}
-      {updatedBars.length === 0 ? (
+      {updatedCurrentBars?.length === 0 ? (
         <Headline>Aktuell zeigt keine Bar das Spiel!</Headline>
       ) : (
         <Headline>Folgende Bars zeigen das Spiel:</Headline>
       )}
       <List>
-        {updatedBars?.map((bar) => (
-          <CardLink href={`/bars/${bar.id}`} key={bar.id}>
-            <ListItem key={bar.id}>
-              {bar.name} <p>{">"}</p>
-            </ListItem>
-          </CardLink>
+        {updatedCurrentBars?.map((bar, index) => (
+          <Fragment key={`${bar.id}-${index}`}>
+            <Delete onClick={() => handleDeleteBar(bar.id)}>x</Delete>
+            <CardLink href={`/bars/${bar.id}`} key={bar.id}>
+              <ListItem key={bar.id}>
+                {bar.name} <p>{">"}</p>
+              </ListItem>
+            </CardLink>
+          </Fragment>
         ))}
       </List>
       <h4 id="match-details-form">Du weißt wo es läuft?</h4>
@@ -93,6 +112,7 @@ export default function MatchDetails({ matches, bars }) {
 
 const List = styled.ul`
   padding-left: 0px;
+  position: relative;
 `;
 
 const ListItem = styled.li`
@@ -107,8 +127,8 @@ const ListItem = styled.li`
   padding: 10px;
 `;
 
-const CardContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const Delete = styled(DeleteButton)`
+  position: absolute;
+  top: 5px;
+  right: 20px;
 `;

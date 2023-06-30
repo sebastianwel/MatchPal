@@ -8,6 +8,8 @@ export default function MatchCard({
   time,
   homeTeamColor,
   awayTeamColor,
+  onDeleteMatch,
+  isDeletable,
 }) {
   return (
     <ListItem key={id}>
@@ -39,6 +41,7 @@ const ListItem = styled.li`
   margin: 5px;
   border: 1px solid;
   border-radius: 10px;
+  position: relative;
 `;
 
 const TeamContainer = styled.div`
