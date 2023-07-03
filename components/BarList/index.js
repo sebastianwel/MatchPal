@@ -2,10 +2,10 @@ import styled from "styled-components";
 import BarCard from "../BarCard";
 import { CardLink } from "../CardLink";
 
-export default function BarList({ extendedBarsWithMatches }) {
+export default function BarList({ barsWithMatchesOnDate }) {
   return (
     <List>
-      {extendedBarsWithMatches?.map((barWithMatch, index) => (
+      {barsWithMatchesOnDate?.map((barWithMatch, index) => (
         <CardLink key={barWithMatch.id} href={`/bars/${barWithMatch.id}`}>
           <BarCard key={barWithMatch.id} barWithMatch={barWithMatch} />
         </CardLink>
