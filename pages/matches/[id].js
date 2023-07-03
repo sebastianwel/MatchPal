@@ -48,7 +48,11 @@ export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
       const updatedSelectedBar = { ...selectedBar };
       updatedSelectedBar.matches.push(parseInt(currentMatch.id));
 
-      setUpdatedCurrentBars((prevBars) => [...prevBars, updatedSelectedBar]);
+      const newUpdatedSelectedBar = {
+        ...updatedSelectedBar,
+        showsMatch: updatedSelectedBar.matches?.length > 0 ? true : false,
+      };
+      setUpdatedCurrentBars((prevBars) => [...prevBars, newUpdatedSelectedBar]);
     }
   }
 
@@ -58,7 +62,11 @@ export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
         const matches = bar.matches.filter(
           (match) => match !== parseInt(currentMatch.id)
         );
-        return { ...bar, matches };
+        return {
+          ...bar,
+          matches,
+          showsMatch: !bar.matches?.length > 0 ? true : false,
+        };
       }
       return bar;
     });

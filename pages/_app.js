@@ -5,6 +5,7 @@ import { teams } from "../lib/mock-data/teams";
 import { bars } from "../lib/mock-data/bars";
 import { barsInMatches } from "../lib/mock-data/barsInMatches";
 import { useState } from "react";
+import { LoadScript } from "@react-google-maps/api";
 
 export default function App({ Component, pageProps }) {
   const matchesWithTeamNames = matches.map((match) => ({
@@ -35,22 +36,38 @@ export default function App({ Component, pageProps }) {
   const [updatedBars, setUpdatedBars] = useState(extendedBars);
 
   function handleDeleteBarOrMatch(updatedBars) {
-    setUpdatedBars(updatedBars);
+    setUpdatedBars([...updatedBars]);
   }
+
+  //defined the extendedBarsWithMatches here to pass it down as props and also use it in the map-page
+  const barsWithMatches = updatedBars.filter((bar) => bar.matches.length > 0);
+  const extendedBarsWithMatches = barsWithMatches.map((bar) => ({
+    ...bar,
+    matches: matchesWithTeamNames
+      .filter((match) => bar.matches.includes(match.id))
+      .map((team) => ({ homeTeam: team.homeTeam, awayTeam: team.awayTeam })),
+  }));
+
   return (
     <>
       <GlobalStyle />
+
       <Head>
         <title>MatchPal</title>
       </Head>
-      <Component
-        {...pageProps}
-        matches={matchesWithTeamNames}
-        bars={updatedBars}
-        barsInMatches={barsInMatches}
-        onDeleteBarOrMatch={handleDeleteBarOrMatch}
-        initialBars={bars}
-      />
+      <LoadScript
+        googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+      >
+        <Component
+          {...pageProps}
+          matches={matchesWithTeamNames}
+          bars={updatedBars}
+          barsInMatches={barsInMatches}
+          onDeleteBarOrMatch={handleDeleteBarOrMatch}
+          initialBars={bars}
+          extendedBarsWithMatches={extendedBarsWithMatches}
+        />
+      </LoadScript>
     </>
   );
 }

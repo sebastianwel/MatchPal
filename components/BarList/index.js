@@ -2,22 +2,12 @@ import styled from "styled-components";
 import BarCard from "../BarCard";
 import { CardLink } from "../CardLink";
 
-export default function BarList({ matches, bars }) {
-  const barsWithMatches = bars.filter((bar) => bar.matches.length > 0);
-  const matchesInBar = barsWithMatches.map((bar) => ({
-    ...bar,
-    matches: matches
-      .filter((match) => bar.matches.includes(match.id))
-      .map((team) => ({ homeTeam: team.homeTeam, awayTeam: team.awayTeam })),
-  }));
+export default function BarList({ extendedBarsWithMatches }) {
   return (
     <List>
-      {matchesInBar.map((barWithMatch, index) => (
+      {extendedBarsWithMatches?.map((barWithMatch, index) => (
         <CardLink key={barWithMatch.id} href={`/bars/${barWithMatch.id}`}>
-          <BarCard
-            key={`${barWithMatch.id}-${index}`}
-            barWithMatch={barWithMatch}
-          />
+          <BarCard key={barWithMatch.id} barWithMatch={barWithMatch} />
         </CardLink>
       ))}
     </List>
@@ -26,6 +16,6 @@ export default function BarList({ matches, bars }) {
 
 const List = styled.ul`
   list-style: none;
-  padding-left: 0px;
+  padding-left: 0;
   margin-bottom: 50px;
 `;
