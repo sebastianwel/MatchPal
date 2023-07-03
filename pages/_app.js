@@ -4,7 +4,7 @@ import { matches } from "../lib/mock-data/matches";
 import { teams } from "../lib/mock-data/teams";
 import { bars } from "../lib/mock-data/bars";
 import { barsInMatches } from "../lib/mock-data/barsInMatches";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
 
 export default function App({ Component, pageProps }) {
@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
     },
   }));
 
-  //extended the bars-array with the key "barShowsMatch", to make it usable for the bars-list
+  // extended the bars-array with the key "barShowsMatch" to make it usable for the bars-list
   const extendedBars = bars.map((bar) => {
     const showsMatch = barsInMatches.some(
       (barInMatches) =>
@@ -34,12 +34,12 @@ export default function App({ Component, pageProps }) {
   });
 
   const [updatedBars, setUpdatedBars] = useState(extendedBars);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   function handleDeleteBarOrMatch(updatedBars) {
     setUpdatedBars([...updatedBars]);
   }
 
-  //defined the extendedBarsWithMatches here to pass it down as props and also use it in the map-page
   const barsWithMatches = updatedBars.filter((bar) => bar.matches.length > 0);
   const extendedBarsWithMatches = barsWithMatches.map((bar) => ({
     ...bar,
@@ -48,6 +48,10 @@ export default function App({ Component, pageProps }) {
       .map((team) => ({ homeTeam: team.homeTeam, awayTeam: team.awayTeam })),
   }));
 
+  function handleDateSelect(date) {
+    setSelectedDate(date);
+  }
+  console.log("selectedDateBEIWTICH", selectedDate);
   return (
     <>
       <GlobalStyle />
@@ -66,6 +70,9 @@ export default function App({ Component, pageProps }) {
           onDeleteBarOrMatch={handleDeleteBarOrMatch}
           initialBars={bars}
           extendedBarsWithMatches={extendedBarsWithMatches}
+          selectedDate={selectedDate}
+          handleDateSelect={handleDateSelect}
+          today={new Date()}
         />
       </LoadScript>
     </>
