@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 export default function Navigation() {
   const router = useRouter();
 
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState(router.pathname);
 
   //used .pathname here to set the currentPage to the path "/..." to handle page-reloads.
   useEffect(() => {

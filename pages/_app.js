@@ -4,7 +4,7 @@ import { matches } from "../lib/mock-data/matches";
 import { teams } from "../lib/mock-data/teams";
 import { bars } from "../lib/mock-data/bars";
 import { barsInMatches } from "../lib/mock-data/barsInMatches";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
 
 export default function App({ Component, pageProps }) {

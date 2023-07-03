@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Logo } from "../MatchCard";
+import { MatchPreview } from "../MatchPreview/MatchPreview";
 
 export default function BarCard({ barWithMatch }) {
   return (
@@ -40,14 +41,6 @@ const MatchPreviewSection = styled.div`
   align-items: center;
   font-size: 10px;
   gap: 30px;
-`;
-
-export const MatchPreview = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 10px;
-  font-size: 10px;
 `;
 
 const Flex = styled.div`

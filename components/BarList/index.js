@@ -7,10 +7,7 @@ export default function BarList({ extendedBarsWithMatches }) {
     <List>
       {extendedBarsWithMatches?.map((barWithMatch, index) => (
         <CardLink key={barWithMatch.id} href={`/bars/${barWithMatch.id}`}>
-          <BarCard
-            key={`${barWithMatch.id}-${index}`}
-            barWithMatch={barWithMatch}
-          />
+          <BarCard key={barWithMatch.id} barWithMatch={barWithMatch} />
         </CardLink>
       ))}
     </List>
@@ -19,6 +16,6 @@ export default function BarList({ extendedBarsWithMatches }) {
 
 const List = styled.ul`
   list-style: none;
-  padding-left: 0px;
+  padding-left: 0;
   margin-bottom: 50px;
 `;

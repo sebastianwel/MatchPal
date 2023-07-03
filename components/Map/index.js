@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import styled from "styled-components";
-import { MatchPreview } from "../BarCard";
+import { MatchPreview } from "../MatchPreview/MatchPreview";
 import { Logo } from "../MatchCard";
 import { useRouter } from "next/router";
 
@@ -17,6 +17,7 @@ export function Map({ bars, extendedBarsWithMatches }) {
   const router = useRouter();
 
   const locations = bars.map((bar) => ({
+    id: bar.id,
     coordinates: bar.location,
     name: bar.name,
     showsMatch: bar.matches.length > 0 ? true : false,
@@ -49,7 +50,7 @@ export function Map({ bars, extendedBarsWithMatches }) {
     setMapLoaded(true);
   }, []);
 
-  function handleMarkerClick(event, location) {
+  function handleMarkerClick(location) {
     setActiveMarker(location);
     setShowInfoWindow(true);
 
@@ -97,16 +98,16 @@ export function Map({ bars, extendedBarsWithMatches }) {
               }}
             />
           )}
-          {locations.map((location, index) =>
+          {locations.map((location) =>
             location.showsMatch === true ? (
               <Marker
-                key={index}
+                key={location.id}
                 position={{
                   lat: location.coordinates.latitude,
                   lng: location.coordinates.longitude,
                 }}
                 title={location.name}
-                onClick={(event) => handleMarkerClick(event, location)}
+                onClick={(event) => handleMarkerClick(location)}
                 options={{ zIndex: 999 }}
               />
             ) : null
