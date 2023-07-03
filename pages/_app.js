@@ -4,7 +4,8 @@ import { matches } from "../lib/mock-data/matches";
 import { teams } from "../lib/mock-data/teams";
 import { bars } from "../lib/mock-data/bars";
 import { barsInMatches } from "../lib/mock-data/barsInMatches";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { LoadScript } from "@react-google-maps/api";
 
 export default function App({ Component, pageProps }) {
   const matchesWithTeamNames = matches.map((match) => ({
@@ -50,18 +51,23 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
+
       <Head>
         <title>MatchPal</title>
       </Head>
-      <Component
-        {...pageProps}
-        matches={matchesWithTeamNames}
-        bars={updatedBars}
-        barsInMatches={barsInMatches}
-        onDeleteBarOrMatch={handleDeleteBarOrMatch}
-        initialBars={bars}
-        extendedBarsWithMatches={extendedBarsWithMatches}
-      />
+      <LoadScript
+        googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+      >
+        <Component
+          {...pageProps}
+          matches={matchesWithTeamNames}
+          bars={updatedBars}
+          barsInMatches={barsInMatches}
+          onDeleteBarOrMatch={handleDeleteBarOrMatch}
+          initialBars={bars}
+          extendedBarsWithMatches={extendedBarsWithMatches}
+        />
+      </LoadScript>
     </>
   );
 }
