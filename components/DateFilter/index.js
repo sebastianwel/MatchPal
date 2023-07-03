@@ -60,6 +60,19 @@ const DatePickerContainer = styled.div`
   align-items: center;
   overflow: scroll;
   text-align: center;
+
+  /* Hide the Scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent; /* for Chrome */
+  -ms-overflow-style: none; /* for Internet Explorer und Edge */
+  &::-webkit-scrollbar {
+    /* for Firefox*/
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
 `;
 
 const DateItem = styled.div`
