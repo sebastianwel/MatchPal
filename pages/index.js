@@ -18,7 +18,11 @@ export default function Home({
           onDateSelect={handleDateSelect}
           today={today}
         />
-        <MatchList matches={matches} />
+        <MatchList
+          matches={matches}
+          selectedDate={selectedDate}
+          today={today}
+        />
       </main>
       <AppFooter />
     </>
