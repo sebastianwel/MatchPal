@@ -78,11 +78,14 @@ const DatePickerContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  text-align: center;
   overflow-x: scroll;
+  /* Hide the Scrollbar */
   scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-  -ms-overflow-style: none;
+  scrollbar-color: transparent transparent; /* for Chrome */
+  -ms-overflow-style: none; /* for Internet Explorer und Edge */
   &::-webkit-scrollbar {
+    /* for Firefox*/
     width: 0.5rem;
   }
   &::-webkit-scrollbar-thumb {
@@ -99,6 +102,7 @@ const DateItem = styled.div`
 
 const Today = styled.p`
   margin: 0;
+  text-align: center;
 `;
 
 const Day = styled.div`
