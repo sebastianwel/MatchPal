@@ -2,7 +2,11 @@ import styled from "styled-components";
 import BarCard from "../BarCard";
 import { CardLink } from "../CardLink";
 
-export default function BarList({ barsWithMatchesOnDate }) {
+export default function BarList({
+  barsWithMatchesOnDate,
+  selectedDate,
+  today,
+}) {
   return (
     <List>
       {barsWithMatchesOnDate.length > 0 ? (
@@ -11,8 +15,20 @@ export default function BarList({ barsWithMatchesOnDate }) {
             <BarCard key={barWithMatch.id} barWithMatch={barWithMatch} />
           </CardLink>
         ))
+      ) : selectedDate.getDate() < today.getDate() ? (
+        <p>
+          Am {selectedDate.getDate()}.{selectedDate.getMonth() + 1} hat keine
+          Bar ein Spiel gezeigt.
+        </p>
       ) : (
-        <p>Aktuell zeigen keine Bars Spiele.</p>
+        <p>
+          {today.getDate() === selectedDate.getDate()
+            ? "Heute"
+            : `Am ${selectedDate.getDate()}.${
+                selectedDate.getMonth() + 1
+              }`}{" "}
+          werden keine Spiele gezeigt.
+        </p>
       )}
     </List>
   );

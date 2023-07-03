@@ -19,7 +19,11 @@ export default function Bars({
         today={today}
       />
       <Headline>Bars Overview</Headline>
-      <BarList barsWithMatchesOnDate={barsWithMatchesOnDate} />
+      <BarList
+        barsWithMatchesOnDate={barsWithMatchesOnDate}
+        selectedDate={selectedDate}
+        today={today}
+      />
       <AppFooter />
     </>
   );
