@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 
 export default function DateFilter({ selectedDate, onDateSelect, today }) {
   const [dates, setDates] = useState([]);
+  const datePickerRef = useRef();
 
   useEffect(() => {
     const pastDates = [];
@@ -21,10 +22,30 @@ export default function DateFilter({ selectedDate, onDateSelect, today }) {
     }
 
     setDates([...pastDates, ...futureDates]);
-  }, []);
+  }, [today]);
+
+  useEffect(() => {
+    if (datePickerRef.current && dates.length > 0) {
+      const selectedDateIndex = dates.findIndex(
+        (date) => date.toDateString() === selectedDate?.toDateString()
+      );
+
+      if (selectedDateIndex !== -1) {
+        const elementWidth = datePickerRef.current.children[0].offsetWidth;
+        const containerWidth = datePickerRef.current.offsetWidth;
+        const scrollOffset = (containerWidth - elementWidth) / 2;
+        const scrollTo = selectedDateIndex * elementWidth - scrollOffset;
+
+        datePickerRef.current.scrollTo({
+          left: scrollTo,
+          behavior: "smooth",
+        });
+      }
+    }
+  }, [dates, selectedDate]);
 
   return (
-    <DatePickerContainer>
+    <DatePickerContainer ref={datePickerRef}>
       {dates.map((date) => (
         <DateItem
           key={date.toISOString()}
@@ -55,21 +76,15 @@ export default function DateFilter({ selectedDate, onDateSelect, today }) {
 const DatePickerContainer = styled.div`
   margin-top: 50px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  overflow: scroll;
-  text-align: center;
-
-  /* Hide the Scrollbar */
+  overflow-x: scroll;
   scrollbar-width: thin;
-  scrollbar-color: transparent transparent; /* for Chrome */
-  -ms-overflow-style: none; /* for Internet Explorer und Edge */
+  scrollbar-color: transparent transparent;
+  -ms-overflow-style: none;
   &::-webkit-scrollbar {
-    /* for Firefox*/
     width: 0.5rem;
   }
-
   &::-webkit-scrollbar-thumb {
     background-color: transparent;
   }
@@ -93,3 +108,5 @@ const Day = styled.div`
 const FormattedDate = styled.div`
   font-size: 16px;
 `;
+
+export { DatePickerContainer, DateItem, Day, FormattedDate, Today };
