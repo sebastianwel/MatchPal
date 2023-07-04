@@ -12,7 +12,13 @@ import { DeleteButton } from "../../components/DeleteButton";
 import { Fragment } from "react";
 import BarSearchBox from "../../components/BarSearchBox";
 
-export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
+export default function MatchDetails({
+  matches,
+  bars,
+  onDeleteBarOrMatch,
+  places,
+  setPlaces,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -108,7 +114,7 @@ export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
           </Fragment>
         ))}
       </List>
-      <BarSearchBox />
+      <BarSearchBox places={places} setPlaces={setPlaces} />
       <h4 id="match-details-form">Du weißt wo es läuft?</h4>
       <MatchDetailsForm
         bars={bars}

@@ -9,6 +9,8 @@ import { LoadScript } from "@react-google-maps/api";
 import DateFilter from "../components/DateFilter";
 
 export default function App({ Component, pageProps }) {
+  const [places, setPlaces] = useState([]);
+
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const formattedSelectedDate = selectedDate.toISOString().split("T")[0];
@@ -92,6 +94,8 @@ export default function App({ Component, pageProps }) {
           selectedDate={selectedDate}
           handleDateSelect={handleDateSelect}
           today={new Date()}
+          places={places}
+          setPlaces={setPlaces}
         />
       </LoadScript>
     </>
