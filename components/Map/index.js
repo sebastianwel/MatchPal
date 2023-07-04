@@ -13,10 +13,10 @@ const containerStyle = {
   height: "591px",
 };
 
-export function Map({ bars, extendedBarsWithMatches }) {
+export function Map({ barsWithMatchesOnDate }) {
   const router = useRouter();
 
-  const locations = bars.map((bar) => ({
+  const locations = barsWithMatchesOnDate.map((bar) => ({
     id: bar.id,
     coordinates: bar.location,
     name: bar.name,
@@ -54,7 +54,7 @@ export function Map({ bars, extendedBarsWithMatches }) {
     setActiveMarker(location);
     setShowInfoWindow(true);
 
-    const markerDetails = extendedBarsWithMatches.find(
+    const markerDetails = barsWithMatchesOnDate.find(
       (bar) => bar.name === location.name
     );
     setActiveMarkerDetails(markerDetails);

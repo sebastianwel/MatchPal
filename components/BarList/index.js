@@ -2,14 +2,34 @@ import styled from "styled-components";
 import BarCard from "../BarCard";
 import { CardLink } from "../CardLink";
 
-export default function BarList({ extendedBarsWithMatches }) {
+export default function BarList({
+  barsWithMatchesOnDate,
+  selectedDate,
+  today,
+}) {
   return (
     <List>
-      {extendedBarsWithMatches?.map((barWithMatch, index) => (
-        <CardLink key={barWithMatch.id} href={`/bars/${barWithMatch.id}`}>
-          <BarCard key={barWithMatch.id} barWithMatch={barWithMatch} />
-        </CardLink>
-      ))}
+      {barsWithMatchesOnDate.length > 0 ? (
+        barsWithMatchesOnDate?.map((barWithMatch, index) => (
+          <CardLink key={barWithMatch.id} href={`/bars/${barWithMatch.id}`}>
+            <BarCard key={barWithMatch.id} barWithMatch={barWithMatch} />
+          </CardLink>
+        ))
+      ) : selectedDate.getDate() < today.getDate() ? (
+        <p>
+          Am {selectedDate.getDate()}.{selectedDate.getMonth() + 1} hat keine
+          Bar ein Spiel gezeigt.
+        </p>
+      ) : (
+        <p>
+          {today.getDate() === selectedDate.getDate()
+            ? "Heute"
+            : `Am ${selectedDate.getDate()}.${
+                selectedDate.getMonth() + 1
+              }`}{" "}
+          werden keine Spiele gezeigt.
+        </p>
+      )}
     </List>
   );
 }
