@@ -14,19 +14,28 @@ export default function BarSearchBox({ places, setPlaces }) {
   function handlePlaceInput() {
     const newPlaces = searchBoxRef.current.getPlaces();
     setPlaces((prevPlaces) => {
-      //check wheter the place was already added
-      const existingPlaceIds = prevPlaces.map((place) => place.place_id);
-      const newPlaceId = newPlaces.map((place) => place.place_id);
+      const updatedPlaces = [...prevPlaces];
 
-      const newPlaceNotIncluded = newPlaces.filter(
-        (place) => !existingPlaceIds.includes(place.place_id)
-      );
+      newPlaces.forEach((newPlace) => {
+        const existingPlace = updatedPlaces.find(
+          (place) => place.place_id === newPlace.place_id
+        );
 
-      return [...prevPlaces, ...newPlaceNotIncluded];
+        if (existingPlace) {
+          // Bar already exists
+          if (!existingPlace.matches.includes(id)) {
+            // Update the matches array only if the match ID is not already present
+            existingPlace.matches = [...existingPlace.matches, parseInt(id)];
+          }
+        } else {
+          // New Bar, add it with the match ID
+          updatedPlaces.push({ ...newPlace, matches: [parseInt(id)] });
+        }
+      });
+
+      return updatedPlaces;
     });
   }
-
-  console.log("places:", places);
 
   return (
     <div>

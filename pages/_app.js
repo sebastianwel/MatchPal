@@ -72,6 +72,7 @@ export default function App({ Component, pageProps }) {
     setSelectedDate(date);
   }
 
+  console.log("places:", places);
   return (
     <>
       <GlobalStyle />
