@@ -10,6 +10,7 @@ import { Headline } from "../../components/Headline/Headline";
 import { CardLink } from "../../components/CardLink";
 import { DeleteButton } from "../../components/DeleteButton";
 import { Fragment } from "react";
+import BarSearchBox from "../../components/BarSearchBox";
 
 export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
   const router = useRouter();
@@ -107,6 +108,7 @@ export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
           </Fragment>
         ))}
       </List>
+      <BarSearchBox />
       <h4 id="match-details-form">Du weißt wo es läuft?</h4>
       <MatchDetailsForm
         bars={bars}
