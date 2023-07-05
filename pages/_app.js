@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
 import DateFilter from "../components/DateFilter";
 
+const libraries = ["places"];
+
 export default function App({ Component, pageProps }) {
   const [places, setPlaces] = useState([]);
 
@@ -82,7 +84,7 @@ export default function App({ Component, pageProps }) {
       </Head>
       <LoadScript
         googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
-        libraries={["places"]}
+        libraries={libraries}
       >
         <Component
           {...pageProps}
