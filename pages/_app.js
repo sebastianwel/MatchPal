@@ -18,20 +18,18 @@ export default function App({ Component, pageProps }) {
   const formattedSelectedDate = selectedDate.toISOString().split("T")[0];
 
   // extended the bars-array with the key "barShowsMatch" to make it usable for the bars-list
-  const extendedBars = bars.map((bar) => {
-    const showsMatch = barsInMatches.some(
-      (barInMatches) =>
-        barInMatches.gameIds.length > 0 && barInMatches.barId === bar.id
-    );
+  const extendedBars = places.map((bar) => {
+    const showsMatch = bar.matches?.length > 0;
     return {
       ...bar,
       showsMatch,
-      matches: barsInMatches.find((match) => bar.id === match.barId).gameIds,
     };
   });
 
   const [updatedBars, setUpdatedBars] = useState(extendedBars);
-  const barsWithMatches = updatedBars.filter((bar) => bar.matches.length > 0);
+
+  console.log("updatedBars", updatedBars);
+  const barsWithMatches = extendedBars.filter((bar) => bar.matches.length > 0);
 
   const filteredMatchesByDate = matches.filter(
     (match) => match.date === formattedSelectedDate
@@ -53,21 +51,24 @@ export default function App({ Component, pageProps }) {
     ...bar,
     matches: matchesWithTeamNames
       .filter((match) => bar.matches.includes(match.id))
-      .map((team) => ({
+      .map((match) => ({
+        id: match.id,
         date: matchesWithTeamNames.find((match) =>
           bar.matches.includes(match.id)
         ).date,
-        homeTeam: team.homeTeam,
-        awayTeam: team.awayTeam,
+        homeTeam: match.homeTeam,
+        awayTeam: match.awayTeam,
       })),
   }));
+
+  console.log("extendedBars", extendedBarsWithMatches);
 
   const barsWithMatchesOnDate = extendedBarsWithMatches.filter((bar) =>
     bar.matches.some((match) => match.date === formattedSelectedDate)
   );
 
   function handleDeleteBarOrMatch(updatedBars) {
-    setUpdatedBars([...updatedBars]);
+    setPlaces([...updatedBars]);
   }
 
   function handleDateSelect(date) {
@@ -89,7 +90,7 @@ export default function App({ Component, pageProps }) {
         <Component
           {...pageProps}
           matches={matchesWithTeamNames}
-          bars={updatedBars}
+          bars={extendedBarsWithMatches}
           barsInMatches={barsInMatches}
           onDeleteBarOrMatch={handleDeleteBarOrMatch}
           initialBars={bars}

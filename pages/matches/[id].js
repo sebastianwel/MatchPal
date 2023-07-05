@@ -19,6 +19,7 @@ export default function MatchDetails({
   places,
   setPlaces,
 }) {
+  console.log("bars", bars);
   const router = useRouter();
   const { id } = router.query;
 
@@ -27,15 +28,15 @@ export default function MatchDetails({
 
   //filter the bars, which contain the id of the current match
   const currentBars = bars.filter((bar) =>
-    bar.matches?.includes(currentMatch?.id)
+    bar.matches.some((match) => match.id === parseInt(currentMatch.id))
   );
 
   const [updatedCurrentBars, setUpdatedCurrentBars] = useState(currentBars);
 
+  console.log("currentBars", currentBars);
+
   useEffect(() => {
-    setUpdatedCurrentBars(
-      bars?.filter((bar) => bar.matches?.includes(currentMatch?.id))
-    );
+    setUpdatedCurrentBars(currentBars);
   }, [bars, currentMatch]);
 
   function handleSubmit(event) {
@@ -64,8 +65,8 @@ export default function MatchDetails({
   }
 
   function handleDeleteBar(id) {
-    const updatedBars = bars.map((bar) => {
-      if (bar.id === id) {
+    const updatedBars = places.map((bar) => {
+      if (bar.place_id === id) {
         const matches = bar.matches.filter(
           (match) => match !== parseInt(currentMatch.id)
         );
@@ -104,14 +105,14 @@ export default function MatchDetails({
       )}
       <List>
         {updatedCurrentBars?.map((bar, index) => (
-          <Fragment key={`${bar.id}-${index}`}>
-            <Delete onClick={() => handleDeleteBar(bar.id)}>x</Delete>
-            <CardLink href={`/bars/${bar.id}`} key={bar.id}>
-              <ListItem key={bar.id}>
+          <OuterCard key={`${bar.place_id}-${index}`}>
+            <Delete onClick={() => handleDeleteBar(bar.place_id)}>x</Delete>
+            <CardLink href={`/bars/${bar.place_id}`} key={bar.place_id}>
+              <ListItem key={bar.place_id}>
                 {bar.name} <p>{">"}</p>
               </ListItem>
             </CardLink>
-          </Fragment>
+          </OuterCard>
         ))}
       </List>
       <h4 id="match-details-form">Eine Bar in deiner Nähe zeigt das Spiel?</h4>
@@ -128,6 +129,10 @@ export default function MatchDetails({
 
 const List = styled.ul`
   padding-left: 0px;
+  position: relative;
+`;
+
+const OuterCard = styled.div`
   position: relative;
 `;
 
