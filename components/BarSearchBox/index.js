@@ -1,8 +1,14 @@
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import MatchDetailsForm from "../MatchDetailsForm";
 
-export default function BarSearchBox({ places, setPlaces }) {
+export default function BarSearchBox({
+  places,
+  setPlaces,
+  handleSubmit,
+  currentMatch,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -119,24 +125,18 @@ export default function BarSearchBox({ places, setPlaces }) {
 
   return (
     <>
-      <DropdownContainer>
-        <DropdownButton id="barSearch" onClick={handleToggleOpen}>
-          Wähle die Bar
-        </DropdownButton>
-        {isOpen ? (
-          <Dropdown>
-            {isLoading ? <p>Bars werden geladen </p> : null}
-            {suggestedPlaces.map((suggestedPlace) => (
-              <p
-                key={suggestedPlace.place_id}
-                onClick={() => handleSelectSuggestedPlace(suggestedPlace)}
-              >
-                {suggestedPlace.name}
-              </p>
-            ))}
-          </Dropdown>
-        ) : null}
-      </DropdownContainer>
+      {isLoading ? (
+        <p>Vorschläge werden geladen...</p>
+      ) : (
+        <MatchDetailsForm
+          bars={suggestedPlaces}
+          onSubmit={handleSubmit}
+          currentMatch={currentMatch}
+          places={places}
+          onSelectSuggestedPlace={handleSelectSuggestedPlace}
+          setPlaces={setPlaces}
+        />
+      )}
     </>
   );
 }

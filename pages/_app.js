@@ -28,7 +28,6 @@ export default function App({ Component, pageProps }) {
 
   const [updatedBars, setUpdatedBars] = useState(extendedBars);
 
-  console.log("updatedBars", updatedBars);
   const barsWithMatches = extendedBars.filter((bar) => bar.matches.length > 0);
 
   const filteredMatchesByDate = matches.filter(
@@ -61,8 +60,6 @@ export default function App({ Component, pageProps }) {
       })),
   }));
 
-  console.log("extendedBars", extendedBarsWithMatches);
-
   const barsWithMatchesOnDate = extendedBarsWithMatches.filter((bar) =>
     bar.matches.some((match) => match.date === formattedSelectedDate)
   );
@@ -75,7 +72,6 @@ export default function App({ Component, pageProps }) {
     setSelectedDate(date);
   }
 
-  console.log("places:", places);
   return (
     <>
       <GlobalStyle />

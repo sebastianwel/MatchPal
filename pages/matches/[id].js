@@ -19,7 +19,6 @@ export default function MatchDetails({
   places,
   setPlaces,
 }) {
-  console.log("bars", bars);
   const router = useRouter();
   const { id } = router.query;
 
@@ -33,36 +32,9 @@ export default function MatchDetails({
 
   const [updatedCurrentBars, setUpdatedCurrentBars] = useState(currentBars);
 
-  console.log("currentBars", currentBars);
-
   useEffect(() => {
     setUpdatedCurrentBars(currentBars);
   }, [bars, currentMatch]);
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    const formData = Object.fromEntries(data);
-
-    const selectedBar = bars.find(
-      (bar) => bar.id === parseInt(formData.newBarId)
-    );
-    const isBarAlreadyAdded = updatedCurrentBars?.some(
-      (bar) => bar.id === selectedBar.id
-    );
-
-    //check wheter the current list already contains the bar
-    if (selectedBar && !isBarAlreadyAdded) {
-      const updatedSelectedBar = { ...selectedBar };
-      updatedSelectedBar.matches.push(parseInt(currentMatch.id));
-
-      const newUpdatedSelectedBar = {
-        ...updatedSelectedBar,
-        showsMatch: updatedSelectedBar.matches?.length > 0 ? true : false,
-      };
-      setUpdatedCurrentBars((prevBars) => [...prevBars, newUpdatedSelectedBar]);
-    }
-  }
 
   function handleDeleteBar(id) {
     const updatedBars = places.map((bar) => {
@@ -116,12 +88,11 @@ export default function MatchDetails({
         ))}
       </List>
       <h4 id="match-details-form">Eine Bar in deiner Nähe zeigt das Spiel?</h4>
-      <BarSearchBox places={places} setPlaces={setPlaces} />
-      {/* <MatchDetailsForm
-        bars={bars}
-        onSubmit={handleSubmit}
+      <BarSearchBox
+        places={places}
+        setPlaces={setPlaces}
         currentMatch={currentMatch}
-      /> */}
+      />
       <AppFooter />
     </>
   );
