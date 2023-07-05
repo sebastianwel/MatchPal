@@ -114,13 +114,13 @@ export default function MatchDetails({
           </Fragment>
         ))}
       </List>
+      <h4 id="match-details-form">Eine Bar in deiner Nähe zeigt das Spiel?</h4>
       <BarSearchBox places={places} setPlaces={setPlaces} />
-      <h4 id="match-details-form">Du weißt wo es läuft?</h4>
-      <MatchDetailsForm
+      {/* <MatchDetailsForm
         bars={bars}
         onSubmit={handleSubmit}
         currentMatch={currentMatch}
-      />
+      /> */}
       <AppFooter />
     </>
   );

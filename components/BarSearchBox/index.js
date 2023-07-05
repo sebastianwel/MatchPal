@@ -119,11 +119,6 @@ export default function BarSearchBox({ places, setPlaces }) {
 
   return (
     <>
-      <div>
-        <label htmlFor="barSearch">
-          Eine Bar in deiner nähe zeigt das Spiel?
-        </label>
-      </div>
       <DropdownContainer>
         <DropdownButton id="barSearch" onClick={handleToggleOpen}>
           Wähle die Bar
