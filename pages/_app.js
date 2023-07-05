@@ -68,10 +68,28 @@ export default function App({ Component, pageProps }) {
     setPlaces([...updatedBars]);
   }
 
+  function handleDeleteMatch(matchId) {
+    const updatedPlaces = places.map((place) => {
+      if (place.matches.includes(matchId)) {
+        const updatedBar = { ...place };
+        const updatedMatches = updatedBar.matches.filter(
+          (match) => match !== matchId
+        );
+        const showsMatch = updatedMatches.length > 0;
+        updatedBar.matches = updatedMatches;
+        updatedBar.showsMatch = showsMatch;
+        return updatedBar;
+      }
+      return place;
+    });
+    setPlaces(updatedPlaces);
+  }
+
   function handleDateSelect(date) {
     setSelectedDate(date);
   }
 
+  console.log("extendedBarsWithMatchesOnDate", extendedBarsWithMatches);
   return (
     <>
       <GlobalStyle />
@@ -96,6 +114,7 @@ export default function App({ Component, pageProps }) {
           today={new Date()}
           places={places}
           setPlaces={setPlaces}
+          handleDeleteMatch={handleDeleteMatch}
         />
       </LoadScript>
     </>

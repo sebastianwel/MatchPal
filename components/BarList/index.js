@@ -11,8 +11,11 @@ export default function BarList({
     <List>
       {barsWithMatchesOnDate.length > 0 ? (
         barsWithMatchesOnDate?.map((barWithMatch, index) => (
-          <CardLink key={barWithMatch.id} href={`/bars/${barWithMatch.id}`}>
-            <BarCard key={barWithMatch.id} barWithMatch={barWithMatch} />
+          <CardLink
+            key={barWithMatch.id}
+            href={`/bars/${barWithMatch.place_id}`}
+          >
+            <BarCard key={barWithMatch.place_id} barWithMatch={barWithMatch} />
           </CardLink>
         ))
       ) : selectedDate.getDate() < today.getDate() ? (
