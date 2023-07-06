@@ -17,8 +17,11 @@ export function Map({ barsWithMatchesOnDate }) {
   const router = useRouter();
 
   const locations = barsWithMatchesOnDate.map((bar) => ({
-    id: bar.id,
-    coordinates: bar.location,
+    id: bar.place_id,
+    coordinates: {
+      longitude: bar.geometry.longitude,
+      latitude: bar.geometry.latitude,
+    },
     name: bar.name,
     showsMatch: bar.matches.length > 0 ? true : false,
   }));
@@ -65,10 +68,9 @@ export function Map({ barsWithMatchesOnDate }) {
     setShowInfoWindow(false);
   }
 
-  const center = {
-    lat: 53.551086,
-    lng: 9.993682,
-  };
+  const center = userLocation
+    ? { lat: userLocation?.latitude, lng: userLocation?.longitude }
+    : null;
 
   const mapOptions = {
     mapId: "f857c239af13152a",

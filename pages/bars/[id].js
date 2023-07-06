@@ -22,12 +22,7 @@ export default function BarDetails({ matches, setPlaces, places }) {
   const [updatedBar, setUpdatedBar] = useState(currentBar);
 
   useEffect(() => {
-    const currentBar = places
-      ? places.find((bar) => bar.id === parseInt(id))
-      : null;
-
     setUpdatedMatches(matches);
-    setUpdatedBar(currentBar);
   }, [id]);
 
   function handleSubmit(event) {
@@ -56,14 +51,6 @@ export default function BarDetails({ matches, setPlaces, places }) {
       prevUpdatedMatches.filter((match) => match.id !== matchId)
     );
 
-    setUpdatedBar((prevCurrentBar) => {
-      const updatedMatches = prevCurrentBar?.matches.filter(
-        (match) => match.id !== matchId
-      );
-      const showsMatch = updatedMatches?.length > 0;
-      return { ...prevCurrentBar, matches: updatedMatches, showsMatch };
-    });
-
     const updatedPlaces = places.map((place) => {
       if (place.place_id === currentBar.place_id) {
         const matches = place.matches.filter((match) => match !== matchId);
@@ -74,6 +61,9 @@ export default function BarDetails({ matches, setPlaces, places }) {
     });
 
     setPlaces(updatedPlaces);
+    setUpdatedBar(
+      updatedPlaces.find((place) => place.place_id === currentBar.place_id)
+    );
   }
 
   const isCurrentSection = currentBar
@@ -86,7 +76,7 @@ export default function BarDetails({ matches, setPlaces, places }) {
     <>
       <AppHeader />
       <Button onClick={() => router.push("/bars")}>←</Button>
-      <Headline>{currentBar?.name}</Headline>
+      <Headline>{updatedBar?.name}</Headline>
       <SiteSectionTabs>
         <SiteSection isCurrentSection={isCurrentSection}>
           Anstehende Spiele
