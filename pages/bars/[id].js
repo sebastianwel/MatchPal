@@ -11,34 +11,19 @@ import BarDetailsForm from "../../components/BarDetailsForm";
 import { DeleteButton } from "../../components/DeleteButton";
 import { Fragment } from "react";
 
-export default function BarDetails({ bars, matches, onDeleteBarOrMatch }) {
+export default function BarDetails({ matches, setPlaces, places }) {
   const router = useRouter();
   const { id } = router.query;
+  const [updatedMatches, setUpdatedMatches] = useState([]);
 
   //find current Bar by using the router-id
-  const currentBar = bars ? bars.find((bar) => bar.id === parseInt(id)) : null;
+  const currentBar = places ? places.find((bar) => bar.place_id === id) : null;
 
-  //create an array containing only the match-ids to search for the match-ids in the matches-array and filter those matches
-  const currentMatchIds = currentBar?.matches.map((match) => match);
-
-  const [updatedMatches, setUpdatedMatches] = useState(
-    matches?.filter((match) => currentMatchIds?.includes(match.id))
-  );
   const [updatedBar, setUpdatedBar] = useState(currentBar);
 
   useEffect(() => {
-    const currentBar = bars
-      ? bars.find((bar) => bar.id === parseInt(id))
-      : null;
-    const currentMatchIds = currentBar?.matches.map((match) => match);
-
-    const filteredMatches = matches?.filter((match) =>
-      currentMatchIds?.includes(match.id)
-    );
-
-    setUpdatedMatches(filteredMatches);
-    setUpdatedBar(currentBar);
-  }, [bars, matches, id]);
+    setUpdatedMatches(matches);
+  }, [id]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -66,16 +51,19 @@ export default function BarDetails({ bars, matches, onDeleteBarOrMatch }) {
       prevUpdatedMatches.filter((match) => match.id !== matchId)
     );
 
-    const updatedBars = bars.map((bar) => {
-      if (bar.id === currentBar.id) {
-        const matches = bar.matches.filter((match) => match !== matchId);
-        const showsMatch = !bar.matches.length >= 1 ? true : false;
-        return { ...bar, matches, showsMatch };
+    const updatedPlaces = places.map((place) => {
+      if (place.place_id === currentBar.place_id) {
+        const matches = place.matches.filter((match) => match !== matchId);
+        const showsMatch = matches.length > 0;
+        return { ...place, matches, showsMatch };
       }
-      return bar;
+      return place;
     });
 
-    onDeleteBarOrMatch(updatedBars);
+    setPlaces(updatedPlaces);
+    setUpdatedBar(
+      updatedPlaces.find((place) => place.place_id === currentBar.place_id)
+    );
   }
 
   const isCurrentSection = currentBar

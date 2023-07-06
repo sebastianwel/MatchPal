@@ -8,8 +8,10 @@ export default function ReviewEditForm({
   onCancelEdit,
 }) {
   const [editedRating, setEditedRating] = useState(review?.rating || 0);
-  const [editedComment, setEditedComment] = useState(review?.comment || "");
-  const [editedUsername, setEditedUsername] = useState(review?.username || "");
+  const [editedComment, setEditedComment] = useState(review?.text || "");
+  const [editedUsername, setEditedUsername] = useState(
+    review?.author_name || ""
+  );
 
   function handleStarRating(value) {
     setEditedRating(value);
@@ -28,9 +30,9 @@ export default function ReviewEditForm({
 
     const updatedReview = {
       ...review,
-      username: editedUsername,
+      author_name: editedUsername,
       rating: editedRating,
-      comment: editedComment,
+      text: editedComment,
     };
     onUpdateReview(updatedReview);
   }
@@ -43,7 +45,7 @@ export default function ReviewEditForm({
           <label htmlFor="name">Name:</label>
           <input
             id="name"
-            name="username"
+            name="author_name"
             value={editedUsername}
             onChange={handleUsernameChange}
           />
@@ -63,7 +65,7 @@ export default function ReviewEditForm({
             cols={50}
             maxLength={100}
             id="comment"
-            name="comment"
+            name="text"
             value={editedComment}
             onChange={handleCommentChange}
           />

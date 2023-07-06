@@ -4,14 +4,19 @@ import AppHeader from "../../components/AppHeader/";
 import AppFooter from "../../components/AppFooter/";
 import SelectedMatch from "../../components/SelectedMatch";
 import { useState, useEffect } from "react";
-import MatchDetailsForm from "../../components/MatchDetailsForm";
 import { Button } from "../../components/BackButton/BackButton";
 import { Headline } from "../../components/Headline/Headline";
 import { CardLink } from "../../components/CardLink";
 import { DeleteButton } from "../../components/DeleteButton";
-import { Fragment } from "react";
+import BarSearchBox from "../../components/BarSearchBox";
 
-export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
+export default function MatchDetails({
+  matches,
+  bars,
+  onDeleteBarOrMatch,
+  places,
+  setPlaces,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -20,45 +25,18 @@ export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
 
   //filter the bars, which contain the id of the current match
   const currentBars = bars.filter((bar) =>
-    bar.matches?.includes(currentMatch?.id)
+    bar.matches.some((match) => match.id === parseInt(currentMatch.id))
   );
 
   const [updatedCurrentBars, setUpdatedCurrentBars] = useState(currentBars);
 
   useEffect(() => {
-    setUpdatedCurrentBars(
-      bars?.filter((bar) => bar.matches?.includes(currentMatch?.id))
-    );
+    setUpdatedCurrentBars(currentBars);
   }, [bars, currentMatch]);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    const formData = Object.fromEntries(data);
-
-    const selectedBar = bars.find(
-      (bar) => bar.id === parseInt(formData.newBarId)
-    );
-    const isBarAlreadyAdded = updatedCurrentBars?.some(
-      (bar) => bar.id === selectedBar.id
-    );
-
-    //check wheter the current list already contains the bar
-    if (selectedBar && !isBarAlreadyAdded) {
-      const updatedSelectedBar = { ...selectedBar };
-      updatedSelectedBar.matches.push(parseInt(currentMatch.id));
-
-      const newUpdatedSelectedBar = {
-        ...updatedSelectedBar,
-        showsMatch: updatedSelectedBar.matches?.length > 0 ? true : false,
-      };
-      setUpdatedCurrentBars((prevBars) => [...prevBars, newUpdatedSelectedBar]);
-    }
-  }
-
   function handleDeleteBar(id) {
-    const updatedBars = bars.map((bar) => {
-      if (bar.id === id) {
+    const updatedBars = places.map((bar) => {
+      if (bar.place_id === id) {
         const matches = bar.matches.filter(
           (match) => match !== parseInt(currentMatch.id)
         );
@@ -97,20 +75,20 @@ export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
       )}
       <List>
         {updatedCurrentBars?.map((bar, index) => (
-          <Fragment key={`${bar.id}-${index}`}>
-            <Delete onClick={() => handleDeleteBar(bar.id)}>x</Delete>
-            <CardLink href={`/bars/${bar.id}`} key={bar.id}>
-              <ListItem key={bar.id}>
+          <OuterCard key={`${bar.place_id}-${index}`}>
+            <Delete onClick={() => handleDeleteBar(bar.place_id)}>x</Delete>
+            <CardLink href={`/bars/${bar.place_id}`} key={bar.place_id}>
+              <ListItem key={bar.place_id}>
                 {bar.name} <p>{">"}</p>
               </ListItem>
             </CardLink>
-          </Fragment>
+          </OuterCard>
         ))}
       </List>
-      <h4 id="match-details-form">Du weißt wo es läuft?</h4>
-      <MatchDetailsForm
-        bars={bars}
-        onSubmit={handleSubmit}
+      <h4 id="match-details-form">Eine Bar in deiner Nähe zeigt das Spiel?</h4>
+      <BarSearchBox
+        places={places}
+        setPlaces={setPlaces}
         currentMatch={currentMatch}
       />
       <AppFooter />
@@ -120,6 +98,10 @@ export default function MatchDetails({ matches, bars, onDeleteBarOrMatch }) {
 
 const List = styled.ul`
   padding-left: 0px;
+  position: relative;
+`;
+
+const OuterCard = styled.div`
   position: relative;
 `;
 

@@ -4,30 +4,28 @@ import { matches } from "../lib/mock-data/matches";
 import { teams } from "../lib/mock-data/teams";
 import { bars } from "../lib/mock-data/bars";
 import { barsInMatches } from "../lib/mock-data/barsInMatches";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
-import DateFilter from "../components/DateFilter";
+
+const libraries = ["places"];
 
 export default function App({ Component, pageProps }) {
+  const [places, setPlaces] = useState([]);
+
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const formattedSelectedDate = selectedDate.toISOString().split("T")[0];
 
   // extended the bars-array with the key "barShowsMatch" to make it usable for the bars-list
-  const extendedBars = bars.map((bar) => {
-    const showsMatch = barsInMatches.some(
-      (barInMatches) =>
-        barInMatches.gameIds.length > 0 && barInMatches.barId === bar.id
-    );
+  const extendedBars = places.map((bar) => {
+    const showsMatch = bar.matches?.length > 0;
     return {
       ...bar,
       showsMatch,
-      matches: barsInMatches.find((match) => bar.id === match.barId).gameIds,
     };
   });
 
-  const [updatedBars, setUpdatedBars] = useState(extendedBars);
-  const barsWithMatches = updatedBars.filter((bar) => bar.matches.length > 0);
+  const barsWithMatches = extendedBars.filter((bar) => bar.matches.length > 0);
 
   const filteredMatchesByDate = matches.filter(
     (match) => match.date === formattedSelectedDate
@@ -49,12 +47,13 @@ export default function App({ Component, pageProps }) {
     ...bar,
     matches: matchesWithTeamNames
       .filter((match) => bar.matches.includes(match.id))
-      .map((team) => ({
+      .map((match) => ({
+        id: match.id,
         date: matchesWithTeamNames.find((match) =>
           bar.matches.includes(match.id)
         ).date,
-        homeTeam: team.homeTeam,
-        awayTeam: team.awayTeam,
+        homeTeam: match.homeTeam,
+        awayTeam: match.awayTeam,
       })),
   }));
 
@@ -63,7 +62,24 @@ export default function App({ Component, pageProps }) {
   );
 
   function handleDeleteBarOrMatch(updatedBars) {
-    setUpdatedBars([...updatedBars]);
+    setPlaces([...updatedBars]);
+  }
+
+  function handleDeleteMatch(matchId) {
+    const updatedPlaces = places.map((place) => {
+      if (place.matches.includes(matchId)) {
+        const updatedBar = { ...place };
+        const updatedMatches = updatedBar.matches.filter(
+          (match) => match !== matchId
+        );
+        const showsMatch = updatedMatches.length > 0;
+        updatedBar.matches = updatedMatches;
+        updatedBar.showsMatch = showsMatch;
+        return updatedBar;
+      }
+      return place;
+    });
+    setPlaces(updatedPlaces);
   }
 
   function handleDateSelect(date) {
@@ -79,11 +95,12 @@ export default function App({ Component, pageProps }) {
       </Head>
       <LoadScript
         googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+        libraries={libraries}
       >
         <Component
           {...pageProps}
           matches={matchesWithTeamNames}
-          bars={updatedBars}
+          bars={extendedBarsWithMatches}
           barsInMatches={barsInMatches}
           onDeleteBarOrMatch={handleDeleteBarOrMatch}
           initialBars={bars}
@@ -91,6 +108,9 @@ export default function App({ Component, pageProps }) {
           selectedDate={selectedDate}
           handleDateSelect={handleDateSelect}
           today={new Date()}
+          places={places}
+          setPlaces={setPlaces}
+          handleDeleteMatch={handleDeleteMatch}
         />
       </LoadScript>
     </>

@@ -20,9 +20,10 @@ export default function ReviewForm({ onAddReview }) {
 
     const newReview = {
       id: uid(),
-      username: formDataWithRating.username,
-      comment: formDataWithRating.comment,
+      author_name: formDataWithRating.author_name,
+      text: formDataWithRating.text,
       rating: formDataWithRating.rating,
+      isDeleteAble: true,
     };
 
     onAddReview(newReview);
@@ -33,7 +34,7 @@ export default function ReviewForm({ onAddReview }) {
   return (
     <Form onSubmit={handleSubmit}>
       <label htmlFor="name">Name:</label>
-      <input id="name" name="username" />
+      <input id="name" name="author_name" />
       <label htmlFor="rating">Bewertung:</label>
       <StarContainer>
         {ratingPossibilities.map((value, index) => (
@@ -45,13 +46,7 @@ export default function ReviewForm({ onAddReview }) {
         ))}
       </StarContainer>
       <label htmlFor="comment">Kommentar:</label>
-      <textarea
-        rows={4}
-        cols={50}
-        maxLength={100}
-        id="comment"
-        name="comment"
-      />
+      <textarea rows={4} cols={50} maxLength={100} id="comment" name="text" />
       <button type="submit">Submit</button>
     </Form>
   );
