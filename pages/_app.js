@@ -4,9 +4,8 @@ import { matches } from "../lib/mock-data/matches";
 import { teams } from "../lib/mock-data/teams";
 import { bars } from "../lib/mock-data/bars";
 import { barsInMatches } from "../lib/mock-data/barsInMatches";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
-import DateFilter from "../components/DateFilter";
 
 const libraries = ["places"];
 
@@ -25,8 +24,6 @@ export default function App({ Component, pageProps }) {
       showsMatch,
     };
   });
-
-  const [updatedBars, setUpdatedBars] = useState(extendedBars);
 
   const barsWithMatches = extendedBars.filter((bar) => bar.matches.length > 0);
 

@@ -140,27 +140,3 @@ export default function BarSearchBox({
     </>
   );
 }
-
-const DropdownContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  max-width: 200px;
-  border-radius: 5px;
-  background-color: #efefef;
-  border: 0.5px solid;
-  font-size: small;
-`;
-
-const Dropdown = styled.div`
-  max-height: 150px;
-  overflow-y: auto;
-  background-color: #efefef;
-`;
-
-const DropdownButton = styled.button`
-  background: none;
-  border: none;
-  height: 20px;
-`;

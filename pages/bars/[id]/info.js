@@ -61,17 +61,3 @@ const Infos = styled.section`
   margin: 10px;
   margin-bottom: 50px;
 `;
-
-const Specialities = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const Speciality = styled.div`
-  border: 1px solid;
-  border-radius: 10px;
-  margin: 10px;
-  align-self: center;
-  text-align: center;
-`;
