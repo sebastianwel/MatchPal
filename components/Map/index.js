@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import styled from "styled-components";
 import { MatchPreview } from "../MatchPreview/MatchPreview";
-import { Logo } from "../MatchCard";
+import { Logo } from "../Logo";
 import { useRouter } from "next/router";
 
 const containerStyle = {

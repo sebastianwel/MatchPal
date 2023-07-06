@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Logo } from "../Logo";
 
 export default function MatchCard({
   id,
@@ -25,10 +26,9 @@ export default function MatchCard({
       </div>
       <ArrowAndTime>
         <TimeAndDateContainer>
-          <p style={{ marginBottom: 0 }}>{date}</p>
-          <p style={{ marginTop: 0 }}>{time}</p>
+          <TimeOrDate>{date}</TimeOrDate>
+          <TimeOrDate>{time}</TimeOrDate>
         </TimeAndDateContainer>
-        <p>{">"}</p>
       </ArrowAndTime>
     </ListItem>
   );
@@ -38,10 +38,16 @@ const ListItem = styled.li`
   list-style: none;
   display: flex;
   justify-content: space-around;
-  margin: 5px;
-  border: 1px solid;
+  width: 93%;
+  margin: auto;
   border-radius: 10px;
   position: relative;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 5px;
+  transition: transform 0.3s ease;
+  overflow: none;
+  background-color: #fff;
+  color: var(--text-color);
 `;
 
 const TeamContainer = styled.div`
@@ -56,18 +62,13 @@ const ArrowAndTime = styled.div`
   gap: 15px;
 `;
 
+const TimeOrDate = styled.p`
+  margin: 2px;
+`;
+
 const TimeAndDateContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   align-self: center;
-`;
-
-export const Logo = styled.div`
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  border-radius: 100%;
-  margin: 0px;
-  background-color: ${({ logoColor }) => logoColor};
 `;

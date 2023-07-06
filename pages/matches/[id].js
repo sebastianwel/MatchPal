@@ -55,7 +55,6 @@ export default function MatchDetails({
   return (
     <>
       <AppHeader />
-      <Button onClick={() => router.push("/")}>←</Button>
       {currentMatch ? (
         <SelectedMatch
           date={currentMatch.date}
@@ -66,7 +65,7 @@ export default function MatchDetails({
           awayTeamLogoColor={currentMatch.awayTeam.logoColor}
         />
       ) : (
-        <h2>loading</h2>
+        <p>loading...</p>
       )}
       {updatedCurrentBars?.length === 0 ? (
         <Headline>Aktuell zeigt keine Bar das Spiel!</Headline>
@@ -78,14 +77,12 @@ export default function MatchDetails({
           <OuterCard key={`${bar.place_id}-${index}`}>
             <Delete onClick={() => handleDeleteBar(bar.place_id)}>x</Delete>
             <CardLink href={`/bars/${bar.place_id}`} key={bar.place_id}>
-              <ListItem key={bar.place_id}>
-                {bar.name} <p>{">"}</p>
-              </ListItem>
+              <ListItem key={bar.place_id}>{bar.name}</ListItem>
             </CardLink>
           </OuterCard>
         ))}
       </List>
-      <h4 id="match-details-form">Eine Bar in deiner Nähe zeigt das Spiel?</h4>
+      <Headline id="match-details-form">Bei dir in der Nähe läufts?</Headline>
       <BarSearchBox
         places={places}
         setPlaces={setPlaces}
@@ -110,11 +107,18 @@ const ListItem = styled.li`
   justify-content: space-between;
   align-items: center;
   list-style: none;
-  border: 1px solid;
+  width: 93%;
+  height: 70px;
+  margin: auto;
+  margin-top: 10px;
   border-radius: 10px;
-  margin: 10px;
-  margin-right: 10px;
-  padding: 10px;
+  position: relative;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 5px;
+  transition: transform 0.3s ease;
+  overflow: none;
+  background-color: #fff;
+  color: var(--text-color);
 `;
 
 const Delete = styled(DeleteButton)`

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Logo } from "../MatchCard";
+import { Logo } from "../Logo";
 import { MatchPreview } from "../MatchPreview/MatchPreview";
 
 export default function BarCard({ barWithMatch }) {

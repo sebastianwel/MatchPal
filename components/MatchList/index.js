@@ -5,8 +5,7 @@ import Link from "next/link";
 export default function MatchList({ matches, selectedDate, today }) {
   return (
     <>
-      <h1 style={{ marginTop: 55 }}>Match Overview</h1>
-      <MatchUl style={{ marginBottom: 55 }}>
+      <Matches>
         {matches.length > 0 ? (
           matches.map(({ id, homeTeam, awayTeam, date, time }, index) => (
             <Link
@@ -32,11 +31,12 @@ export default function MatchList({ matches, selectedDate, today }) {
             leider keine Spiele an.
           </p>
         )}
-      </MatchUl>
+      </Matches>
     </>
   );
 }
 
-const MatchUl = styled.ul`
+const Matches = styled.ul`
+  margin-bottom: 55px;
   padding: 0;
 `;
