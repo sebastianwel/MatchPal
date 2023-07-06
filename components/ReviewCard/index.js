@@ -7,7 +7,7 @@ export default function ReviewCard({
   onEditReview,
   canDeleteReview,
 }) {
-  const { id, username, rating, comment } = review;
+  const { id, author_name, rating, text } = review;
 
   const renderReviewStars = (filledStars) => {
     const stars = [];
@@ -23,9 +23,9 @@ export default function ReviewCard({
   return (
     <li>
       <ReviewCardContainer>
-        <p>{username}</p>
+        <p>{author_name}</p>
         <div>{renderReviewStars(rating)}</div>
-        <p>{comment}</p>
+        <p>{text}</p>
         {canDeleteReview ? (
           <>
             <DeleteButton type="button" onClick={() => onDeleteReview(id)}>

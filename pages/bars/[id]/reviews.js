@@ -10,11 +10,11 @@ import ReviewForm from "../../../components/ReviewForm";
 import { useState, useEffect } from "react";
 import ReviewEditModal from "../../../components/ReviewEditModal";
 
-export default function BarsDetailsReviews({ bars }) {
+export default function BarsDetailsReviews({ places }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const currentBar = bars.find((bar) => bar.id === parseInt(id));
+  const currentBar = places ? places.find((bar) => bar.place_id === id) : null;
 
   const isCurrentSection =
     router.pathname === `/bars/[id]/reviews` ? true : false;
@@ -67,7 +67,7 @@ export default function BarsDetailsReviews({ bars }) {
         <SiteSection isCurrentSection={isCurrentSection}>Reviews</SiteSection>
       </SiteSectionTabs>
       <ReviewsList
-        bars={bars}
+        bars={places}
         currentBar={currentBar}
         reviews={reviews}
         onDeleteReview={handleDeleteReview}

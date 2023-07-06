@@ -1,28 +1,19 @@
 import styled from "styled-components";
 import ReviewCard from "../ReviewCard";
 
-export default function ReviewsList({
-  bars,
-  currentBar,
-  reviews,
-  onDeleteReview,
-  onEditReview,
-}) {
+export default function ReviewsList({ reviews, onDeleteReview, onEditReview }) {
+  const canDeleteReview = (review) => review.isDeleteAble;
   return (
     <ReviewsContainer>
       <h4>So gefiel es anderen Nutzern:</h4>
       <Reviews>
         {reviews.map((review) => (
           <ReviewCard
-            key={review.id}
+            key={review.author_url}
             review={review}
             onDeleteReview={onDeleteReview}
             onEditReview={onEditReview}
-            canDeleteReview={
-              !bars
-                .find((bar) => bar.id === currentBar.id)
-                .reviews.includes(review)
-            } //created the logic for only deleting reviews you added by yourself
+            canDeleteReview={canDeleteReview(review)} //created the logic for only deleting reviews you added by yourself
           />
         ))}
       </Reviews>
