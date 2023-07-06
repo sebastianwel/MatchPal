@@ -12,7 +12,7 @@ export default function BarList({
       {barsWithMatchesOnDate.length > 0 ? (
         barsWithMatchesOnDate?.map((barWithMatch, index) => (
           <CardLink
-            key={barWithMatch.id}
+            key={`${barWithMatch.id}-${index}`}
             href={`/bars/${barWithMatch.place_id}`}
           >
             <BarCard key={barWithMatch.place_id} barWithMatch={barWithMatch} />
