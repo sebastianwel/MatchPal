@@ -14,14 +14,31 @@ export default function BarSearchBox({
 
   const [suggestedPlaces, setSuggestedPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [radius, setRadius] = useState(1000);
+  const [showRange, setShowRange] = useState(false);
+  const [userLocation, setUserLocation] = useState();
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        searchNearbyBars(latitude, longitude);
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation({ latitude, longitude });
+          searchNearbyBars(latitude, longitude);
+        },
+        (error) => {
+          console.error("Error retrieving user's location", error);
+        }
+      );
     }
+
+    const loadingTimeout = setTimeout(() => {
+      setShowRange(true);
+    }, 5000);
+
+    return () => {
+      clearTimeout(loadingTimeout);
+    };
   }, []);
 
   function searchNearbyBars(latitude, longitude) {
@@ -40,7 +57,7 @@ export default function BarSearchBox({
         lat: latitude,
         lng: longitude,
       },
-      radius: 1000,
+      radius: radius,
       type: ["bar", "establishment"],
       keyword: ["bar"],
     };
@@ -118,11 +135,33 @@ export default function BarSearchBox({
     }
   }
 
+  function handleRadiusIncrease(value) {
+    setRadius(value);
+    searchNearbyBars(userLocation.latitude, userLocation.longitude);
+  }
   return (
     <>
-      {isLoading ? (
-        <p>Vorschläge werden geladen...</p>
-      ) : (
+      {showRange && !isLoading && suggestedPlaces.length === 0 ? (
+        <RadiusChanger>
+          <label htmlFor="radius">
+            Leider wurden keine Bars in deiner Nähe gefunden, erhöhe bitte den
+            Suchradius:
+          </label>
+          <input
+            type="range"
+            id="radius"
+            value={radius}
+            min={0}
+            max={50000}
+            step={1000}
+            onChange={(event) => handleRadiusIncrease(event.target.value)}
+          />
+          <p>{radius}m</p>
+        </RadiusChanger>
+      ) : null}
+      {isLoading && !showRange ? <p>Vorschläge werden geladen...</p> : null}
+
+      {!isLoading ? (
         <MatchDetailsForm
           bars={suggestedPlaces}
           onSubmit={handleSubmit}
@@ -131,7 +170,12 @@ export default function BarSearchBox({
           onSelectSuggestedPlace={handleSelectSuggestedPlace}
           setPlaces={setPlaces}
         />
-      )}
+      ) : null}
     </>
   );
 }
+
+const RadiusChanger = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
