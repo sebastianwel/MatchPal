@@ -72,8 +72,6 @@ export default function BarDetails({ matches, setPlaces, places }) {
       : false
     : null;
 
-  console.log(updatedBar);
-
   return (
     <>
       <AppHeader />
