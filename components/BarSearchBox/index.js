@@ -14,11 +14,6 @@ export default function BarSearchBox({
 
   const [suggestedPlaces, setSuggestedPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
-
-  function handleToggleOpen() {
-    setIsOpen(!isOpen);
-  }
 
   useEffect(() => {
     if (navigator.geolocation) {

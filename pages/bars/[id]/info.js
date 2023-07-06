@@ -40,9 +40,13 @@ export default function BarsDetailsInfo({ places }) {
             <p>Adresse: {currentBar.vicinity}</p>
             <p>Telefon: {currentBar.formatted_phone_number}</p>
             <h4>Öffnungszeiten</h4>
-            {currentBar.opening_hours.weekday_text.map((day) => (
-              <p key={day}>{day}</p>
-            ))}
+            {currentBar.opening_hours ? (
+              currentBar.opening_hours.weekday_text.map((day) => (
+                <p key={day}>{day}</p>
+              ))
+            ) : (
+              <p>Daten nicht vorhanden</p>
+            )}
             <h4>Preisniveau</h4>
             {currentBar.price_leve ? (
               <p>{currentBar.price_level}</p>
