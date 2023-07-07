@@ -80,7 +80,7 @@ export default function BarDetails({ matches, setPlaces, places }) {
 
       <SelectedBarContainer>
         <Button onClick={() => router.push("/bars")}>←</Button>
-        <Headline>{updatedBar?.name}</Headline>
+        <CenteredHeadline>{updatedBar?.name}</CenteredHeadline>
         <SiteSectionTabs>
           <SiteSection isCurrentSection={isCurrentSection}>
             Anstehende Spiele
@@ -157,4 +157,9 @@ const List = styled.ul`
 
 const CardContainer = styled.div`
   position: relative;
+`;
+
+const CenteredHeadline = styled(Headline)`
+  text-align: center;
+  margin: 10px;
 `;
