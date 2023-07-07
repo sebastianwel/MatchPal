@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import lottie from "lottie-web";
-import AnimationData from "../Lotties/MapLoader.json";
+import AnimationData from "../Lotties/BarLoaderAnimation.json";
+import styled from "styled-components";
 
 function LottieAnimation() {
   const containerRef = useRef(null);
@@ -19,7 +20,13 @@ function LottieAnimation() {
     };
   }, []);
 
-  return <div ref={containerRef}></div>;
+  return <Lottie ref={containerRef}></Lottie>;
 }
+
+const Lottie = styled.div`
+  height: 100px;
+  width: 100px;
+  margin: auto;
+`;
 
 export default LottieAnimation;

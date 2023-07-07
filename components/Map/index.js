@@ -79,8 +79,6 @@ export function Map({ barsWithMatchesOnDate }) {
     center: center,
   };
 
-  console.log(activeMarker);
-
   return (
     <>
       {userLocation && (

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import MatchDetailsForm from "../MatchDetailsForm";
 import { Paragraph } from "../Paragraph";
+import LottieAnimation from "../../assets/Lotties/LottieAnimation";
 
 export default function BarSearchBox({
   places,
@@ -141,7 +142,7 @@ export default function BarSearchBox({
     searchNearbyBars(userLocation.latitude, userLocation.longitude);
   }
   return (
-    <>
+    <BarSearchBoxContainer>
       {showRange && isLoading && suggestedPlaces.length === 0 ? (
         <>
           <Paragraph>
@@ -164,7 +165,10 @@ export default function BarSearchBox({
         </>
       ) : null}
       {isLoading && !showRange ? (
-        <Paragraph>Vorschläge werden geladen...</Paragraph>
+        <>
+          <LottieAnimation />
+          <Paragraph>Vorschläge werden geladen...</Paragraph>
+        </>
       ) : null}
 
       {!isLoading ? (
@@ -177,9 +181,13 @@ export default function BarSearchBox({
           setPlaces={setPlaces}
         />
       ) : null}
-    </>
+    </BarSearchBoxContainer>
   );
 }
+
+const BarSearchBoxContainer = styled.div`
+  margin-bottom: 75px;
+`;
 
 const RadiusChanger = styled.div`
   display: flex;

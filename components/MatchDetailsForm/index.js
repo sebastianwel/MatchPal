@@ -73,6 +73,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   margin: 10px;
-  margin-bottom: 55px;
+  margin-bottom: 65px;
   gap: 10px;
 `;
