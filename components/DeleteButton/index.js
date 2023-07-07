@@ -8,5 +8,5 @@ export const DeleteButton = styled.button`
   border: none;
   height: 20px;
   width: 20px;
-  z-index: 99;
+  z-index: 10;
 `;

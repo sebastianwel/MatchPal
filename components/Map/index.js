@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import styled from "styled-components";
 import { MatchPreview } from "../MatchPreview/MatchPreview";
-import Logo from "../Logo";
+import { Logo } from "../Logo";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const containerStyle = {
   marginTop: "47px",
@@ -74,11 +75,11 @@ export function Map({ barsWithMatchesOnDate }) {
 
   const mapOptions = {
     mapId: "f857c239af13152a",
-    zoom: 12,
+    zoom: 14,
     center: center,
   };
 
-  console.log(userLocation);
+  console.log(activeMarker);
 
   return (
     <>
@@ -86,22 +87,20 @@ export function Map({ barsWithMatchesOnDate }) {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={12}
           onClick={handleMapClick}
           apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
           options={mapOptions}
         >
-          {userLocation && (
-            <Marker
-              position={{
-                lat: userLocation.latitude,
-                lng: userLocation.longitude,
-              }}
-              icon={{
-                url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-              }}
-            />
-          )}
+          <Marker
+            position={{
+              lat: userLocation.latitude,
+              lng: userLocation.longitude,
+            }}
+            icon={{
+              url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+            }}
+          />
+
           {locations.map((location) =>
             location.showsMatch === true ? (
               <Marker
@@ -125,13 +124,23 @@ export function Map({ barsWithMatchesOnDate }) {
               onCloseClick={() => setShowInfoWindow(false)}
             >
               <InfoContent>
-                <h3>{activeMarker.name}</h3>
+                <LinkWithoutStyle href={`/bars/${activeMarker.id}`}>
+                  {" "}
+                  <h3>{activeMarker.name}</h3>{" "}
+                </LinkWithoutStyle>
                 {activeMarkerDetails.matches.map((match, index) => (
-                  <MatchPreview key={`${match.id}-${index}`}>
-                    <Logo logoColor={match.homeTeam.logoColor} />
-                    <p>-</p>
-                    <Logo logoColor={match.awayTeam.logoColor} />
-                  </MatchPreview>
+                  <>
+                    <LinkWithoutStyle
+                      href={`/matches/${match.id}`}
+                      key={`${match.id}-${index}`}
+                    >
+                      <MatchPreview>
+                        <Logo logoColor={match.homeTeam.logoColor} />
+                        <p>-</p>
+                        <Logo logoColor={match.awayTeam.logoColor} />
+                      </MatchPreview>
+                    </LinkWithoutStyle>
+                  </>
                 ))}
               </InfoContent>
             </InfoWindow>
@@ -146,4 +155,9 @@ export default React.memo(Map);
 
 const InfoContent = styled.div`
   min-width: 100px;
+`;
+
+const LinkWithoutStyle = styled(Link)`
+  text-decoration: none;
+  color: var(--text-color);
 `;
