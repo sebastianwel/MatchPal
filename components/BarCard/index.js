@@ -27,11 +27,12 @@ const ListItem = styled.li`
   list-style: none;
   display: flex;
   width: 93%;
+  margin-top: 10px;
   margin-left: 13px;
   border-radius: 10px;
   position: relative;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-  padding: 15px;
+  padding: 5px 20px 5px 20px;
   transition: transform 0.3s ease;
   overflow: none;
   background-color: #fff;

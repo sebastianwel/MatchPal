@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import styled from "styled-components";
 import { MatchPreview } from "../MatchPreview/MatchPreview";
-import { Logo } from "../Logo";
+import Logo from "../Logo";
 import { useRouter } from "next/router";
 
 const containerStyle = {
@@ -78,9 +78,11 @@ export function Map({ barsWithMatchesOnDate }) {
     center: center,
   };
 
+  console.log(userLocation);
+
   return (
     <>
-      {mapLoaded && (
+      {userLocation && (
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
