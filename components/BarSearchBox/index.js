@@ -42,7 +42,6 @@ export default function BarSearchBox({
     };
   }, []);
 
-  console.log(radius);
   function searchNearbyBars(latitude, longitude) {
     if (
       !window.google ||

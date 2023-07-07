@@ -43,7 +43,6 @@ const ListItem = styled.li`
   border-radius: 10px;
   position: relative;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-  padding: 5px;
   transition: transform 0.3s ease;
   overflow: none;
   background-color: #fff;

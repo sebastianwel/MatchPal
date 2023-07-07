@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import BarCard from "../BarCard";
 import { CardLink } from "../CardLink";
+import { Paragraph } from "../Paragraph";
 
 export default function BarList({
   barsWithMatchesOnDate,
@@ -19,19 +20,19 @@ export default function BarList({
           </CardLink>
         ))
       ) : selectedDate.getDate() < today.getDate() ? (
-        <p>
+        <Paragraph>
           Am {selectedDate.getDate()}.{selectedDate.getMonth() + 1} hat keine
           Bar ein Spiel gezeigt.
-        </p>
+        </Paragraph>
       ) : (
-        <p>
+        <Paragraph>
           {today.getDate() === selectedDate.getDate()
             ? "Heute"
             : `Am ${selectedDate.getDate()}.${
                 selectedDate.getMonth() + 1
               }`}{" "}
           werden keine Spiele gezeigt.
-        </p>
+        </Paragraph>
       )}
     </List>
   );
@@ -39,6 +40,6 @@ export default function BarList({
 
 const List = styled.ul`
   list-style: none;
-  padding-left: 0;
+  padding: 0;
   margin-bottom: 50px;
 `;

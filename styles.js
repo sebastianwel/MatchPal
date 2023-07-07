@@ -19,7 +19,7 @@ export default createGlobalStyle`
     --main-font: avenir;
     --header-color: #9300e9;
     --app-background-color: #FFF8FB;
-    --card-background-color: #fff
+    --card-background-color: #fff;
     --text-color: #283149;
     --isActive-color: #0079ff;
     --isInactive-color: #283149;

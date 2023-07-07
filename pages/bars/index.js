@@ -3,6 +3,7 @@ import AppFooter from "../../components/AppFooter";
 import BarList from "../../components/BarList";
 import styled from "styled-components";
 import DateFilter from "../../components/DateFilter";
+import { Paragraph } from "../../components/Paragraph";
 
 export default function Bars({
   barsWithMatchesOnDate,
@@ -18,7 +19,6 @@ export default function Bars({
         onDateSelect={handleDateSelect}
         today={today}
       />
-      <Headline>Bars Overview</Headline>
       <BarList
         barsWithMatchesOnDate={barsWithMatchesOnDate}
         selectedDate={selectedDate}

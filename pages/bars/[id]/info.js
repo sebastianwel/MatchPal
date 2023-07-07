@@ -5,6 +5,7 @@ import { Headline } from "../../../components/Headline/Headline";
 import { Button } from "../../../components/BackButton/BackButton";
 import { SiteSection, SiteSectionTabs } from "../[id]";
 import styled from "styled-components";
+import { SelectedBarContainer } from "../../../components/SelectedBarContainer";
 
 export default function BarsDetailsInfo({ places }) {
   const router = useRouter();
@@ -20,21 +21,27 @@ export default function BarsDetailsInfo({ places }) {
   return (
     <>
       <AppHeader />
-      <Button onClick={() => router.push("/bars")}>←</Button>
+
       {!currentBar ? (
         <p>...loading</p>
       ) : (
         <>
-          <Headline>{currentBar.name}</Headline>
-          <SiteSectionTabs>
-            <SiteSection onClick={() => router.push(`/bars/${id}`)}>
-              Anstehende Spiele
-            </SiteSection>
-            <SiteSection isCurrentSection={isCurrentSection}>Infos</SiteSection>
-            <SiteSection onClick={() => router.push(`/bars/${id}/reviews`)}>
-              Reviews
-            </SiteSection>
-          </SiteSectionTabs>
+          <SelectedBarContainer>
+            <Button onClick={() => router.push("/bars")}>←</Button>
+            <Headline>{currentBar.name}</Headline>
+            <SiteSectionTabs>
+              <SiteSection onClick={() => router.push(`/bars/${id}`)}>
+                Anstehende Spiele
+              </SiteSection>
+              <SiteSection isCurrentSection={isCurrentSection}>
+                Infos
+              </SiteSection>
+              <SiteSection onClick={() => router.push(`/bars/${id}/reviews`)}>
+                Reviews
+              </SiteSection>
+            </SiteSectionTabs>
+          </SelectedBarContainer>
+
           <Infos>
             <h4>Kontakt</h4>
             <p>Adresse: {currentBar.vicinity}</p>
@@ -61,7 +68,8 @@ export default function BarsDetailsInfo({ places }) {
   );
 }
 
-const Infos = styled.section`
-  margin: 10px;
-  margin-bottom: 50px;
+const Infos = styled(SelectedBarContainer)`
+  margin-top: 15px;
+  padding: 10px;
+  margin-bottom: 60px;
 `;

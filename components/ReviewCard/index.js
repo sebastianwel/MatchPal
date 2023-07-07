@@ -40,17 +40,17 @@ export default function ReviewCard({
 }
 
 const ReviewCardContainer = styled.div`
-  border: 1px solid;
+  border-top: 1px solid;
   margin-bottom: 10px;
   margin-top: 10px;
-  border-radius: 10px;
   padding: 5px;
   position: relative;
+  border-color: var(--text-color);
 `;
 
 const DeleteButton = styled.button`
   position: absolute;
-  top: 2px;
+  top: 5px;
   right: 2px;
   background-color: #fff;
   border: none;
@@ -58,7 +58,7 @@ const DeleteButton = styled.button`
 
 const EditButton = styled.button`
   position: absolute;
-  top: 2px;
+  top: 5px;
   right: 20px;
   background-color: #fff;
   border: none;

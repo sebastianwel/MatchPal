@@ -10,6 +10,8 @@ import { useState, useEffect } from "react";
 import BarDetailsForm from "../../components/BarDetailsForm";
 import { DeleteButton } from "../../components/DeleteButton";
 import { Fragment } from "react";
+import { Paragraph } from "../../components/Paragraph";
+import { SelectedBarContainer } from "../../components/SelectedBarContainer";
 
 export default function BarDetails({ matches, setPlaces, places }) {
   const router = useRouter();
@@ -75,24 +77,29 @@ export default function BarDetails({ matches, setPlaces, places }) {
   return (
     <>
       <AppHeader />
-      <Button onClick={() => router.push("/bars")}>←</Button>
-      <Headline>{updatedBar?.name}</Headline>
-      <SiteSectionTabs>
-        <SiteSection isCurrentSection={isCurrentSection}>
-          Anstehende Spiele
-        </SiteSection>
-        <SiteSection onClick={() => router.push(`/bars/${id}/info`)}>
-          Infos
-        </SiteSection>
-        <SiteSection onClick={() => router.push(`/bars/${id}/reviews`)}>
-          Reviews
-        </SiteSection>
-      </SiteSectionTabs>
+
+      <SelectedBarContainer>
+        <Button onClick={() => router.push("/bars")}>←</Button>
+        <Headline>{updatedBar?.name}</Headline>
+        <SiteSectionTabs>
+          <SiteSection isCurrentSection={isCurrentSection}>
+            Anstehende Spiele
+          </SiteSection>
+          <SiteSection onClick={() => router.push(`/bars/${id}/info`)}>
+            Infos
+          </SiteSection>
+          <SiteSection onClick={() => router.push(`/bars/${id}/reviews`)}>
+            Reviews
+          </SiteSection>
+        </SiteSectionTabs>
+      </SelectedBarContainer>
       <List>
         {updatedMatches.length < 1 ? (
           <>
-            <Headline>Aktuell zeigt diese Bar keine Spiele!</Headline>
-            <p>Du weißt welches Spiel gezeigt wird? Füge es hinzu:</p>
+            <Paragraph>Aktuell zeigt diese Bar keine Spiele!</Paragraph>
+            <Paragraph>
+              Du weißt welches Spiel gezeigt wird? Füge es hinzu:
+            </Paragraph>
           </>
         ) : null}
         {updatedMatches?.map((match, index) => (
@@ -134,7 +141,6 @@ export const SiteSectionTabs = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  border: 1px solid;
   margin: 10px;
 `;
 
@@ -145,6 +151,7 @@ export const SiteSection = styled.p`
 
 const List = styled.ul`
   list-style: none;
+  align-items: center;
   padding-left: 0px;
 `;
 
