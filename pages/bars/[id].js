@@ -12,20 +12,24 @@ import { DeleteButton } from "../../components/DeleteButton";
 import { Fragment } from "react";
 import { Paragraph } from "../../components/Paragraph";
 import { SelectedBarContainer } from "../../components/SelectedBarContainer";
+import SureToDeleteModal from "../../components/SureToDeleteButton";
 
 export default function BarDetails({ matches, setPlaces, places }) {
   const router = useRouter();
   const { id } = router.query;
-  const [updatedMatches, setUpdatedMatches] = useState([]);
+  const [updatedMatches, setUpdatedMatches] = useState(matches);
 
   //find current Bar by using the router-id
   const currentBar = places ? places.find((bar) => bar.place_id === id) : null;
 
   const [updatedBar, setUpdatedBar] = useState(currentBar);
+  // const newMatches = updatedBar?.matches.map((match) => match);
 
   useEffect(() => {
-    setUpdatedMatches(matches);
-  }, [id]);
+    setUpdatedMatches(
+      matches.filter((match) => updatedBar.matches.includes(match.id))
+    );
+  }, [id, matches, updatedBar]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -48,6 +52,13 @@ export default function BarDetails({ matches, setPlaces, places }) {
     }
   }
 
+  const [sureToDelete, setSureToDelete] = useState(false);
+  function handleSureToDelete(matchId) {
+    setSureToDelete(!sureToDelete);
+    console.log(matchId);
+    console.log(sureToDelete);
+  }
+
   function handleDeleteMatchFromBar(matchId) {
     setUpdatedMatches((prevUpdatedMatches) =>
       prevUpdatedMatches.filter((match) => match.id !== matchId)
@@ -63,10 +74,14 @@ export default function BarDetails({ matches, setPlaces, places }) {
     });
 
     setPlaces(updatedPlaces);
-    setUpdatedBar(
-      updatedPlaces.find((place) => place.place_id === currentBar.place_id)
-    );
+    setSureToDelete(!sureToDelete);
   }
+
+  useEffect(() => {
+    setUpdatedBar(
+      places.find((place) => place.place_id === currentBar.place_id)
+    );
+  }, [places, currentBar]);
 
   const isCurrentSection = currentBar
     ? router.pathname === `/bars/[id]`
@@ -105,7 +120,16 @@ export default function BarDetails({ matches, setPlaces, places }) {
         {updatedMatches?.map((match, index) => (
           <Fragment key={`${match.id}-${index}`}>
             <CardContainer>
-              <DeleteButton onClick={() => handleDeleteMatchFromBar(match.id)}>
+              {sureToDelete ? (
+                <SureToDeleteModal
+                  onDelete={() => handleDeleteMatchFromBar(match.id)}
+                  sureToDelete={sureToDelete}
+                  setSureToDelete={setSureToDelete}
+                >
+                  Bist du sicher, dass die Bar das Spiel nicht zeigt?
+                </SureToDeleteModal>
+              ) : null}
+              <DeleteButton onClick={() => handleSureToDelete(match.id)}>
                 x
               </DeleteButton>
               <CardLink href={`/matches/${match.id}`}>
