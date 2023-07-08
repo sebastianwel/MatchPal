@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Button } from "../BackButton/BackButton";
+import { useRouter } from "next/router";
 
 export default function SelectedMatch({
   date,
@@ -8,8 +10,10 @@ export default function SelectedMatch({
   awayTeam,
   awayTeamLogoColor,
 }) {
+  const router = useRouter();
   return (
-    <div>
+    <SelectedMatchContainer>
+      <Button onClick={() => router.push("/")}>←</Button>
       <StyledP>{date}</StyledP>
       <MatchOverview>
         <LogoAndTeam>
@@ -23,9 +27,20 @@ export default function SelectedMatch({
         </LogoAndTeam>
       </MatchOverview>
       <StyledP>Das Spiel startet um {time}</StyledP>
-    </div>
+    </SelectedMatchContainer>
   );
 }
+
+const SelectedMatchContainer = styled.div`
+  margin: 60px 10px 0px 10px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 5px;
+  transition: transform 0.3s ease;
+  overflow: none;
+  background-color: #fff;
+  color: var(--text-color);
+`;
 
 const MatchOverview = styled.div`
   display: flex;
@@ -48,4 +63,5 @@ const Logo = styled.div`
 
 const StyledP = styled.p`
   text-align: center;
+  font-weight: 600;
 `;

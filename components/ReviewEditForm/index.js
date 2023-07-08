@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import ReviewStar from "../../assets/ReviewStar";
 import { useState } from "react";
+import { SelectedBarContainer } from "../SelectedBarContainer";
+import { SubmitButton } from "../SubmitButton";
+import { DeleteButton } from "../DeleteButton";
 
 export default function ReviewEditForm({
   review,
@@ -41,9 +44,9 @@ export default function ReviewEditForm({
     <>
       <FormContainer>
         <Form onSubmit={handleEditSubmit}>
-          <Close onClick={onCancelEdit}>Schließen</Close>
+          <DeleteButton onClick={onCancelEdit}>x</DeleteButton>
           <label htmlFor="name">Name:</label>
-          <input
+          <Input
             id="name"
             name="author_name"
             value={editedUsername}
@@ -60,7 +63,7 @@ export default function ReviewEditForm({
             ))}
           </StarContainer>
           <label htmlFor="comment">Kommentar:</label>
-          <textarea
+          <Textarea
             rows={4}
             cols={50}
             maxLength={100}
@@ -69,14 +72,42 @@ export default function ReviewEditForm({
             value={editedComment}
             onChange={handleCommentChange}
           />
-          <button type="submit">Submit</button>
+          <SubmitButton type="submit">Ändern</SubmitButton>
         </Form>
       </FormContainer>
     </>
   );
 }
 
-const FormContainer = styled.div`
+const Input = styled.input`
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  transition: transform 0.3s ease;
+  overflow: none;
+  background-color: #fff;
+  color: var(--text-color);
+  align-self: center;
+  border: none;
+  appearance: none;
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  transition: transform 0.3s ease;
+  overflow: none;
+  background-color: #fff;
+  color: var(--text-color);
+  align-self: center;
+  border: none;
+  appearance: none;
+`;
+
+const FormContainer = styled(SelectedBarContainer)`
   background-color: #fff;
   position: relative;
   margin: 50px;

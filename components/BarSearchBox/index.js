@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import MatchDetailsForm from "../MatchDetailsForm";
+import { Paragraph } from "../Paragraph";
+import LottieAnimation from "../../assets/Lotties/LottieAnimation";
 
 export default function BarSearchBox({
   places,
@@ -140,26 +142,34 @@ export default function BarSearchBox({
     searchNearbyBars(userLocation.latitude, userLocation.longitude);
   }
   return (
-    <>
-      {showRange && !isLoading && suggestedPlaces.length === 0 ? (
-        <RadiusChanger>
-          <label htmlFor="radius">
+    <BarSearchBoxContainer>
+      {showRange && isLoading && suggestedPlaces.length === 0 ? (
+        <>
+          <Paragraph>
             Leider wurden keine Bars in deiner Nähe gefunden, erhöhe bitte den
             Suchradius:
-          </label>
-          <input
-            type="range"
-            id="radius"
-            value={radius}
-            min={0}
-            max={50000}
-            step={1000}
-            onChange={(event) => handleRadiusIncrease(event.target.value)}
-          />
-          <p>{radius}m</p>
-        </RadiusChanger>
+          </Paragraph>
+          <RadiusChanger>
+            <label htmlFor="radius"></label>
+            <input
+              type="range"
+              id="radius"
+              value={radius}
+              min={0}
+              max={50000}
+              step={1000}
+              onChange={(event) => handleRadiusIncrease(event.target.value)}
+            />
+            <Paragraph>{radius}m</Paragraph>
+          </RadiusChanger>
+        </>
       ) : null}
-      {isLoading && !showRange ? <p>Vorschläge werden geladen...</p> : null}
+      {isLoading && !showRange ? (
+        <>
+          <LottieAnimation />
+          <Paragraph>Vorschläge werden geladen...</Paragraph>
+        </>
+      ) : null}
 
       {!isLoading ? (
         <MatchDetailsForm
@@ -171,9 +181,13 @@ export default function BarSearchBox({
           setPlaces={setPlaces}
         />
       ) : null}
-    </>
+    </BarSearchBoxContainer>
   );
 }
+
+const BarSearchBoxContainer = styled.div`
+  margin-bottom: 75px;
+`;
 
 const RadiusChanger = styled.div`
   display: flex;

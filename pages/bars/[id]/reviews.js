@@ -9,6 +9,8 @@ import ReviewsList from "../../../components/ReviewsList";
 import ReviewForm from "../../../components/ReviewForm";
 import { useState, useEffect } from "react";
 import ReviewEditModal from "../../../components/ReviewEditModal";
+import { SelectedBarContainer } from "../../../components/SelectedBarContainer";
+import styled from "styled-components";
 
 export default function BarsDetailsReviews({ places }) {
   const router = useRouter();
@@ -55,17 +57,20 @@ export default function BarsDetailsReviews({ places }) {
   return (
     <>
       <AppHeader />
-      <Button onClick={() => router.push("/bars")}>←</Button>
-      <Headline>{currentBar?.name}</Headline>
-      <SiteSectionTabs>
-        <SiteSection onClick={() => router.push(`/bars/${id}`)}>
-          Anstehende Spiele
-        </SiteSection>
-        <SiteSection onClick={() => router.push(`/bars/${id}/info`)}>
-          Infos
-        </SiteSection>
-        <SiteSection isCurrentSection={isCurrentSection}>Reviews</SiteSection>
-      </SiteSectionTabs>
+      <SelectedBarContainer>
+        <Button onClick={() => router.push("/bars")}>←</Button>
+        <Headline>{currentBar?.name}</Headline>
+        <SiteSectionTabs>
+          <SiteSection onClick={() => router.push(`/bars/${id}`)}>
+            Anstehende Spiele
+          </SiteSection>
+          <SiteSection onClick={() => router.push(`/bars/${id}/info`)}>
+            Infos
+          </SiteSection>
+          <SiteSection isCurrentSection={isCurrentSection}>Reviews</SiteSection>
+        </SiteSectionTabs>
+      </SelectedBarContainer>
+
       <ReviewsList
         bars={places}
         currentBar={currentBar}
@@ -73,6 +78,7 @@ export default function BarsDetailsReviews({ places }) {
         onDeleteReview={handleDeleteReview}
         onEditReview={handleEditReview}
       />
+
       <ReviewForm onAddReview={handleAddReview} />
       {isEditMode ? (
         <ReviewEditModal

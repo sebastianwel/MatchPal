@@ -49,5 +49,6 @@ const Page = styled.p`
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 0.8rem;
-  color: ${(page) => (page.isCurrent ? "#0079FF" : "#000")};
+  color: ${(page) =>
+    page.isCurrent ? "var(--isActive-color)" : "var(--isInactive-color)"};
 `;

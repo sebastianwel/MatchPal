@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { SubmitButton } from "../SubmitButton";
+import { SelectBox } from "../SelectBox";
 
 export default function MatchDetailsForm({
   bars,
@@ -53,16 +55,16 @@ export default function MatchDetailsForm({
 
   return (
     <Form onSubmit={handleSubmit} aria-labelledby="match-details-form">
-      <label htmlFor="barSelector">Bar</label>
-      <select id="barSelector" name="newBarId">
+      <label htmlFor="barSelector">Füg die Bar hinzu:</label>
+      <SelectBox id="barSelector" name="newBarId">
         <option>--Bar auswählen--</option>
         {barsToAdd.map((bar) => (
           <option key={bar.place_id} value={bar.place_id}>
             {bar.name}
           </option>
         ))}
-      </select>
-      <button type="submit">Hinzufügen</button>
+      </SelectBox>
+      <SubmitButton type="submit">Hinzufügen</SubmitButton>
     </Form>
   );
 }
@@ -71,6 +73,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   margin: 10px;
-  margin-bottom: 55px;
+  margin-bottom: 65px;
   gap: 10px;
 `;

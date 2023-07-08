@@ -16,5 +16,5 @@ const Footer = styled.footer`
   position: fixed;
   bottom: 0px;
   width: 100%;
-  background-color: #fff;
+  background-color: #fff7ff;
 `;

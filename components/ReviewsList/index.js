@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ReviewCard from "../ReviewCard";
+import { SelectedBarContainer } from "../SelectedBarContainer";
 
 export default function ReviewsList({ reviews, onDeleteReview, onEditReview }) {
   const canDeleteReview = (review) => review.isDeleteAble;
@@ -21,10 +22,10 @@ export default function ReviewsList({ reviews, onDeleteReview, onEditReview }) {
   );
 }
 
-const ReviewsContainer = styled.section`
-  margin: 10px;
-  margin-bottom: 50px;
-  list-style: none;
+const ReviewsContainer = styled(SelectedBarContainer)`
+  margin-top: 15px;
+  margin-bottom: 60px;
+  padding: 10px;
 `;
 
 const Reviews = styled.ul`

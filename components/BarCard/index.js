@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Logo } from "../MatchCard";
+import { Logo } from "../Logo";
 import { MatchPreview } from "../MatchPreview/MatchPreview";
 
 export default function BarCard({ barWithMatch }) {
@@ -18,7 +18,6 @@ export default function BarCard({ barWithMatch }) {
             ))}
           </MatchPreviewSection>
         </div>
-        <LinkIcon>{">"}</LinkIcon>
       </Flex>
     </ListItem>
   );
@@ -27,12 +26,17 @@ export default function BarCard({ barWithMatch }) {
 const ListItem = styled.li`
   list-style: none;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin: 5px;
-  border: 1px solid;
+  width: 93%;
+  margin-top: 10px;
+  margin-left: 13px;
   border-radius: 10px;
-  padding-left: 10px;
+  position: relative;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 5px 20px 5px 20px;
+  transition: transform 0.3s ease;
+  overflow: none;
+  background-color: #fff;
+  color: var(--text-color);
 `;
 
 const MatchPreviewSection = styled.div`

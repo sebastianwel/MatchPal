@@ -1,7 +1,7 @@
-import MatchList from ".";
 import { render, screen } from "@testing-library/react";
+import MatchList from ".";
 
-test("test", () => {
+test("renders MatchList component", () => {
   const matches = [
     {
       id: 1,
@@ -20,6 +20,7 @@ test("test", () => {
   ];
 
   render(<MatchList matches={matches} />);
-  const element = screen.getByText("Match Overview");
-  expect(element).toBeInTheDocument();
+
+  const matchCardElements = screen.getAllByRole("link");
+  expect(matchCardElements).toHaveLength(matches.length);
 });

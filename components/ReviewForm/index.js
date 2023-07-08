@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ReviewStar from "../../assets/ReviewStar";
 import { useState } from "react";
 import { uid } from "uid";
+import { SubmitButton } from "../SubmitButton";
 
 export default function ReviewForm({ onAddReview }) {
   const ratingPossibilities = [1, 2, 3, 4, 5];
@@ -32,23 +33,26 @@ export default function ReviewForm({ onAddReview }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name:</label>
-      <input id="name" name="author_name" />
-      <label htmlFor="rating">Bewertung:</label>
-      <StarContainer>
-        {ratingPossibilities.map((value, index) => (
-          <ReviewStar
-            key={index}
-            isSelected={value <= rating}
-            onClick={() => handleStarRating(value)}
-          />
-        ))}
-      </StarContainer>
-      <label htmlFor="comment">Kommentar:</label>
-      <textarea rows={4} cols={50} maxLength={100} id="comment" name="text" />
-      <button type="submit">Submit</button>
-    </Form>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <h4>Wie fandest du es? Lass ein Kommentar da:</h4>
+        <label htmlFor="name">Name:</label>
+        <Input id="name" name="author_name" />
+        <label htmlFor="rating">Bewertung:</label>
+        <StarContainer>
+          {ratingPossibilities.map((value, index) => (
+            <ReviewStar
+              key={index}
+              isSelected={value <= rating}
+              onClick={() => handleStarRating(value)}
+            />
+          ))}
+        </StarContainer>
+        <label htmlFor="comment">Kommentar:</label>
+        <Textarea rows={4} cols={50} maxLength={100} id="comment" name="text" />
+        <SubmitButton type="submit">Submit</SubmitButton>
+      </Form>
+    </>
   );
 }
 
@@ -61,5 +65,34 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 55px;
+  margin: 10px;
+  margin-bottom: 60px;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  transition: transform 0.3s ease;
+  overflow: none;
+  background-color: #fff;
+  color: var(--text-color);
+  align-self: center;
+  border: none;
+  appearance: none;
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  transition: transform 0.3s ease;
+  overflow: none;
+  background-color: #fff;
+  color: var(--text-color);
+  align-self: center;
+  border: none;
+  appearance: none;
 `;

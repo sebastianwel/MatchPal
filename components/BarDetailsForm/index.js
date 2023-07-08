@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Paragraph } from "../Paragraph";
 
 export default function BarDetailsForm({ onSubmit, matches, bar }) {
   const matchesToAdd = matches?.filter(
@@ -20,7 +21,7 @@ export default function BarDetailsForm({ onSubmit, matches, bar }) {
           <button type="submit">Hinzufügen</button>
         </Form>
       ) : (
-        <p>Heute stehen Leider keine weiteren Spiele an.</p>
+        <Paragraph>Heute stehen Leider keine weiteren Spiele an.</Paragraph>
       )}
     </>
   );
