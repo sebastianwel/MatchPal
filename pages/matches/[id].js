@@ -4,7 +4,6 @@ import AppHeader from "../../components/AppHeader/";
 import AppFooter from "../../components/AppFooter/";
 import SelectedMatch from "../../components/SelectedMatch";
 import { useState, useEffect } from "react";
-import { Button } from "../../components/BackButton/BackButton";
 import { Headline } from "../../components/Headline/Headline";
 import { CardLink } from "../../components/CardLink";
 import { DeleteButton } from "../../components/DeleteButton";
@@ -17,9 +16,6 @@ export default function MatchDetails({
   onDeleteBarOrMatch,
   places,
   setPlaces,
-  sureToDelete,
-  setSureToDelete,
-  handleSureToDelete,
 }) {
   const router = useRouter();
   const { id } = router.query;
