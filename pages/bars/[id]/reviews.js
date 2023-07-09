@@ -59,7 +59,7 @@ export default function BarsDetailsReviews({ places }) {
       <AppHeader />
       <SelectedBarContainer>
         <Button onClick={() => router.push("/bars")}>←</Button>
-        <Headline>{currentBar?.name}</Headline>
+        <CenteredHeadline>{currentBar?.name}</CenteredHeadline>
         <SiteSectionTabs>
           <SiteSection onClick={() => router.push(`/bars/${id}`)}>
             Anstehende Spiele
@@ -91,3 +91,8 @@ export default function BarsDetailsReviews({ places }) {
     </>
   );
 }
+
+const CenteredHeadline = styled(Headline)`
+  text-align: center;
+  margin: 10px;
+`;

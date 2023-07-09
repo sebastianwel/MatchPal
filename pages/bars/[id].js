@@ -56,6 +56,7 @@ export default function BarDetails({
         matches.find((match) => match.id === parseInt(formData.newMatchId)),
       ]);
       setUpdatedBar(newCurrentBar);
+      setSelectedMatchId(null);
     }
   }
 
@@ -90,6 +91,7 @@ export default function BarDetails({
     : null;
 
   const [selectedMatchId, setSelectedMatchId] = useState(null);
+  console.log("selectedMatchId", selectedMatchId);
 
   return (
     <>
