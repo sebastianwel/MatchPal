@@ -44,7 +44,7 @@ export default function ReviewCard({
             onDelete={() => onDeleteReview(id)}
             onCancel={() => setSelectedReviewId(null)}
           >
-            Bist du sicher, dass die Bar das Spiel nicht zeigt?
+            Bist du sicher, dass du deine Bewertung löschen willst?
           </SureToDeleteModal>
         ) : null}
       </>
