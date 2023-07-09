@@ -4,20 +4,47 @@ import { matches } from "../lib/mock-data/matches";
 import { teams } from "../lib/mock-data/teams";
 import { bars } from "../lib/mock-data/bars";
 import { barsInMatches } from "../lib/mock-data/barsInMatches";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LoadScript } from "@react-google-maps/api";
 
 const libraries = ["places"];
 
-export default function App({ Component, pageProps }) {
-  const [places, setPlaces] = useState([]);
+function getPlacesFromLocalStorage() {
+  if (typeof window !== "undefined") {
+    const placesData = localStorage.getItem("places");
+    if (placesData) {
+      try {
+        return JSON.parse(placesData);
+      } catch (error) {
+        console.error("Error parsing placesData from localStorage:", error);
+      }
+    }
+  }
+  return [];
+}
 
+function savePlacesToLocalStorage(places) {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("places", JSON.stringify(places));
+  }
+}
+
+export default function App({ Component, pageProps }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [sureToDelete, setSureToDelete] = useState(false);
+  const [places, setPlaces] = useState(getPlacesFromLocalStorage());
+
+  useEffect(() => {
+    savePlacesToLocalStorage(places);
+  }, [places]);
+
+  function handleSureToDelete() {
+    setSureToDelete(!sureToDelete);
+  }
 
   const formattedSelectedDate = selectedDate.toISOString().split("T")[0];
 
-  // extended the bars-array with the key "barShowsMatch" to make it usable for the bars-list
-  const extendedBars = places.map((bar) => {
+  const extendedBars = places?.map((bar) => {
     const showsMatch = bar.matches?.length > 0;
     return {
       ...bar,
@@ -25,7 +52,7 @@ export default function App({ Component, pageProps }) {
     };
   });
 
-  const barsWithMatches = extendedBars.filter((bar) => bar.matches.length > 0);
+  const barsWithMatches = extendedBars?.filter((bar) => bar.matches.length > 0);
 
   const filteredMatchesByDate = matches.filter(
     (match) => match.date === formattedSelectedDate
@@ -43,7 +70,7 @@ export default function App({ Component, pageProps }) {
     },
   }));
 
-  const extendedBarsWithMatches = barsWithMatches.map((bar) => ({
+  const extendedBarsWithMatches = barsWithMatches?.map((bar) => ({
     ...bar,
     matches: matchesWithTeamNames
       .filter((match) => bar.matches.includes(match.id))
@@ -57,7 +84,7 @@ export default function App({ Component, pageProps }) {
       })),
   }));
 
-  const barsWithMatchesOnDate = extendedBarsWithMatches.filter((bar) =>
+  const barsWithMatchesOnDate = extendedBarsWithMatches?.filter((bar) =>
     bar.matches.some((match) => match.date === formattedSelectedDate)
   );
 
@@ -111,6 +138,9 @@ export default function App({ Component, pageProps }) {
           places={places}
           setPlaces={setPlaces}
           handleDeleteMatch={handleDeleteMatch}
+          sureToDelete={sureToDelete}
+          setSureToDelete={setSureToDelete}
+          handleSureToDelete={handleSureToDelete}
         />
       </LoadScript>
     </>

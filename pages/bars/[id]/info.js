@@ -28,7 +28,7 @@ export default function BarsDetailsInfo({ places }) {
         <>
           <SelectedBarContainer>
             <Button onClick={() => router.push("/bars")}>←</Button>
-            <Headline>{currentBar.name}</Headline>
+            <CenteredHeadline>{currentBar.name}</CenteredHeadline>
             <SiteSectionTabs>
               <SiteSection onClick={() => router.push(`/bars/${id}`)}>
                 Anstehende Spiele
@@ -72,4 +72,9 @@ const Infos = styled(SelectedBarContainer)`
   margin-top: 15px;
   padding: 10px;
   margin-bottom: 60px;
+`;
+
+const CenteredHeadline = styled(Headline)`
+  text-align: center;
+  margin: 10px;
 `;

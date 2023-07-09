@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import ReviewStar from "../../assets/ReviewStar";
+import SureToDeleteModal from "../SureToDeleteButton";
+import { useState } from "react";
 
 export default function ReviewCard({
   review,
@@ -20,6 +22,7 @@ export default function ReviewCard({
     return stars;
   };
 
+  const [selectedReviewId, setSelectedReviewId] = useState(null);
   return (
     <li>
       <ReviewCardContainer>
@@ -28,13 +31,23 @@ export default function ReviewCard({
         <p>{text}</p>
         {canDeleteReview ? (
           <>
-            <DeleteButton type="button" onClick={() => onDeleteReview(id)}>
+            <DeleteButton type="button" onClick={() => setSelectedReviewId(id)}>
               x
             </DeleteButton>
             <EditButton onClick={() => onEditReview(id)}>Bearbeiten</EditButton>
           </>
         ) : null}
       </ReviewCardContainer>
+      <>
+        {selectedReviewId === id ? (
+          <SureToDeleteModal
+            onDelete={() => onDeleteReview(id)}
+            onCancel={() => setSelectedReviewId(null)}
+          >
+            Bist du sicher, dass du deine Bewertung löschen willst?
+          </SureToDeleteModal>
+        ) : null}
+      </>
     </li>
   );
 }

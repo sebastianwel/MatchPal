@@ -10,7 +10,7 @@ export default function MatchDetailsForm({
   setPlaces,
 }) {
   const barsToAdd = bars.filter((bar) => {
-    return !places.some(
+    return !places?.some(
       (place) =>
         place.matches?.includes(currentMatch?.id) &&
         place.place_id === bar.place_id
@@ -26,7 +26,7 @@ export default function MatchDetailsForm({
     const selectedBar = bars.find((bar) => bar.place_id === selectedBarId);
 
     if (selectedBar) {
-      const existingPlace = places.find(
+      const existingPlace = places?.find(
         (place) =>
           place.place_id === selectedBar.place_id &&
           place.matches.includes(currentMatch.id)
@@ -37,7 +37,7 @@ export default function MatchDetailsForm({
         return;
       }
 
-      const updatedPlaces = places.map((place) => {
+      const updatedPlaces = places?.map((place) => {
         if (place.place_id === selectedBar.place_id) {
           const updatedMatches = [...place.matches, currentMatch.id];
           return {

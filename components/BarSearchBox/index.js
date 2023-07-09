@@ -81,13 +81,14 @@ export default function BarSearchBox({
 
   //since I need specific infos from the bars, I needed to implement this
   function handleSelectSuggestedPlace(suggestedPlace) {
-    const existingPlace = places.find(
+    const existingPlace = places?.find(
       (place) => place.place_id === suggestedPlace.place_id
     );
 
     if (existingPlace) {
       if (!existingPlace.matches.includes(id)) {
         existingPlace.matches = [...existingPlace.matches, parseInt(id)];
+        setPlaces([...places]); // Update the state with a new reference to trigger re-render
       }
     } else {
       // Perform a Detail Search for the selected suggested place
@@ -129,7 +130,7 @@ export default function BarSearchBox({
             },
           };
 
-          setPlaces((prevPlaces) => [...prevPlaces, newPlace]);
+          setPlaces((prevPlaces = []) => [...prevPlaces, newPlace]);
         } else {
           console.error("Detail Search failed");
         }

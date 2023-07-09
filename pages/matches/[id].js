@@ -4,11 +4,11 @@ import AppHeader from "../../components/AppHeader/";
 import AppFooter from "../../components/AppFooter/";
 import SelectedMatch from "../../components/SelectedMatch";
 import { useState, useEffect } from "react";
-import { Button } from "../../components/BackButton/BackButton";
 import { Headline } from "../../components/Headline/Headline";
 import { CardLink } from "../../components/CardLink";
 import { DeleteButton } from "../../components/DeleteButton";
 import BarSearchBox from "../../components/BarSearchBox";
+import SureToDeleteModal from "../../components/SureToDeleteButton";
 
 export default function MatchDetails({
   matches,
@@ -24,8 +24,8 @@ export default function MatchDetails({
   const currentMatch = matches.find((match) => match.id === parseInt(id));
 
   //filter the bars, which contain the id of the current match
-  const currentBars = bars.filter((bar) =>
-    bar.matches.some((match) => match.id === parseInt(currentMatch.id))
+  const currentBars = bars?.filter((bar) =>
+    bar.matches.some((match) => match.id === parseInt(currentMatch?.id))
   );
 
   const [updatedCurrentBars, setUpdatedCurrentBars] = useState(currentBars);
@@ -52,6 +52,7 @@ export default function MatchDetails({
     onDeleteBarOrMatch(updatedBars);
   }
 
+  const [selectedBarId, setSelectedBarId] = useState(null);
   return (
     <>
       <AppHeader />
@@ -75,7 +76,15 @@ export default function MatchDetails({
       <List>
         {updatedCurrentBars?.map((bar, index) => (
           <OuterCard key={`${bar.place_id}-${index}`}>
-            <Delete onClick={() => handleDeleteBar(bar.place_id)}>x</Delete>
+            <Delete onClick={() => setSelectedBarId(bar.place_id)}>x</Delete>
+            {selectedBarId === bar.place_id ? (
+              <SureToDeleteModal
+                onDelete={() => handleDeleteBar(bar.place_id)}
+                onCancel={() => setSelectedBarId(null)}
+              >
+                Bist du sicher, dass die Bar das Spiel nicht zeigt?
+              </SureToDeleteModal>
+            ) : null}
             <CardLink href={`/bars/${bar.place_id}`} key={bar.place_id}>
               <ListItem key={bar.place_id}>{bar.name}</ListItem>
             </CardLink>

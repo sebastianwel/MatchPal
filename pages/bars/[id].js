@@ -12,20 +12,31 @@ import { DeleteButton } from "../../components/DeleteButton";
 import { Fragment } from "react";
 import { Paragraph } from "../../components/Paragraph";
 import { SelectedBarContainer } from "../../components/SelectedBarContainer";
+import SureToDeleteModal from "../../components/SureToDeleteButton";
 
-export default function BarDetails({ matches, setPlaces, places }) {
+export default function BarDetails({
+  matches,
+  setPlaces,
+  places,
+  sureToDelete,
+  setSureToDelete,
+  handleSureToDelete,
+}) {
   const router = useRouter();
   const { id } = router.query;
-  const [updatedMatches, setUpdatedMatches] = useState([]);
+  const [updatedMatches, setUpdatedMatches] = useState(matches);
 
   //find current Bar by using the router-id
   const currentBar = places ? places.find((bar) => bar.place_id === id) : null;
 
   const [updatedBar, setUpdatedBar] = useState(currentBar);
+  // const newMatches = updatedBar?.matches.map((match) => match);
 
   useEffect(() => {
-    setUpdatedMatches(matches);
-  }, [id]);
+    setUpdatedMatches(
+      matches.filter((match) => updatedBar.matches.includes(match.id))
+    );
+  }, [id, matches, updatedBar]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -45,6 +56,7 @@ export default function BarDetails({ matches, setPlaces, places }) {
         matches.find((match) => match.id === parseInt(formData.newMatchId)),
       ]);
       setUpdatedBar(newCurrentBar);
+      setSelectedMatchId(null);
     }
   }
 
@@ -63,16 +75,22 @@ export default function BarDetails({ matches, setPlaces, places }) {
     });
 
     setPlaces(updatedPlaces);
-    setUpdatedBar(
-      updatedPlaces.find((place) => place.place_id === currentBar.place_id)
-    );
+    setSureToDelete(!sureToDelete);
   }
+
+  useEffect(() => {
+    setUpdatedBar(
+      places.find((place) => place.place_id === currentBar.place_id)
+    );
+  }, [places, currentBar]);
 
   const isCurrentSection = currentBar
     ? router.pathname === `/bars/[id]`
       ? true
       : false
     : null;
+
+  const [selectedMatchId, setSelectedMatchId] = useState(null);
 
   return (
     <>
@@ -105,9 +123,18 @@ export default function BarDetails({ matches, setPlaces, places }) {
         {updatedMatches?.map((match, index) => (
           <Fragment key={`${match.id}-${index}`}>
             <CardContainer>
-              <DeleteButton onClick={() => handleDeleteMatchFromBar(match.id)}>
+              <DeleteButton onClick={() => setSelectedMatchId(match.id)}>
                 x
               </DeleteButton>
+              {selectedMatchId === match.id ? (
+                <SureToDeleteModal
+                  onDelete={() => handleDeleteMatchFromBar(match.id)}
+                  onCancel={() => setSelectedMatchId(null)}
+                >
+                  Bist du sicher, dass die Bar das Spiel nicht zeigt?
+                </SureToDeleteModal>
+              ) : null}
+
               <CardLink href={`/matches/${match.id}`}>
                 <MatchCard
                   key={match.id}
