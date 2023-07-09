@@ -14,7 +14,14 @@ import { Paragraph } from "../../components/Paragraph";
 import { SelectedBarContainer } from "../../components/SelectedBarContainer";
 import SureToDeleteModal from "../../components/SureToDeleteButton";
 
-export default function BarDetails({ matches, setPlaces, places }) {
+export default function BarDetails({
+  matches,
+  setPlaces,
+  places,
+  sureToDelete,
+  setSureToDelete,
+  handleSureToDelete,
+}) {
   const router = useRouter();
   const { id } = router.query;
   const [updatedMatches, setUpdatedMatches] = useState(matches);
@@ -52,13 +59,6 @@ export default function BarDetails({ matches, setPlaces, places }) {
     }
   }
 
-  const [sureToDelete, setSureToDelete] = useState(false);
-  function handleSureToDelete(matchId) {
-    setSureToDelete(!sureToDelete);
-    console.log(matchId);
-    console.log(sureToDelete);
-  }
-
   function handleDeleteMatchFromBar(matchId) {
     setUpdatedMatches((prevUpdatedMatches) =>
       prevUpdatedMatches.filter((match) => match.id !== matchId)
@@ -88,6 +88,8 @@ export default function BarDetails({ matches, setPlaces, places }) {
       ? true
       : false
     : null;
+
+  const [selectedMatchId, setSelectedMatchId] = useState(null);
 
   return (
     <>
@@ -120,18 +122,18 @@ export default function BarDetails({ matches, setPlaces, places }) {
         {updatedMatches?.map((match, index) => (
           <Fragment key={`${match.id}-${index}`}>
             <CardContainer>
-              {sureToDelete ? (
+              <DeleteButton onClick={() => setSelectedMatchId(match.id)}>
+                x
+              </DeleteButton>
+              {selectedMatchId === match.id ? (
                 <SureToDeleteModal
                   onDelete={() => handleDeleteMatchFromBar(match.id)}
-                  sureToDelete={sureToDelete}
-                  setSureToDelete={setSureToDelete}
+                  onCancel={() => setSelectedMatchId(null)}
                 >
                   Bist du sicher, dass die Bar das Spiel nicht zeigt?
                 </SureToDeleteModal>
               ) : null}
-              <DeleteButton onClick={() => handleSureToDelete(match.id)}>
-                x
-              </DeleteButton>
+
               <CardLink href={`/matches/${match.id}`}>
                 <MatchCard
                   key={match.id}

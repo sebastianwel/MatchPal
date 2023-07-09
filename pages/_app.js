@@ -14,6 +14,11 @@ export default function App({ Component, pageProps }) {
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  const [sureToDelete, setSureToDelete] = useState(false);
+  function handleSureToDelete() {
+    setSureToDelete(!sureToDelete);
+  }
+
   const formattedSelectedDate = selectedDate.toISOString().split("T")[0];
 
   // extended the bars-array with the key "barShowsMatch" to make it usable for the bars-list
@@ -111,6 +116,9 @@ export default function App({ Component, pageProps }) {
           places={places}
           setPlaces={setPlaces}
           handleDeleteMatch={handleDeleteMatch}
+          sureToDelete={sureToDelete}
+          setSureToDelete={setSureToDelete}
+          handleSureToDelete={handleSureToDelete}
         />
       </LoadScript>
     </>

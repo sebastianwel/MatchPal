@@ -1,27 +1,19 @@
 import styled from "styled-components";
 import { Paragraph } from "../Paragraph";
 
-export default function SureToDeleteModal({
-  setSureToDelete,
-  sureToDelete,
-  onDelete,
-  children,
-}) {
+export default function SureToDeleteModal({ onDelete, onCancel, children }) {
   return (
     <SureToDeleteModalOverlay>
       <SureToDeleteContainer>
         <Paragraph>{children}</Paragraph>
         <ButtonContainer>
           <SureDelete onClick={onDelete}>Ja, entfernen</SureDelete>
-          <NoBack onClick={() => setSureToDelete(!sureToDelete)}>
-            Nein, zurück
-          </NoBack>
+          <NoBack onClick={onCancel}>Nein, zurück</NoBack>
         </ButtonContainer>
       </SureToDeleteContainer>
     </SureToDeleteModalOverlay>
   );
 }
-
 const SureToDeleteModalOverlay = styled.div`
   position: fixed;
   top: 0;

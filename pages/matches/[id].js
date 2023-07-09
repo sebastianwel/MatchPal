@@ -9,6 +9,7 @@ import { Headline } from "../../components/Headline/Headline";
 import { CardLink } from "../../components/CardLink";
 import { DeleteButton } from "../../components/DeleteButton";
 import BarSearchBox from "../../components/BarSearchBox";
+import SureToDeleteModal from "../../components/SureToDeleteButton";
 
 export default function MatchDetails({
   matches,
@@ -16,6 +17,9 @@ export default function MatchDetails({
   onDeleteBarOrMatch,
   places,
   setPlaces,
+  sureToDelete,
+  setSureToDelete,
+  handleSureToDelete,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -52,6 +56,8 @@ export default function MatchDetails({
     onDeleteBarOrMatch(updatedBars);
   }
 
+  const [selectedBarId, setSelectedBarId] = useState(null);
+
   return (
     <>
       <AppHeader />
@@ -75,7 +81,15 @@ export default function MatchDetails({
       <List>
         {updatedCurrentBars?.map((bar, index) => (
           <OuterCard key={`${bar.place_id}-${index}`}>
-            <Delete onClick={() => handleDeleteBar(bar.place_id)}>x</Delete>
+            <Delete onClick={() => setSelectedBarId(bar.place_id)}>x</Delete>
+            {selectedBarId === bar.place_id ? (
+              <SureToDeleteModal
+                onDelete={() => handleDeleteBar(bar.place_id)}
+                onCancel={() => setSelectedBarId(null)}
+              >
+                Bist du sicher, dass die Bar das Spiel nicht zeigt?
+              </SureToDeleteModal>
+            ) : null}
             <CardLink href={`/bars/${bar.place_id}`} key={bar.place_id}>
               <ListItem key={bar.place_id}>{bar.name}</ListItem>
             </CardLink>
