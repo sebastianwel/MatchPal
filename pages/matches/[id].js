@@ -24,8 +24,8 @@ export default function MatchDetails({
   const currentMatch = matches.find((match) => match.id === parseInt(id));
 
   //filter the bars, which contain the id of the current match
-  const currentBars = bars.filter((bar) =>
-    bar.matches.some((match) => match.id === parseInt(currentMatch.id))
+  const currentBars = bars?.filter((bar) =>
+    bar.matches.some((match) => match.id === parseInt(currentMatch?.id))
   );
 
   const [updatedCurrentBars, setUpdatedCurrentBars] = useState(currentBars);
@@ -53,7 +53,6 @@ export default function MatchDetails({
   }
 
   const [selectedBarId, setSelectedBarId] = useState(null);
-
   return (
     <>
       <AppHeader />
