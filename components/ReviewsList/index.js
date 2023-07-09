@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import ReviewCard from "../ReviewCard";
 import { SelectedBarContainer } from "../SelectedBarContainer";
+import { useState } from "react";
+import SureToDeleteModal from "../SureToDeleteButton";
 
 export default function ReviewsList({ reviews, onDeleteReview, onEditReview }) {
   const canDeleteReview = (review) => review.isDeleteAble;

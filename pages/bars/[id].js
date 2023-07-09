@@ -91,7 +91,6 @@ export default function BarDetails({
     : null;
 
   const [selectedMatchId, setSelectedMatchId] = useState(null);
-  console.log("selectedMatchId", selectedMatchId);
 
   return (
     <>
