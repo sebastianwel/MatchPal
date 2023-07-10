@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import styled from "styled-components";
 import { MatchPreview } from "../MatchPreview/MatchPreview";
-import { Logo } from "../Logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import TeamLogo from "../Logo";
 
 const containerStyle = {
   marginTop: "47px",
@@ -127,18 +127,28 @@ export function Map({ barsWithMatchesOnDate }) {
                   <h3>{activeMarker.name}</h3>{" "}
                 </LinkWithoutStyle>
                 {activeMarkerDetails.matches.map((match, index) => (
-                  <>
+                  <div key={`${match.id}-${index}`}>
                     <LinkWithoutStyle
                       href={`/matches/${match.id}`}
                       key={`${match.id}-${index}`}
                     >
                       <MatchPreview>
-                        <Logo logoColor={match.homeTeam.logoColor} />
+                        <TeamLogo
+                          logoUrl={match.homeTeam.logoURL}
+                          teamName={match.homeTeam}
+                          width={20}
+                          height={20}
+                        />
                         <p>-</p>
-                        <Logo logoColor={match.awayTeam.logoColor} />
+                        <TeamLogo
+                          logoUrl={match.awayTeam.logoURL}
+                          teamName={match.awayTeam}
+                          width={20}
+                          height={20}
+                        />
                       </MatchPreview>
                     </LinkWithoutStyle>
-                  </>
+                  </div>
                 ))}
               </InfoContent>
             </InfoWindow>

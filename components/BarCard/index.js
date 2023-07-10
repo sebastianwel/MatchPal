@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Logo } from "../Logo";
 import { MatchPreview } from "../MatchPreview/MatchPreview";
+import TeamLogo from "../Logo";
 
 export default function BarCard({ barWithMatch }) {
   return (
@@ -11,9 +11,21 @@ export default function BarCard({ barWithMatch }) {
           <MatchPreviewSection>
             {barWithMatch.matches.map((match, index) => (
               <MatchPreview key={`${match.id}-${index}`}>
-                <Logo logoColor={match.homeTeam.logoColor} />
+                {/* <Logo logoColor={match.homeTeam.logoColor} /> */}
+                <TeamLogo
+                  logoUrl={match.homeTeam.logoURL}
+                  teamName={match.homeTeam}
+                  width={20}
+                  height={20}
+                />
                 <p>-</p>
-                <Logo logoColor={match.awayTeam.logoColor} />
+                <TeamLogo
+                  logoUrl={match.awayTeam.logoURL}
+                  teamName={match.awayTeam}
+                  width={20}
+                  height={20}
+                />
+                {/* <Logo logoColor={match.awayTeam.logoColor} /> */}
               </MatchPreview>
             ))}
           </MatchPreviewSection>
@@ -45,6 +57,7 @@ const MatchPreviewSection = styled.div`
   align-items: center;
   font-size: 10px;
   gap: 30px;
+  overflow: none;
 `;
 
 const Flex = styled.div`

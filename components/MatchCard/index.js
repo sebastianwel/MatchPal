@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Logo } from "../Logo";
+import TeamLogo from "../Logo";
+import { Paragraph } from "../Paragraph";
 
 export default function MatchCard({
   id,
@@ -7,21 +8,31 @@ export default function MatchCard({
   awayTeam,
   date,
   time,
-  homeTeamColor,
-  awayTeamColor,
-  onDeleteMatch,
-  isDeletable,
+  homeTeamLogo,
+  awayTeamLogo,
 }) {
   return (
     <ListItem key={id}>
       <div>
         <TeamContainer>
-          <Logo logoColor={homeTeamColor} />
-          <p>{homeTeam}</p>
+          {/* <Logo logoColor={homeTeamColor} /> */}
+          <TeamLogo
+            logoUrl={homeTeamLogo}
+            teamName={homeTeam}
+            width={20}
+            height={20}
+          />
+          <Paragraph>{homeTeam}</Paragraph>
         </TeamContainer>
         <TeamContainer>
-          <Logo logoColor={awayTeamColor} />
-          <p>{awayTeam}</p>
+          {/* <Logo logoColor={awayTeamColor} /> */}
+          <TeamLogo
+            logoUrl={awayTeamLogo}
+            teamName={awayTeam}
+            width={20}
+            height={20}
+          />
+          <Paragraph>{awayTeam}</Paragraph>
         </TeamContainer>
       </div>
       <ArrowAndTime>
@@ -40,6 +51,7 @@ const ListItem = styled.li`
   justify-content: space-around;
   width: 93%;
   margin: auto;
+  margin-top: 10px;
   border-radius: 10px;
   position: relative;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
