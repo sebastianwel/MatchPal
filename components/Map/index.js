@@ -127,13 +127,12 @@ export function Map({ barsWithMatchesOnDate }) {
                   <h3>{activeMarker.name}</h3>{" "}
                 </LinkWithoutStyle>
                 {activeMarkerDetails.matches.map((match, index) => (
-                  <>
+                  <div key={`${match.id}-${index}`}>
                     <LinkWithoutStyle
                       href={`/matches/${match.id}`}
                       key={`${match.id}-${index}`}
                     >
                       <MatchPreview>
-                        {/* <Logo logoColor={match.homeTeam.logoColor} /> */}
                         <TeamLogo
                           logoUrl={match.homeTeam.logoURL}
                           teamName={match.homeTeam}
@@ -141,7 +140,6 @@ export function Map({ barsWithMatchesOnDate }) {
                           height={20}
                         />
                         <p>-</p>
-                        {/* <Logo logoColor={match.awayTeam.logoColor} /> */}
                         <TeamLogo
                           logoUrl={match.awayTeam.logoURL}
                           teamName={match.awayTeam}
@@ -150,7 +148,7 @@ export function Map({ barsWithMatchesOnDate }) {
                         />
                       </MatchPreview>
                     </LinkWithoutStyle>
-                  </>
+                  </div>
                 ))}
               </InfoContent>
             </InfoWindow>
