@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Paragraph } from "../Paragraph";
 import { SelectBox } from "../SelectBox";
 import { SubmitButton } from "../SubmitButton";
+import { Headline } from "../Headline/Headline";
 
 export default function BarDetailsForm({ onSubmit, matches, bar }) {
   const matchesToAdd = matches?.filter(
@@ -10,18 +11,21 @@ export default function BarDetailsForm({ onSubmit, matches, bar }) {
   return (
     <>
       {matchesToAdd.length > 0 ? (
-        <Form onSubmit={onSubmit} aria-labelledby="bar-details-form">
-          <label htmlFor="matchSelector">Match</label>
-          <SelectBox id="matchSelector" name="newMatchId">
-            <option>--Match auswählen--</option>
-            {matchesToAdd.map((match) => (
-              <option key={match.id} value={match.id}>
-                {match.homeTeam.name}-{match.awayTeam.name}
-              </option>
-            ))}
-          </SelectBox>
-          <SubmitButton type="submit">Hinzufügen</SubmitButton>
-        </Form>
+        <>
+          <Headline>Die Bar zeigt noch ein Spiel?</Headline>
+          <Form onSubmit={onSubmit} aria-labelledby="bar-details-form">
+            <label htmlFor="matchSelector">Füg das Spiel hinzu:</label>
+            <SelectBox id="matchSelector" name="newMatchId">
+              <option>--Match auswählen--</option>
+              {matchesToAdd.map((match) => (
+                <option key={match.id} value={match.id}>
+                  {match.homeTeam.name}-{match.awayTeam.name}
+                </option>
+              ))}
+            </SelectBox>
+            <SubmitButton type="submit">Hinzufügen</SubmitButton>
+          </Form>
+        </>
       ) : (
         <Paragraph>Heute stehen Leider keine weiteren Spiele an.</Paragraph>
       )}
