@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Button } from "../BackButton/BackButton";
 import { useRouter } from "next/router";
+import TeamLogo from "../Logo/Logo";
 
 export default function SelectedMatch({
   date,
@@ -9,7 +10,10 @@ export default function SelectedMatch({
   homeTeamLogoColor,
   awayTeam,
   awayTeamLogoColor,
+  homeTeamLogoURL,
+  awayTeamLogoURL,
 }) {
+  console.log(homeTeamLogoURL);
   const router = useRouter();
   return (
     <SelectedMatchContainer>
@@ -17,12 +21,24 @@ export default function SelectedMatch({
       <StyledP>{date}</StyledP>
       <MatchOverview>
         <LogoAndTeam>
-          <Logo style={{ backgroundColor: homeTeamLogoColor }} />
+          {/* <Logo style={{ backgroundColor: homeTeamLogoColor }} /> */}
+          <TeamLogo
+            logoUrl={homeTeamLogoURL}
+            teamName={homeTeam}
+            width={35}
+            height={35}
+          />
           <p>{homeTeam}</p>
         </LogoAndTeam>
         <p>—</p>
         <LogoAndTeam>
-          <Logo style={{ backgroundColor: awayTeamLogoColor }} />
+          {/* <Logo style={{ backgroundColor: awayTeamLogoColor }} /> */}
+          <TeamLogo
+            logoUrl={awayTeamLogoURL}
+            teamName={awayTeam}
+            width={35}
+            height={35}
+          />
           <p>{awayTeam}</p>
         </LogoAndTeam>
       </MatchOverview>

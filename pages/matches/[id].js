@@ -64,6 +64,8 @@ export default function MatchDetails({
           homeTeamLogoColor={currentMatch.homeTeam.logoColor}
           awayTeam={currentMatch.awayTeam.name}
           awayTeamLogoColor={currentMatch.awayTeam.logoColor}
+          homeTeamLogoURL={currentMatch.homeTeam.logoURL}
+          awayTeamLogoURL={currentMatch.awayTeam.logoURL}
         />
       ) : (
         <p>loading...</p>

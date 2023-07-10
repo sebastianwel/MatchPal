@@ -22,12 +22,22 @@ export default function MatchCard({
       <div>
         <TeamContainer>
           {/* <Logo logoColor={homeTeamColor} /> */}
-          <TeamLogo logoUrl={homeTeamLogo} teamName={homeTeam} />
+          <TeamLogo
+            logoUrl={homeTeamLogo}
+            teamName={homeTeam}
+            width={20}
+            height={20}
+          />
           <p>{homeTeam}</p>
         </TeamContainer>
         <TeamContainer>
           {/* <Logo logoColor={awayTeamColor} /> */}
-          <TeamLogo logoUrl={awayTeamLogo} teamName={awayTeam} />
+          <TeamLogo
+            logoUrl={awayTeamLogo}
+            teamName={awayTeam}
+            width={20}
+            height={20}
+          />
           <p>{awayTeam}</p>
         </TeamContainer>
       </div>

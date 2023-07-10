@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Image from "next/image";
 
-export default function TeamLogo({ logoUrl, teamName }) {
+export default function TeamLogo({ logoUrl, teamName, width, height }) {
   return (
     <Logo>
-      <Image alt={teamName} src={logoUrl} height={20} width={20} />
+      <Image alt={teamName} src={logoUrl} height={width} width={height} />
     </Logo>
   );
 }
@@ -12,7 +12,5 @@ export default function TeamLogo({ logoUrl, teamName }) {
 const Logo = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 10px;
-  /* border-radius: 100%; */
   background-color: ${({ logoColor }) => logoColor};
 `;

@@ -147,6 +147,8 @@ export default function BarDetails({
                   awayTeamColor={match.awayTeam.logoColor}
                   onDeleteMatch={handleDeleteMatchFromBar}
                   isDeletable
+                  homeTeamLogo={match.homeTeam.logoURL}
+                  awayTeamLogo={match.awayTeam.logoURL}
                 />
               </CardLink>
             </CardContainer>

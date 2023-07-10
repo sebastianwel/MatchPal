@@ -6,6 +6,7 @@ import { MatchPreview } from "../MatchPreview/MatchPreview";
 import { Logo } from "../Logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import TeamLogo from "../Logo/Logo";
 
 const containerStyle = {
   marginTop: "47px",
@@ -133,9 +134,21 @@ export function Map({ barsWithMatchesOnDate }) {
                       key={`${match.id}-${index}`}
                     >
                       <MatchPreview>
-                        <Logo logoColor={match.homeTeam.logoColor} />
+                        {/* <Logo logoColor={match.homeTeam.logoColor} /> */}
+                        <TeamLogo
+                          logoUrl={match.homeTeam.logoURL}
+                          teamName={match.homeTeam}
+                          width={20}
+                          height={20}
+                        />
                         <p>-</p>
-                        <Logo logoColor={match.awayTeam.logoColor} />
+                        {/* <Logo logoColor={match.awayTeam.logoColor} /> */}
+                        <TeamLogo
+                          logoUrl={match.awayTeam.logoURL}
+                          teamName={match.awayTeam}
+                          width={20}
+                          height={20}
+                        />
                       </MatchPreview>
                     </LinkWithoutStyle>
                   </>
