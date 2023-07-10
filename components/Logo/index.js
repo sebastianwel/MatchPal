@@ -1,10 +1,16 @@
 import styled from "styled-components";
+import Image from "next/image";
 
-export const Logo = styled.div`
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  border-radius: 100%;
-  margin: 0px;
+export default function TeamLogo({ logoUrl, teamName, width, height }) {
+  return (
+    <Logo>
+      <Image alt={teamName} src={logoUrl} height={width} width={height} />
+    </Logo>
+  );
+}
+
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
   background-color: ${({ logoColor }) => logoColor};
 `;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Button } from "../BackButton/BackButton";
 import { useRouter } from "next/router";
-import TeamLogo from "../Logo/Logo";
+import TeamLogo from "../Logo";
 
 export default function SelectedMatch({
   date,
@@ -13,7 +13,6 @@ export default function SelectedMatch({
   homeTeamLogoURL,
   awayTeamLogoURL,
 }) {
-  console.log(homeTeamLogoURL);
   const router = useRouter();
   return (
     <SelectedMatchContainer>

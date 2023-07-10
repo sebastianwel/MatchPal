@@ -3,10 +3,9 @@ import { useEffect } from "react";
 import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import styled from "styled-components";
 import { MatchPreview } from "../MatchPreview/MatchPreview";
-import { Logo } from "../Logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import TeamLogo from "../Logo/Logo";
+import TeamLogo from "../Logo";
 
 const containerStyle = {
   marginTop: "47px",

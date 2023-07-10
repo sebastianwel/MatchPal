@@ -1,11 +1,8 @@
 import styled from "styled-components";
-import { Logo } from "../Logo";
 import { MatchPreview } from "../MatchPreview/MatchPreview";
-import TeamLogo from "../Logo/Logo";
-import { Paragraph } from "../Paragraph";
+import TeamLogo from "../Logo";
 
 export default function BarCard({ barWithMatch }) {
-  console.log(barWithMatch);
   return (
     <ListItem>
       <Flex>

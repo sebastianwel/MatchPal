@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Logo } from "../Logo";
-import TeamLogo from "../Logo/Logo";
+import TeamLogo from "../Logo";
+import { Paragraph } from "../Paragraph";
 
 export default function MatchCard({
   id,
@@ -8,15 +8,9 @@ export default function MatchCard({
   awayTeam,
   date,
   time,
-  homeTeamColor,
-  awayTeamColor,
-  onDeleteMatch,
-  isDeletable,
   homeTeamLogo,
   awayTeamLogo,
 }) {
-  console.log(homeTeamLogo);
-  console.log(awayTeamLogo);
   return (
     <ListItem key={id}>
       <div>
@@ -28,7 +22,7 @@ export default function MatchCard({
             width={20}
             height={20}
           />
-          <p>{homeTeam}</p>
+          <Paragraph>{homeTeam}</Paragraph>
         </TeamContainer>
         <TeamContainer>
           {/* <Logo logoColor={awayTeamColor} /> */}
@@ -38,7 +32,7 @@ export default function MatchCard({
             width={20}
             height={20}
           />
-          <p>{awayTeam}</p>
+          <Paragraph>{awayTeam}</Paragraph>
         </TeamContainer>
       </div>
       <ArrowAndTime>

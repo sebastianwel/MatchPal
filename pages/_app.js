@@ -72,8 +72,6 @@ export default function App({ Component, pageProps }) {
     },
   }));
 
-  console.log(matchesWithTeamNames);
-
   const extendedBarsWithMatches = barsWithMatches?.map((bar) => ({
     ...bar,
     matches: matchesWithTeamNames
