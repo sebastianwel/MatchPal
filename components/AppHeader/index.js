@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function AppHeader() {
   return (
     <Header>
-      <p>MatchPal</p>
+      <p>MatchPal ⚽️🍻</p>
     </Header>
   );
 }
@@ -11,6 +11,7 @@ export default function AppHeader() {
 const Header = styled.header`
   background-color: var(--header-color);
   color: #fff;
+  font-weight: 800;
   padding-left: 5px;
   position: fixed;
   top: 0px;
