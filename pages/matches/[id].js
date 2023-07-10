@@ -99,7 +99,6 @@ export default function MatchDetails({
         setPlaces={setPlaces}
         currentMatch={currentMatch}
       />
-      <AppFooter />
     </>
   );
 }

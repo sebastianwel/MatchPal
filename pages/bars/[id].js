@@ -160,7 +160,6 @@ export default function BarDetails({
         matches={matches}
         bar={updatedBar}
       />
-      <AppFooter />
     </>
   );
 }
