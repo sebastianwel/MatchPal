@@ -1,6 +1,6 @@
 import GlobalStyle from "../styles";
 import Head from "next/head";
-import { matches } from "../lib/mock-data/matches";
+import { matchesData } from "../lib/mock-data/matches";
 import { teams } from "../lib/mock-data/teams";
 import { bars } from "../lib/mock-data/bars";
 import { barsInMatches } from "../lib/mock-data/barsInMatches";
@@ -33,6 +33,11 @@ export default function App({ Component, pageProps }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [sureToDelete, setSureToDelete] = useState(false);
   const [places, setPlaces] = useState(getPlacesFromLocalStorage());
+  const [matches, setMatches] = useState(matchesData);
+
+  useEffect(() => {
+    setMatches(matches);
+  }, []);
 
   useEffect(() => {
     savePlacesToLocalStorage(places);

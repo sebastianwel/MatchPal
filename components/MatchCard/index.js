@@ -51,6 +51,7 @@ const ListItem = styled.li`
   justify-content: space-around;
   width: 93%;
   margin: auto;
+  margin-top: 10px;
   border-radius: 10px;
   position: relative;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
