@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Logo } from "../Logo";
+import TeamLogo from "../Logo/Logo";
 
 export default function MatchCard({
   id,
@@ -11,16 +12,22 @@ export default function MatchCard({
   awayTeamColor,
   onDeleteMatch,
   isDeletable,
+  homeTeamLogo,
+  awayTeamLogo,
 }) {
+  console.log(homeTeamLogo);
+  console.log(awayTeamLogo);
   return (
     <ListItem key={id}>
       <div>
         <TeamContainer>
-          <Logo logoColor={homeTeamColor} />
+          {/* <Logo logoColor={homeTeamColor} /> */}
+          <TeamLogo logoUrl={homeTeamLogo} teamName={homeTeam} />
           <p>{homeTeam}</p>
         </TeamContainer>
         <TeamContainer>
-          <Logo logoColor={awayTeamColor} />
+          {/* <Logo logoColor={awayTeamColor} /> */}
+          <TeamLogo logoUrl={awayTeamLogo} teamName={awayTeam} />
           <p>{awayTeam}</p>
         </TeamContainer>
       </div>

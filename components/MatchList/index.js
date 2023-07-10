@@ -20,6 +20,8 @@ export default function MatchList({ matches, selectedDate, today }) {
                 time={time}
                 homeTeamColor={homeTeam.logoColor}
                 awayTeamColor={awayTeam.logoColor}
+                homeTeamLogo={homeTeam.logoURL}
+                awayTeamLogo={awayTeam.logoURL}
               />
             </Link>
           ))

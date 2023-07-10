@@ -63,12 +63,16 @@ export default function App({ Component, pageProps }) {
     homeTeam: {
       name: teams.find((team) => team.id === match.homeTeamId).name,
       logoColor: teams.find((team) => team.id === match.homeTeamId).logoColor,
+      logoURL: teams.find((team) => team.id === match.homeTeamId).logoUrl,
     },
     awayTeam: {
       name: teams.find((team) => team.id === match.awayTeamId).name,
       logoColor: teams.find((team) => team.id === match.awayTeamId).logoColor,
+      logoURL: teams.find((team) => team.id === match.awayTeamId).logoUrl,
     },
   }));
+
+  console.log(matchesWithTeamNames);
 
   const extendedBarsWithMatches = barsWithMatches?.map((bar) => ({
     ...bar,

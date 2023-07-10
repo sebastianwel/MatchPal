@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "maps.google.com",
       },
+      {
+        protocol: "https",
+        hostname: "i.imgur.com",
+      },
     ],
   },
 };
