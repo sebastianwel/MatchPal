@@ -87,7 +87,6 @@ export default function BarsDetailsReviews({ places }) {
           onCancelEdit={() => setIsEditMode(false)}
         />
       ) : null}
-      <AppFooter />
     </>
   );
 }
